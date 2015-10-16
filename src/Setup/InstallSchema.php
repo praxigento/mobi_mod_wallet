@@ -3,7 +3,7 @@
  * Create DB schema.
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigneto\Pv\Setup;
+namespace Praxigneto\Wallet\Setup;
 
 use Magento\Framework\DB\Ddl\Table as Ddl;
 use Magento\Framework\Setup\InstallSchemaInterface;
