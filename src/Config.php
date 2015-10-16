@@ -7,5 +7,5 @@
 namespace Praxigento\Wallet;
 
 class Config {
-
+    const MODULE = 'Praxigento_Wallet';
 }
