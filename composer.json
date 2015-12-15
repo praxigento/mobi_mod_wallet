@@ -1,6 +1,6 @@
 {
   "name": "praxigento/mobi_mod_mage2_wallet",
-  "description": "Magento v2 integration code for Praxigento_Wallet module used in MOBI apps.",
+  "description": "MOBI: Magento 2 integration code for Praxigento_Wallet module.",
   "type": "magento2-module",
   "homepage": "https://github.com/praxigento/mobi_mod_mage2_wallet",
   "license": "MIT",
