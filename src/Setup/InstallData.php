@@ -10,7 +10,7 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Praxigento\Accounting\Lib\Entity\Type\Asset as TypeAsset;
 use Praxigento\Accounting\Lib\Entity\Type\Operation as TypeOperation;
-use Praxigento\Wallet\Lib\Config as Cfg;
+use Praxigento\Wallet\Config as Cfg;
 
 class InstallData extends \Praxigento\Core\Setup\Data\Base
 {
