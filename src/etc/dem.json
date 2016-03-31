@@ -1,0 +1,18 @@
+{
+  "dBEAR": {
+    "package": {
+      "Praxigento": {
+        "alias": "prxgt",
+        "comment": "Root namespace for Praxigento modules",
+        "package": {
+          "Wallet": {
+            "alias": "wallet",
+            "comment": "Top level package for Praxigento_Wallet module",
+            "package": {},
+            "entity": {}
+          }
+        }
+      }
+    }
+  }
+}
