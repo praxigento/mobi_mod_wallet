@@ -13,7 +13,7 @@ class Module extends Base implements IModule {
     protected $_repoAccounting;
 
     public function __construct(
-        \Praxigento\Core\Lib\Repo\IBasic $repoBasic,
+        \Praxigento\Core\Repo\IBasic $repoBasic,
         \Praxigento\Accounting\Lib\Repo\IModule $repoAccounting
 
     ) {
