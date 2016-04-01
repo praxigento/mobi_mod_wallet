@@ -5,7 +5,7 @@
  */
 namespace Praxigento\Wallet\Lib\Repo\Def;
 
-use Praxigento\Core\Lib\Repo\Base;
+use Praxigento\Core\Lib\Repo\Def\Base;
 use Praxigento\Wallet\Lib\Repo\IModule;
 
 class Module extends Base implements IModule {
