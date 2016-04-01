@@ -35,8 +35,8 @@ class Call_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase {
     protected function setUp() {
         parent::setUp();
         $this->mLogger = $this->_mockLogger();
-        $this->mConn = $this->_mockConnection();
-        $this->mDba = $this->_mockDba($this->mConn);
+        $this->mConn = $this->_mockDba();
+        $this->mDba = $this->_mockRsrcConnOld($this->mConn);
         $this->mToolbox = $this->_mock(\Praxigento\Core\Lib\IToolbox::class);
         $this->mCallRepo = $this->_mock(\Praxigento\Core\Lib\Service\IRepo::class);
         $this->mCallAccount = $this->_mock(\Praxigento\Accounting\Lib\Service\IAccount::class);
