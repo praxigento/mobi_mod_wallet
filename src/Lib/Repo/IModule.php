@@ -5,7 +5,8 @@
 
 namespace Praxigento\Wallet\Lib\Repo;
 
-interface IModule  extends \Praxigento\Core\Lib\Repo\IModule {
+interface IModule
+{
     /**
      *  Decorator for \Praxigento\Accounting\Lib\Repo\IModule::getTypeAssetIdByCode
      *
