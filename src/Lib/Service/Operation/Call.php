@@ -14,25 +14,29 @@ use Praxigento\Wallet\Lib\Service\IOperation;
 use Praxigento\Wallet\Lib\Service\Operation\Request;
 use Praxigento\Wallet\Lib\Service\Operation\Response;
 
-class Call extends \Praxigento\Core\Lib\Service\Base\Call implements IOperation {
+class Call extends \Praxigento\Core\Lib\Service\Base\Call implements IOperation
+{
 
     /** @var \Praxigento\Wallet\Lib\Repo\IModule */
     protected $_repoMod;
     /** @var  \Praxigento\Accounting\Lib\Service\IAccount */
-    private $_callAccount;
+    protected $_callAccount;
     /** @var  \Praxigento\Accounting\Lib\Service\IOperation */
-    private $_callOper;
+    protected $_callOper;
+    /** @var \Praxigento\Core\Lib\Tool\Date */
+    protected $_toolDate;
 
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
         \Praxigento\Core\Lib\Context\IDbAdapter $dba,
-        \Praxigento\Core\Lib\IToolbox $toolbox,
+        \Praxigento\Core\Lib\Tool\Date $toolDate,
         \Praxigento\Core\Lib\Service\IRepo $callRepo,
         \Praxigento\Accounting\Lib\Service\IAccount $callAccount,
         \Praxigento\Accounting\Lib\Service\IOperation $callOper,
         \Praxigento\Wallet\Lib\Repo\IModule $repoMod
     ) {
-        parent::__construct($logger, $dba, $toolbox, $callRepo);
+        parent::__construct($logger);
+        $this->_toolDate = $toolDate;
         $this->_callAccount = $callAccount;
         $this->_callOper = $callOper;
         $this->_repoMod = $repoMod;
@@ -45,7 +49,8 @@ class Call extends \Praxigento\Core\Lib\Service\Base\Call implements IOperation 
      *
      * @return int
      */
-    private function _getRepresentativeAccId($assetTypeId) {
+    private function _getRepresentativeAccId($assetTypeId)
+    {
         $req = new AccountGetRepresentativeRequest();
         $req->setAssetTypeId($assetTypeId);
         $resp = $this->_callAccount->getRepresentative($req);
@@ -53,7 +58,8 @@ class Call extends \Praxigento\Core\Lib\Service\Base\Call implements IOperation 
         return $result;
     }
 
-    public function addToWalletActive(Request\AddToWalletActive $req) {
+    public function addToWalletActive(Request\AddToWalletActive $req)
+    {
         $result = new Response\AddToWalletActive();
         $dateApplied = $req->getDateApplied();
         $datePerformed = $req->getDatePerformed();
@@ -64,7 +70,7 @@ class Call extends \Praxigento\Core\Lib\Service\Base\Call implements IOperation 
         $asRef = $req->getAsRef();
         $this->_logger->info("'Add to Wallet Active' operation is started.");
         /* prepare additional data */
-        $datePerformed = is_null($datePerformed) ? $this->_toolbox->getDate()->getUtcNowForDb() : $datePerformed;
+        $datePerformed = is_null($datePerformed) ? $this->_toolDate->getUtcNowForDb() : $datePerformed;
         $dateApplied = is_null($dateApplied) ? $datePerformed : $dateApplied;
         /* get asset type ID */
         $assetTypeId = $this->_repoMod->getTypeAssetIdByCode(Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
@@ -75,25 +81,25 @@ class Call extends \Praxigento\Core\Lib\Service\Base\Call implements IOperation 
         $reqOperAdd->setOperationTypeCode($operTypeCode);
         $reqOperAdd->setDatePerformed($datePerformed);
         $reqOperAdd->setAsTransRef($asRef);
-        $trans = [ ];
+        $trans = [];
         $reqGetAccount = new AccountGetRequest();
         $reqGetAccount->setCreateNewAccountIfMissed();
         $reqGetAccount->setAssetTypeId($assetTypeId);
-        foreach($transData as $item) {
+        foreach ($transData as $item) {
             $custId = $item[$asCustId];
             $value = $item[$asAmount];
-            if($value > 0) {
+            if ($value > 0) {
                 /* get WALLET_ACTIVE account ID for customer */
                 $reqGetAccount->setCustomerId($custId);
                 $respGetAccount = $this->_callAccount->get($reqGetAccount);
                 $accId = $respGetAccount->getData(Account::ATTR_ID);
                 $one = [
-                    Transaction::ATTR_DEBIT_ACC_ID  => $represAccId,
+                    Transaction::ATTR_DEBIT_ACC_ID => $represAccId,
                     Transaction::ATTR_CREDIT_ACC_ID => $accId,
-                    Transaction::ATTR_DATE_APPLIED  => $dateApplied,
-                    Transaction::ATTR_VALUE         => $value
+                    Transaction::ATTR_DATE_APPLIED => $dateApplied,
+                    Transaction::ATTR_VALUE => $value
                 ];
-                if(!is_null($asRef) && isset($item[$asRef])) {
+                if (!is_null($asRef) && isset($item[$asRef])) {
                     $one[$asRef] = $item[$asRef];
                 }
                 $trans[] = $one;
