@@ -6,8 +6,6 @@
  */
 namespace Praxigento\Wallet\Setup;
 
-use Magento\Framework\Setup\ModuleContextInterface;
-use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Praxigento\Accounting\Data\Entity\Type\Asset as TypeAsset;
 use Praxigento\Accounting\Data\Entity\Type\Operation as TypeOperation;
 use Praxigento\Wallet\Config as Cfg;
@@ -16,8 +14,8 @@ class InstallData extends \Praxigento\Core\Setup\Data\Base
 {
     private function _addAccountingAssetsTypes()
     {
-        $this->_getConn()->insertArray(
-            $this->_getTableName(TypeAsset::ENTITY_NAME),
+        $this->_conn->insertArray(
+            $this->_conn->getTableName(TypeAsset::ENTITY_NAME),
             [TypeAsset::ATTR_CODE, TypeAsset::ATTR_NOTE],
             [
                 [
@@ -34,8 +32,8 @@ class InstallData extends \Praxigento\Core\Setup\Data\Base
 
     private function _addAccountingOperationsTypes()
     {
-        $this->_getConn()->insertArray(
-            $this->_getTableName(TypeOperation::ENTITY_NAME),
+        $this->_conn->insertArray(
+            $this->_conn->getTableName(TypeOperation::ENTITY_NAME),
             [TypeOperation::ATTR_CODE, TypeOperation::ATTR_NOTE],
             [
                 [
@@ -46,7 +44,7 @@ class InstallData extends \Praxigento\Core\Setup\Data\Base
         );
     }
 
-    protected function _setup(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    protected function _setup()
     {
         $this->_addAccountingAssetsTypes();
         $this->_addAccountingOperationsTypes();
