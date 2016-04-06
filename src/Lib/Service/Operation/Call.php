@@ -17,20 +17,18 @@ use Praxigento\Wallet\Lib\Service\Operation\Response;
 class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
 {
 
-    /** @var \Praxigento\Wallet\Lib\Repo\IModule */
-    protected $_repoMod;
     /** @var  \Praxigento\Accounting\Lib\Service\IAccount */
     protected $_callAccount;
     /** @var  \Praxigento\Accounting\Lib\Service\IOperation */
     protected $_callOper;
+    /** @var \Praxigento\Wallet\Lib\Repo\IModule */
+    protected $_repoMod;
     /** @var \Praxigento\Core\Tool\IDate */
     protected $_toolDate;
 
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
-        \Praxigento\Core\Lib\Context\IDbAdapter $dba,
         \Praxigento\Core\Tool\IDate $toolDate,
-        \Praxigento\Core\Lib\Service\IRepo $callRepo,
         \Praxigento\Accounting\Lib\Service\IAccount $callAccount,
         \Praxigento\Accounting\Lib\Service\IOperation $callOper,
         \Praxigento\Wallet\Lib\Repo\IModule $repoMod

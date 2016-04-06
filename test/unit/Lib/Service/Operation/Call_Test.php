@@ -11,34 +11,32 @@ use Praxigento\Accounting\Lib\Service\Operation\Response\Add as OperationAddResp
 
 include_once(__DIR__ . '/../../../phpunit_bootstrap.php');
 
-class Call_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase {
-    /** @var  \Mockery\MockInterface */
-    private $mLogger;
-    /** @var  \Mockery\MockInterface */
-    private $mConn;
-    /** @var  \Mockery\MockInterface */
-    private $mDba;
-    /** @var  \Mockery\MockInterface */
-    private $mToolbox;
-    /** @var  \Mockery\MockInterface */
-    private $mCallRepo;
+class Call_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase
+{
+    /** @var  Call */
+    private $call;
     /** @var  \Mockery\MockInterface */
     private $mCallAccount;
     /** @var  \Mockery\MockInterface */
     private $mCallOper;
     /** @var  \Mockery\MockInterface */
+    private $mConn;
+    /** @var  \Mockery\MockInterface */
+    private $mDba;
+    /** @var  \Mockery\MockInterface */
+    private $mLogger;
+    /** @var  \Mockery\MockInterface */
     private $mRepoMod;
+    /** @var  \Mockery\MockInterface */
+    private $mToolbox;
 
-    /** @var  Call */
-    private $call;
-
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
         $this->mLogger = $this->_mockLogger();
-        $this->mConn = $this->_mockDba();
+        $this->mConn = $this->_mockConn();
         $this->mDba = $this->_mockRsrcConnOld($this->mConn);
         $this->mToolbox = $this->_mock(\Praxigento\Core\Lib\IToolbox::class);
-        $this->mCallRepo = $this->_mock(\Praxigento\Core\Lib\Service\IRepo::class);
         $this->mCallAccount = $this->_mock(\Praxigento\Accounting\Lib\Service\IAccount::class);
         $this->mCallOper = $this->_mock(\Praxigento\Accounting\Lib\Service\IOperation::class);
         $this->mRepoMod = $this->_mock(\Praxigento\Wallet\Lib\Repo\IModule::class);
@@ -46,14 +44,14 @@ class Call_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase {
             $this->mLogger,
             $this->mDba,
             $this->mToolbox,
-            $this->mCallRepo,
             $this->mCallAccount,
             $this->mCallOper,
             $this->mRepoMod
         );
     }
 
-    public function test_addToWalletActive() {
+    public function test_addToWalletActive()
+    {
         /** === Test Data === */
         $DATE_APPLIED = '2016-02-24 10:12:23';
         $DATE_PERFORMED = '2016-02-25 12:10:23';
@@ -65,8 +63,8 @@ class Call_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase {
         $CUST_ID_REPRES = 10;
         $OPER_ID = 16;
         $TRANS = [
-            [ $AS_CUST_ID => $CUST_ID_REPRES, $AS_AMOUNT => -32.23, $AS_REF => 45 ],
-            [ $AS_CUST_ID => 41, $AS_AMOUNT => 32.23, $AS_REF => 54 ]
+            [$AS_CUST_ID => $CUST_ID_REPRES, $AS_AMOUNT => -32.23, $AS_REF => 45],
+            [$AS_CUST_ID => 41, $AS_AMOUNT => 32.23, $AS_REF => 54]
         ];
         /** === Setup Mocks === */
         $this->mLogger->shouldReceive('info');
