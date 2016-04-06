@@ -14,7 +14,7 @@ use Praxigento\Wallet\Lib\Service\IOperation;
 use Praxigento\Wallet\Lib\Service\Operation\Request;
 use Praxigento\Wallet\Lib\Service\Operation\Response;
 
-class Call extends \Praxigento\Core\Lib\Service\Base\Call implements IOperation
+class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
 {
 
     /** @var \Praxigento\Wallet\Lib\Repo\IModule */

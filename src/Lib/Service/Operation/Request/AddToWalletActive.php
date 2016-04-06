@@ -21,5 +21,5 @@ namespace Praxigento\Wallet\Lib\Service\Operation\Request;
  * @method array getTransData() data to prepare transaction ($custId, $amount, $refId /to bind new transaction id to this id /)
  * @method void setTransData(array $data)
  */
-class AddToWalletActive extends \Praxigento\Core\Lib\Service\Base\Request {
+class AddToWalletActive extends \Praxigento\Core\Service\Base\Request {
 }
