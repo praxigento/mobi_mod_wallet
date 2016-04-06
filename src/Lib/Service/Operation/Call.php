@@ -23,13 +23,13 @@ class Call extends \Praxigento\Core\Lib\Service\Base\Call implements IOperation
     protected $_callAccount;
     /** @var  \Praxigento\Accounting\Lib\Service\IOperation */
     protected $_callOper;
-    /** @var \Praxigento\Core\Lib\Tool\Date */
+    /** @var \Praxigento\Core\Tool\IDate */
     protected $_toolDate;
 
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
         \Praxigento\Core\Lib\Context\IDbAdapter $dba,
-        \Praxigento\Core\Lib\Tool\Date $toolDate,
+        \Praxigento\Core\Tool\IDate $toolDate,
         \Praxigento\Core\Lib\Service\IRepo $callRepo,
         \Praxigento\Accounting\Lib\Service\IAccount $callAccount,
         \Praxigento\Accounting\Lib\Service\IOperation $callOper,
