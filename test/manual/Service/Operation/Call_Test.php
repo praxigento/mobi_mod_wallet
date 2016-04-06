@@ -4,7 +4,7 @@
  */
 namespace Praxigento\Wallet\Lib\Service\Operation;
 
-use Praxigento\Core\Lib\Context;
+
 
 include_once(__DIR__ . '/../../phpunit_bootstrap.php');
 
@@ -14,7 +14,7 @@ class Call_ManualTest extends \Praxigento\Core\Lib\Test\BaseTestCase {
         $asCustId = 'cid';
         $asValue = 'val';
         $asRef = 'ref';
-        $obm = Context::instance()->getObjectManager();
+        $obm = \Magento\Framework\App\ObjectManager::getInstance();
         /** @var  $dba \Praxigento\Core\Lib\Context\IDbAdapter */
         $dba = $obm->get(\Praxigento\Core\Lib\Context\IDbAdapter::class);
         $conn = $dba->getDefaultConnection();
