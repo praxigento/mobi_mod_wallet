@@ -11,7 +11,7 @@ use Praxigento\Accounting\Lib\Service\Operation\Response\Add as OperationAddResp
 
 include_once(__DIR__ . '/../../../phpunit_bootstrap.php');
 
-class Call_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase
+class Call_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
 {
     /** @var  Call */
     private $call;
