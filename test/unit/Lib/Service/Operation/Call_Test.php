@@ -36,7 +36,7 @@ class Call_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase
         $this->markTestSkipped('Test is deprecated after M1 & M2 merge is done.');
         $this->mLogger = $this->_mockLogger();
         $this->mConn = $this->_mockConn();
-        $this->mDba = $this->_mockRsrcConnOld($this->mConn);
+        $this->mDba = $this->_mockResourceConnection($this->mConn);
         $this->mToolbox = $this->_mock(\Praxigento\Core\Lib\IToolbox::class);
         $this->mCallAccount = $this->_mock(\Praxigento\Accounting\Lib\Service\IAccount::class);
         $this->mCallOper = $this->_mock(\Praxigento\Accounting\Lib\Service\IOperation::class);

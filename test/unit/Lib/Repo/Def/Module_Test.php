@@ -15,7 +15,7 @@ class Module_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase
     /** @var  \Mockery\MockInterface */
     private $mRepoAcc;
     /** @var  \Mockery\MockInterface */
-    private $mRepoBasic;
+    private $mRepoGeneric;
     /** @var  Module */
     private $repo;
 
@@ -24,11 +24,11 @@ class Module_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase
         parent::setUp();
         $this->markTestSkipped('Test is deprecated after M1 & M2 merge is done.');
         $this->mConn = $this->_mockDba();
-        $this->mDba = $this->_mockRsrcConnOld($this->mConn);
-        $this->mRepoBasic = $this->_mockRepoBasic($this->mDba);
+        $this->mDba = $this->_mockResourceConnection($this->mConn);
+        $this->mRepoGeneric = $this->_mockRepoGeneric($this->mDba);
         $this->mRepoAcc = $this->_mock(\Praxigento\Accounting\Lib\Repo\IModule::class);
         $this->repo = new Module(
-            $this->mRepoBasic,
+            $this->mRepoGeneric,
             $this->mRepoAcc
         );
     }
