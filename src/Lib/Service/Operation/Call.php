@@ -111,7 +111,7 @@ class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
         $operId = $respOperAdd->getOperationId();
         $this->_logger->debug("New operation (type id '$operTypeCode') is added with id=$operId .");
         $result->setData($respOperAdd->getData());
-        $result->setAsSucceed();
+        $result->markSucceed();
         $this->_logger->info("'Add to Wallet Active' operation is completed.");
         return $result;
     }
