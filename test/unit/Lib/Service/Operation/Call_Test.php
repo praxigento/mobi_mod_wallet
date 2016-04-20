@@ -33,6 +33,7 @@ class Call_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase
     protected function setUp()
     {
         parent::setUp();
+        $this->markTestSkipped('Test is deprecated after M1 & M2 merge is done.');
         $this->mLogger = $this->_mockLogger();
         $this->mConn = $this->_mockConn();
         $this->mDba = $this->_mockRsrcConnOld($this->mConn);

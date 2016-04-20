@@ -6,20 +6,23 @@ namespace Praxigento\Wallet\Lib\Repo\Def;
 
 include_once(__DIR__ . '/../../../phpunit_bootstrap.php');
 
-class Module_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase {
+class Module_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase
+{
     /** @var  \Mockery\MockInterface */
-    private $mRepoBasic;
-    /** @var  \Mockery\MockInterface */
-    private $mRepoAcc;
+    private $mConn;
     /** @var  \Mockery\MockInterface */
     private $mDba;
     /** @var  \Mockery\MockInterface */
-    private $mConn;
+    private $mRepoAcc;
+    /** @var  \Mockery\MockInterface */
+    private $mRepoBasic;
     /** @var  Module */
     private $repo;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
+        $this->markTestSkipped('Test is deprecated after M1 & M2 merge is done.');
         $this->mConn = $this->_mockDba();
         $this->mDba = $this->_mockRsrcConnOld($this->mConn);
         $this->mRepoBasic = $this->_mockRepoBasic($this->mDba);
@@ -30,7 +33,8 @@ class Module_UnitTest extends \Praxigento\Core\Lib\Test\BaseMockeryCase {
         );
     }
 
-    public function test_getTypeAssetIdByCode() {
+    public function test_getTypeAssetIdByCode()
+    {
         /** === Test Data === */
         $CODE = 'code';
         $ID = 2;
