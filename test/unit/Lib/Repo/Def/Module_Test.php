@@ -26,7 +26,7 @@ class Module_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
         $this->mConn = $this->_mockDba();
         $this->mDba = $this->_mockResourceConnection($this->mConn);
         $this->mRepoGeneric = $this->_mockRepoGeneric($this->mDba);
-        $this->mRepoAcc = $this->_mock(\Praxigento\Accounting\Lib\Repo\IModule::class);
+        $this->mRepoAcc = $this->_mock(\Praxigento\Accounting\Repo\IModule::class);
         $this->repo = new Module(
             $this->mRepoGeneric,
             $this->mRepoAcc

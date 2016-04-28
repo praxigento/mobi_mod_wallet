@@ -8,7 +8,7 @@ namespace Praxigento\Wallet\Lib\Repo;
 interface IModule
 {
     /**
-     *  Decorator for \Praxigento\Accounting\Lib\Repo\IModule::getTypeAssetIdByCode
+     *  Decorator for \Praxigento\Accounting\Repo\IModule::getTypeAssetIdByCode
      *
      * @param string $assetTypeCode
      *

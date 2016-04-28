@@ -10,12 +10,12 @@ use Praxigento\Wallet\Lib\Repo\IModule;
 
 class Module extends Base implements IModule
 {
-    /** @var  \Praxigento\Accounting\Lib\Repo\IModule */
+    /** @var  \Praxigento\Accounting\Repo\IModule */
     protected $_repoAccounting;
 
     public function __construct(
         \Magento\Framework\App\ResourceConnection $resource,
-        \Praxigento\Accounting\Lib\Repo\IModule $repoAccounting
+        \Praxigento\Accounting\Repo\IModule $repoAccounting
 
     ) {
         parent::__construct($resource);
