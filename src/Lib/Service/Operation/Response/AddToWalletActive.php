@@ -5,6 +5,6 @@
 namespace Praxigento\Wallet\Lib\Service\Operation\Response;
 
 
-class AddToWalletActive extends \Praxigento\Accounting\Lib\Service\Operation\Response\Add {
+class AddToWalletActive extends \Praxigento\Accounting\Service\Operation\Response\Add {
 
 }

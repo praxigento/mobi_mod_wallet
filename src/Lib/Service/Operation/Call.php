@@ -6,9 +6,9 @@ namespace Praxigento\Wallet\Lib\Service\Operation;
 
 use Praxigento\Accounting\Data\Entity\Account;
 use Praxigento\Accounting\Data\Entity\Transaction;
-use Praxigento\Accounting\Lib\Service\Account\Request\Get as AccountGetRequest;
-use Praxigento\Accounting\Lib\Service\Account\Request\GetRepresentative as AccountGetRepresentativeRequest;
-use Praxigento\Accounting\Lib\Service\Operation\Request\Add as OperationAddRequest;
+use Praxigento\Accounting\Service\Account\Request\Get as AccountGetRequest;
+use Praxigento\Accounting\Service\Account\Request\GetRepresentative as AccountGetRepresentativeRequest;
+use Praxigento\Accounting\Service\Operation\Request\Add as OperationAddRequest;
 use Praxigento\Wallet\Config;
 use Praxigento\Wallet\Lib\Service\IOperation;
 use Praxigento\Wallet\Lib\Service\Operation\Request;
@@ -17,9 +17,9 @@ use Praxigento\Wallet\Lib\Service\Operation\Response;
 class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
 {
 
-    /** @var  \Praxigento\Accounting\Lib\Service\IAccount */
+    /** @var  \Praxigento\Accounting\Service\IAccount */
     protected $_callAccount;
-    /** @var  \Praxigento\Accounting\Lib\Service\IOperation */
+    /** @var  \Praxigento\Accounting\Service\IOperation */
     protected $_callOper;
     /** @var \Praxigento\Wallet\Lib\Repo\IModule */
     protected $_repoMod;
@@ -29,8 +29,8 @@ class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
         \Praxigento\Core\Tool\IDate $toolDate,
-        \Praxigento\Accounting\Lib\Service\IAccount $callAccount,
-        \Praxigento\Accounting\Lib\Service\IOperation $callOper,
+        \Praxigento\Accounting\Service\IAccount $callAccount,
+        \Praxigento\Accounting\Service\IOperation $callOper,
         \Praxigento\Wallet\Lib\Repo\IModule $repoMod
     ) {
         parent::__construct($logger);

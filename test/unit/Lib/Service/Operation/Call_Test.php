@@ -5,9 +5,9 @@
 namespace Praxigento\Wallet\Lib\Service\Operation;
 
 use Praxigento\Accounting\Data\Entity\Account;
-use Praxigento\Accounting\Lib\Service\Account\Response\Get as AccountGetResponse;
-use Praxigento\Accounting\Lib\Service\Account\Response\GetRepresentative as GetRepresentativeResponse;
-use Praxigento\Accounting\Lib\Service\Operation\Response\Add as OperationAddResponse;
+use Praxigento\Accounting\Service\Account\Response\Get as AccountGetResponse;
+use Praxigento\Accounting\Service\Account\Response\GetRepresentative as GetRepresentativeResponse;
+use Praxigento\Accounting\Service\Operation\Response\Add as OperationAddResponse;
 
 include_once(__DIR__ . '/../../../phpunit_bootstrap.php');
 
@@ -38,8 +38,8 @@ class Call_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
         $this->mConn = $this->_mockConn();
         $this->mDba = $this->_mockResourceConnection($this->mConn);
         $this->mToolbox = $this->_mock(\Praxigento\Core\Lib\IToolbox::class);
-        $this->mCallAccount = $this->_mock(\Praxigento\Accounting\Lib\Service\IAccount::class);
-        $this->mCallOper = $this->_mock(\Praxigento\Accounting\Lib\Service\IOperation::class);
+        $this->mCallAccount = $this->_mock(\Praxigento\Accounting\Service\IAccount::class);
+        $this->mCallOper = $this->_mock(\Praxigento\Accounting\Service\IOperation::class);
         $this->mRepoMod = $this->_mock(\Praxigento\Wallet\Lib\Repo\IModule::class);
         $this->call = new Call(
             $this->mLogger,
