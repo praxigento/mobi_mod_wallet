@@ -11,25 +11,19 @@ class Module_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
     /** @var  \Mockery\MockInterface */
     private $mConn;
     /** @var  \Mockery\MockInterface */
-    private $mDba;
-    /** @var  \Mockery\MockInterface */
-    private $mRepoAcc;
-    /** @var  \Mockery\MockInterface */
-    private $mRepoGeneric;
+    private $mRepoTypeAsset;
     /** @var  Module */
-    private $repo;
+    private $obj;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->markTestSkipped('Test is deprecated after M1 & M2 merge is done.');
-        $this->mConn = $this->_mockDba();
-        $this->mDba = $this->_mockResourceConnection($this->mConn);
-        $this->mRepoGeneric = $this->_mockRepoGeneric($this->mDba);
-        $this->mRepoAcc = $this->_mock(\Praxigento\Accounting\Repo\IModule::class);
-        $this->repo = new Module(
-            $this->mRepoGeneric,
-            $this->mRepoAcc
+        $this->mConn = $this->_mockConn();
+        $mResource = $this->_mockResourceConnection($this->mConn);
+        $this->mRepoTypeAsset = $this->_mock(\Praxigento\Accounting\Repo\Entity\Type\IAsset::class);
+        $this->obj = new Module(
+            $mResource,
+            $this->mRepoTypeAsset
         );
     }
 
@@ -38,16 +32,13 @@ class Module_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
         /** === Test Data === */
         $CODE = 'code';
         $ID = 2;
-
         /** === Setup Mocks === */
-
-        // $result = $this->_repoAccounting->getTypeAssetIdByCode($assetTypeCode);
-        $this->mRepoAcc
-            ->shouldReceive('getTypeAssetIdByCode')
+        // $result = $this->_repoTypeAsset->getIdByCode($assetTypeCode);
+        $this->mRepoTypeAsset
+            ->shouldReceive('getIdByCode')
             ->andReturn($ID);
-
         /** === Call and asserts  === */
-        $resp = $this->repo->getTypeAssetIdByCode($CODE);
+        $resp = $this->obj->getTypeAssetIdByCode($CODE);
         $this->assertEquals($ID, $resp);
     }
 
