@@ -2,10 +2,10 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Lib\Service;
+namespace Praxigento\Wallet\Service;
 
-use Praxigento\Wallet\Lib\Service\Operation\Request;
-use Praxigento\Wallet\Lib\Service\Operation\Response;
+use Praxigento\Wallet\Service\Operation\Request;
+use Praxigento\Wallet\Service\Operation\Response;
 
 interface IOperation {
     /**

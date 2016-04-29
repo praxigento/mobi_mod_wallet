@@ -2,7 +2,7 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Lib\Service\Operation;
+namespace Praxigento\Wallet\Service\Operation;
 
 use Praxigento\Accounting\Data\Entity\Account;
 use Praxigento\Accounting\Data\Entity\Transaction;
@@ -10,9 +10,9 @@ use Praxigento\Accounting\Service\Account\Request\Get as AccountGetRequest;
 use Praxigento\Accounting\Service\Account\Request\GetRepresentative as AccountGetRepresentativeRequest;
 use Praxigento\Accounting\Service\Operation\Request\Add as OperationAddRequest;
 use Praxigento\Wallet\Config;
-use Praxigento\Wallet\Lib\Service\IOperation;
-use Praxigento\Wallet\Lib\Service\Operation\Request;
-use Praxigento\Wallet\Lib\Service\Operation\Response;
+use Praxigento\Wallet\Service\IOperation;
+use Praxigento\Wallet\Service\Operation\Request;
+use Praxigento\Wallet\Service\Operation\Response;
 
 class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
 {
@@ -21,7 +21,7 @@ class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
     protected $_callAccount;
     /** @var  \Praxigento\Accounting\Service\IOperation */
     protected $_callOper;
-    /** @var \Praxigento\Wallet\Lib\Repo\IModule */
+    /** @var \Praxigento\Wallet\Repo\IModule */
     protected $_repoMod;
     /** @var \Praxigento\Core\Tool\IDate */
     protected $_toolDate;
@@ -31,7 +31,7 @@ class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
         \Praxigento\Core\Tool\IDate $toolDate,
         \Praxigento\Accounting\Service\IAccount $callAccount,
         \Praxigento\Accounting\Service\IOperation $callOper,
-        \Praxigento\Wallet\Lib\Repo\IModule $repoMod
+        \Praxigento\Wallet\Repo\IModule $repoMod
     ) {
         parent::__construct($logger);
         $this->_toolDate = $toolDate;

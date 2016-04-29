@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Lib\Service\Operation\Request;
+namespace Praxigento\Wallet\Service\Operation\Request;
 
 /**
  * @method string getAsCustomerId() attribute name for customer ID value in the transactions data

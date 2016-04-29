@@ -2,7 +2,7 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Lib\Service\Operation;
+namespace Praxigento\Wallet\Service\Operation;
 
 
 
@@ -20,8 +20,8 @@ class Call_ManualTest extends \Praxigento\Core\Test\BaseMockeryCase {
         $conn = $dba->getDefaultConnection();
         $conn->beginTransaction();
         try {
-            /** @var  $call \Praxigento\Wallet\Lib\Service\IOperation */
-            $call = $obm->get(\Praxigento\Wallet\Lib\Service\IOperation::class);
+            /** @var  $call \Praxigento\Wallet\Service\IOperation */
+            $call = $obm->get(\Praxigento\Wallet\Service\IOperation::class);
             $req = new Request\AddToWalletActive();
             $req->setOperationTypeId(1);
             $req->setTransData([

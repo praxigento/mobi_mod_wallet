@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Lib\Repo;
+namespace Praxigento\Wallet\Repo;
 
 interface IModule
 {

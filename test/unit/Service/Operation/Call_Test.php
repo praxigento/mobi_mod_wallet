@@ -2,14 +2,14 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Lib\Service\Operation;
+namespace Praxigento\Wallet\Service\Operation;
 
 use Praxigento\Accounting\Data\Entity\Account;
 use Praxigento\Accounting\Service\Account\Response\Get as AccountGetResponse;
 use Praxigento\Accounting\Service\Account\Response\GetRepresentative as GetRepresentativeResponse;
 use Praxigento\Accounting\Service\Operation\Response\Add as OperationAddResponse;
 
-include_once(__DIR__ . '/../../../phpunit_bootstrap.php');
+include_once(__DIR__ . '/../../phpunit_bootstrap.php');
 
 class Call_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
 {
@@ -40,7 +40,7 @@ class Call_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
         $this->mToolbox = $this->_mock(\Praxigento\Core\Lib\IToolbox::class);
         $this->mCallAccount = $this->_mock(\Praxigento\Accounting\Service\IAccount::class);
         $this->mCallOper = $this->_mock(\Praxigento\Accounting\Service\IOperation::class);
-        $this->mRepoMod = $this->_mock(\Praxigento\Wallet\Lib\Repo\IModule::class);
+        $this->mRepoMod = $this->_mock(\Praxigento\Wallet\Repo\IModule::class);
         $this->call = new Call(
             $this->mLogger,
             $this->mDba,

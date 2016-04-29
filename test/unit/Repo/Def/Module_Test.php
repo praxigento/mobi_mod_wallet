@@ -2,9 +2,9 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Lib\Repo\Def;
+namespace Praxigento\Wallet\Repo\Def;
 
-include_once(__DIR__ . '/../../../phpunit_bootstrap.php');
+include_once(__DIR__ . '/../../phpunit_bootstrap.php');
 
 class Module_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
 {

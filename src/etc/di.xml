@@ -2,9 +2,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="Praxigento\Wallet\Lib\Repo\IModule"
-                type="Praxigento\Wallet\Lib\Repo\Def\Module"/>
-    <preference for="Praxigento\Wallet\Lib\Service\IOperation"
-                type="Praxigento\Wallet\Lib\Service\Operation\Call"/>
+    <preference for="Praxigento\Wallet\Repo\IModule"
+                type="Praxigento\Wallet\Repo\Def\Module"/>
+    <preference for="Praxigento\Wallet\Service\IOperation"
+                type="Praxigento\Wallet\Service\Operation\Call"/>
 
 </config>
