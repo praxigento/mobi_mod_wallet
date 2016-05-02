@@ -37,7 +37,7 @@ class Call_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
         $this->mLogger = $this->_mockLogger();
         $this->mConn = $this->_mockConn();
         $this->mDba = $this->_mockResourceConnection($this->mConn);
-        $this->mToolbox = $this->_mock(\Praxigento\Core\Lib\IToolbox::class);
+        $this->mToolbox = $this->_mock(\Praxigento\Core\IToolbox::class);
         $this->mCallAccount = $this->_mock(\Praxigento\Accounting\Service\IAccount::class);
         $this->mCallOper = $this->_mock(\Praxigento\Accounting\Service\IOperation::class);
         $this->mRepoMod = $this->_mock(\Praxigento\Wallet\Repo\IModule::class);
