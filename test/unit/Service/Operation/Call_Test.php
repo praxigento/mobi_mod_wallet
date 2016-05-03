@@ -14,37 +14,29 @@ include_once(__DIR__ . '/../../phpunit_bootstrap.php');
 class Call_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
 {
     /** @var  Call */
-    private $call;
+    private $obj;
     /** @var  \Mockery\MockInterface */
     private $mCallAccount;
     /** @var  \Mockery\MockInterface */
     private $mCallOper;
     /** @var  \Mockery\MockInterface */
-    private $mConn;
-    /** @var  \Mockery\MockInterface */
-    private $mDba;
-    /** @var  \Mockery\MockInterface */
     private $mLogger;
     /** @var  \Mockery\MockInterface */
     private $mRepoMod;
     /** @var  \Mockery\MockInterface */
-    private $mToolbox;
+    private $mToolDate;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->markTestSkipped('Test is deprecated after M1 & M2 merge is done.');
         $this->mLogger = $this->_mockLogger();
-        $this->mConn = $this->_mockConn();
-        $this->mDba = $this->_mockResourceConnection($this->mConn);
-        $this->mToolbox = $this->_mock(\Praxigento\Core\IToolbox::class);
+        $this->mToolDate = $this->_mock(\Praxigento\Core\Tool\IDate::class);
         $this->mCallAccount = $this->_mock(\Praxigento\Accounting\Service\IAccount::class);
         $this->mCallOper = $this->_mock(\Praxigento\Accounting\Service\IOperation::class);
         $this->mRepoMod = $this->_mock(\Praxigento\Wallet\Repo\IModule::class);
-        $this->call = new Call(
+        $this->obj = new Call(
             $this->mLogger,
-            $this->mDba,
-            $this->mToolbox,
+            $this->mToolDate,
             $this->mCallAccount,
             $this->mCallOper,
             $this->mRepoMod
@@ -68,9 +60,6 @@ class Call_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
             [$AS_CUST_ID => 41, $AS_AMOUNT => 32.23, $AS_REF => 54]
         ];
         /** === Setup Mocks === */
-        $this->mLogger->shouldReceive('info');
-        $this->mLogger->shouldReceive('debug');
-
         // $assetTypeId = $this->_repoMod->getTypeAssetIdByCode(Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
         $this->mRepoMod
             ->shouldReceive('getTypeAssetIdByCode')
@@ -96,7 +85,6 @@ class Call_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
             ->andReturn($mRespAdd);
         // $operId = $respOperAdd->getOperationId();
         $mRespAdd->setOperationId($OPER_ID);
-
         /** === Call and asserts  === */
         $req = new Request\AddToWalletActive();
         $req->setDateApplied($DATE_APPLIED);
@@ -106,7 +94,7 @@ class Call_UnitTest extends \Praxigento\Core\Test\BaseMockeryCase
         $req->setAsAmount($AS_AMOUNT);
         $req->setAsCustomerId($AS_CUST_ID);
         $req->setAsRef($AS_REF);
-        $resp = $this->call->addToWalletActive($req);
+        $resp = $this->obj->addToWalletActive($req);
         $this->assertTrue($resp->isSucceed());
         $this->assertEquals($OPER_ID, $resp->getOperationId());
     }
