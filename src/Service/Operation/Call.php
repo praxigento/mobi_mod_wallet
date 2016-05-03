@@ -31,13 +31,13 @@ class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
         \Praxigento\Core\Tool\IDate $toolDate,
         \Praxigento\Accounting\Service\IAccount $callAccount,
         \Praxigento\Accounting\Service\IOperation $callOper,
-        \Praxigento\Wallet\Repo\IModule $repoMod
+        \Praxigento\Wallet\Repo\IModule $callMod
     ) {
         parent::__construct($logger);
         $this->_toolDate = $toolDate;
         $this->_callAccount = $callAccount;
         $this->_callOper = $callOper;
-        $this->_repoMod = $repoMod;
+        $this->_repoMod = $callMod;
     }
 
     /**
