@@ -15,7 +15,7 @@ class InstallData extends \Praxigento\Core\Setup\Data\Base
     private function _addAccountingAssetsTypes()
     {
         $this->_conn->insertArray(
-            $this->_conn->getTableName(TypeAsset::ENTITY_NAME),
+            $this->_resource->getTableName(TypeAsset::ENTITY_NAME),
             [TypeAsset::ATTR_CODE, TypeAsset::ATTR_NOTE],
             [
                 [
@@ -33,7 +33,7 @@ class InstallData extends \Praxigento\Core\Setup\Data\Base
     private function _addAccountingOperationsTypes()
     {
         $this->_conn->insertArray(
-            $this->_conn->getTableName(TypeOperation::ENTITY_NAME),
+            $this->_resource->getTableName(TypeOperation::ENTITY_NAME),
             [TypeOperation::ATTR_CODE, TypeOperation::ATTR_NOTE],
             [
                 [
