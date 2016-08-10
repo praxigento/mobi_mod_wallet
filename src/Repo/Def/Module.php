@@ -5,10 +5,10 @@
  */
 namespace Praxigento\Wallet\Repo\Def;
 
-use Praxigento\Core\Repo\Def\Base;
+use Praxigento\Core\Repo\Def\Db;
 use Praxigento\Wallet\Repo\IModule;
 
-class Module extends Base implements IModule
+class Module extends Db implements IModule
 {
     /** @var  \Praxigento\Accounting\Repo\Entity\Type\IAsset */
     protected $_repoTypeAsset;
