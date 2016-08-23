@@ -6,10 +6,8 @@ namespace Praxigento\Wallet\Repo\Def;
 
 include_once(__DIR__ . '/../../phpunit_bootstrap.php');
 
-class Module_UnitTest extends \Praxigento\Core\Test\BaseCase\Mockery
+class Module_UnitTest extends \Praxigento\Core\Test\BaseCase\Repo
 {
-    /** @var  \Mockery\MockInterface */
-    private $mConn;
     /** @var  \Mockery\MockInterface */
     private $mRepoTypeAsset;
     /** @var  Module */
@@ -18,11 +16,10 @@ class Module_UnitTest extends \Praxigento\Core\Test\BaseCase\Mockery
     protected function setUp()
     {
         parent::setUp();
-        $this->mConn = $this->_mockConn();
-        $mResource = $this->_mockResourceConnection($this->mConn);
+        /** create mocks */
         $this->mRepoTypeAsset = $this->_mock(\Praxigento\Accounting\Repo\Entity\Type\IAsset::class);
         $this->obj = new Module(
-            $mResource,
+            $this->mResource,
             $this->mRepoTypeAsset
         );
     }
