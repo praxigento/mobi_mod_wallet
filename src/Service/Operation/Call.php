@@ -10,11 +10,17 @@ use Praxigento\Accounting\Service\Account\Request\Get as AccountGetRequest;
 use Praxigento\Accounting\Service\Account\Request\GetRepresentative as AccountGetRepresentativeRequest;
 use Praxigento\Accounting\Service\Operation\Request\Add as OperationAddRequest;
 use Praxigento\Wallet\Config;
-use Praxigento\Wallet\Service\IOperation;
 use Praxigento\Wallet\Service\Operation\Request;
 use Praxigento\Wallet\Service\Operation\Response;
 
-class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
+/**
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
+class Call
+    extends \Praxigento\Core\Service\Base\Call
+    implements \Praxigento\Wallet\Service\IOperation
 {
 
     /** @var  \Praxigento\Accounting\Service\IAccount */
@@ -28,12 +34,13 @@ class Call extends \Praxigento\Core\Service\Base\Call implements IOperation
 
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
+        \Magento\Framework\ObjectManagerInterface $manObj,
         \Praxigento\Core\Tool\IDate $toolDate,
         \Praxigento\Accounting\Service\IAccount $callAccount,
         \Praxigento\Accounting\Service\IOperation $callOper,
         \Praxigento\Wallet\Repo\IModule $callMod
     ) {
-        parent::__construct($logger);
+        parent::__construct($logger, $manObj);
         $this->_toolDate = $toolDate;
         $this->_callAccount = $callAccount;
         $this->_callOper = $callOper;

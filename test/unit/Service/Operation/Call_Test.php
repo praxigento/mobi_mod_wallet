@@ -11,31 +11,34 @@ use Praxigento\Accounting\Service\Operation\Response\Add as OperationAddResponse
 
 include_once(__DIR__ . '/../../phpunit_bootstrap.php');
 
-class Call_UnitTest extends \Praxigento\Core\Test\BaseCase\Mockery
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ */
+class Call_UnitTest
+    extends \Praxigento\Core\Test\BaseCase\Service\Call
 {
-    /** @var  Call */
-    private $obj;
     /** @var  \Mockery\MockInterface */
     private $mCallAccount;
     /** @var  \Mockery\MockInterface */
     private $mCallOper;
     /** @var  \Mockery\MockInterface */
-    private $mLogger;
-    /** @var  \Mockery\MockInterface */
     private $mRepoMod;
     /** @var  \Mockery\MockInterface */
     private $mToolDate;
+    /** @var  Call */
+    private $obj;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->mLogger = $this->_mockLogger();
         $this->mToolDate = $this->_mock(\Praxigento\Core\Tool\IDate::class);
         $this->mCallAccount = $this->_mock(\Praxigento\Accounting\Service\IAccount::class);
         $this->mCallOper = $this->_mock(\Praxigento\Accounting\Service\IOperation::class);
         $this->mRepoMod = $this->_mock(\Praxigento\Wallet\Repo\IModule::class);
         $this->obj = new Call(
             $this->mLogger,
+            $this->mManObj,
             $this->mToolDate,
             $this->mCallAccount,
             $this->mCallOper,
@@ -46,31 +49,31 @@ class Call_UnitTest extends \Praxigento\Core\Test\BaseCase\Mockery
     public function test_addToWalletActive()
     {
         /** === Test Data === */
-        $DATE_APPLIED = '2016-02-24 10:12:23';
-        $DATE_PERFORMED = '2016-02-25 12:10:23';
-        $OPER_TYPE_CODE = 'code';
-        $AS_AMOUNT = 'amount';
-        $AS_CUST_ID = 'custId';
-        $AS_REF = 'ref';
-        $ASSET_TYPE_ID = 2;
-        $CUST_ID_REPRES = 10;
-        $OPER_ID = 16;
-        $TRANS = [
-            [$AS_CUST_ID => $CUST_ID_REPRES, $AS_AMOUNT => -32.23, $AS_REF => 45],
-            [$AS_CUST_ID => 41, $AS_AMOUNT => 32.23, $AS_REF => 54]
+        $dateApplied = '2016-02-24 10:12:23';
+        $datePerformed = '2016-02-25 12:10:23';
+        $operTypeCode = 'code';
+        $asAmount = 'amount';
+        $asCustId = 'custId';
+        $asRef = 'ref';
+        $assetTypeId = 2;
+        $custIdRepres = 10;
+        $operId = 16;
+        $trans = [
+            [$asCustId => $custIdRepres, $asAmount => -32.23, $asRef => 45],
+            [$asCustId => 41, $asAmount => 32.23, $asRef => 54]
         ];
         /** === Setup Mocks === */
         // $assetTypeId = $this->_repoMod->getTypeAssetIdByCode(Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
         $this->mRepoMod
             ->shouldReceive('getTypeAssetIdByCode')
-            ->andReturn($ASSET_TYPE_ID);
+            ->andReturn($assetTypeId);
         // function _getAccountRepresentativeId($assetTypeId)
         // $respAccRepres = $this->_callAccount->getRepresentative($reqAccRepres);
         $mResp = new GetRepresentativeResponse();
         $this->mCallAccount
             ->shouldReceive('getRepresentative')
             ->andReturn($mResp);
-        $mResp->setData(Account::ATTR_CUST_ID, $CUST_ID_REPRES);
+        $mResp->setData(Account::ATTR_CUST_ID, $custIdRepres);
         // $respGetAccount = $this->_callAccount->get($reqGetAccount);
         $mResGet = new AccountGetResponse();
         $this->mCallAccount
@@ -84,19 +87,19 @@ class Call_UnitTest extends \Praxigento\Core\Test\BaseCase\Mockery
             ->shouldReceive('add')
             ->andReturn($mRespAdd);
         // $operId = $respOperAdd->getOperationId();
-        $mRespAdd->setOperationId($OPER_ID);
+        $mRespAdd->setOperationId($operId);
         /** === Call and asserts  === */
         $req = new Request\AddToWalletActive();
-        $req->setDateApplied($DATE_APPLIED);
-        $req->setDatePerformed($DATE_PERFORMED);
-        $req->setOperationTypeCode($OPER_TYPE_CODE);
-        $req->setTransData($TRANS);
-        $req->setAsAmount($AS_AMOUNT);
-        $req->setAsCustomerId($AS_CUST_ID);
-        $req->setAsRef($AS_REF);
+        $req->setDateApplied($dateApplied);
+        $req->setDatePerformed($datePerformed);
+        $req->setOperationTypeCode($operTypeCode);
+        $req->setTransData($trans);
+        $req->setAsAmount($asAmount);
+        $req->setAsCustomerId($asCustId);
+        $req->setAsRef($asRef);
         $resp = $this->obj->addToWalletActive($req);
         $this->assertTrue($resp->isSucceed());
-        $this->assertEquals($OPER_ID, $resp->getOperationId());
+        $this->assertEquals($operId, $resp->getOperationId());
     }
 
 }
