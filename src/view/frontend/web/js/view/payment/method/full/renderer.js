@@ -2,10 +2,10 @@ define([
         'Magento_Checkout/js/view/payment/default'
     ], function (Component) {
         'use strict';
-        debugger;
+
         return Component.extend({
             defaults: {
-                template: 'Praxigento_Wallet/payment/form',
+                template: 'Praxigento_Wallet/payment/method/full',
                 transactionResult: ''
             },
 
