@@ -165,11 +165,11 @@ class Call
         $reqAddOper->setTransactions([$transaction]);
         $reqAddOper->setCustomerId($custId);
         $respAddOper = $this->_callOper->add($reqAddOper);
-        $operId = $respAddOper->getOperationId();
-        /* log sale order operation */
-        $log = new \Praxigento\Wallet\Data\Entity\Log\Sale();
-        $log->setOperationRef($operId);
-        $log->setSaleOrderRef($saleOrderId);
+//        $operId = $respAddOper->getOperationId();
+//        /* log sale order operation */
+//        $log = new \Praxigento\Wallet\Data\Entity\Log\Sale();
+//        $log->setOperationRef($operId);
+//        $log->setSaleOrderRef($saleOrderId);
         if ($respAddOper->isSucceed()) {
             $result->markSucceed();
         }

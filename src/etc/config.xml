@@ -8,7 +8,7 @@
                 <active>0</active>
                 <model>PraxigentoWalletPayment</model>
                 <order_status>pending_payment</order_status>
-                <payment_action>capture</payment_action>
+                <payment_action>authorize_capture</payment_action>
                 <title>Use Internal Money</title>
                 <can_authorize>1</can_authorize>
                 <can_capture>1</can_capture>
