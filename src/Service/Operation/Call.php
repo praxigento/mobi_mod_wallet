@@ -28,10 +28,12 @@ class Call
     protected $_callOper;
     /** @var  \Praxigento\Accounting\Repo\Entity\IAccount */
     protected $_repoEAcc;
-    /** @var \Praxigento\Accounting\Repo\Entity\Type\IOperation */
-    protected $_repoETypeOper;
+    /** @var \Praxigento\Wallet\Repo\Entity\Log\ISale */
+    protected $_repoELogSale;
     /** @var \Praxigento\Accounting\Repo\Entity\Type\IAsset */
     protected $_repoETypeAsset;
+    /** @var \Praxigento\Accounting\Repo\Entity\Type\IOperation */
+    protected $_repoETypeOper;
     /** @var \Praxigento\Wallet\Repo\IModule */
     protected $_repoMod;
     /** @var  \Praxigento\Accounting\Repo\IModule */
@@ -49,7 +51,8 @@ class Call
         \Praxigento\Accounting\Repo\Entity\Type\IAsset $repoETypeAsset,
         \Praxigento\Accounting\Repo\Entity\Type\IOperation $repoETypeOper,
         \Praxigento\Accounting\Repo\IModule $repoModAccount,
-        \Praxigento\Wallet\Repo\IModule $repoMod
+        \Praxigento\Wallet\Repo\IModule $repoMod,
+        \Praxigento\Wallet\Repo\Entity\Log\ISale $repoELogSale
     ) {
         parent::__construct($logger, $manObj);
         $this->_toolDate = $toolDate;
@@ -60,6 +63,7 @@ class Call
         $this->_repoETypeAsset = $repoETypeAsset;
         $this->_repoETypeOper = $repoETypeOper;
         $this->_repoMod = $repoMod;
+        $this->_repoELogSale = $repoELogSale;
     }
 
     /**
@@ -144,7 +148,7 @@ class Call
         /* extract request params */
         $custId = $req->getCustomerId();
         $value = $req->getBaseAmountToPay();
-        $orderId = $req->getOrderId();
+        $saleOrderId = $req->getOrderId();
         /* collect data */
         $assetTypeId = $this->_repoETypeAsset->getIdByCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
         $accDebit = $this->_repoEAcc->getByCustomerId($custId, $assetTypeId);
@@ -159,7 +163,13 @@ class Call
         $reqAddOper = new \Praxigento\Accounting\Service\Operation\Request\Add();
         $reqAddOper->setOperationTypeCode(Cfg::CODE_TYPE_OPER_WALLET_SALE);
         $reqAddOper->setTransactions([$transaction]);
+        $reqAddOper->setCustomerId($custId);
         $respAddOper = $this->_callOper->add($reqAddOper);
+        $operId = $respAddOper->getOperationId();
+        /* log sale order operation */
+        $log = new \Praxigento\Wallet\Data\Entity\Log\Sale();
+        $log->setOperationRef($operId);
+        $log->setSaleOrderRef($saleOrderId);
         if ($respAddOper->isSucceed()) {
             $result->markSucceed();
         }

@@ -9,6 +9,8 @@
     </virtualType>
 
     <!-- Repo -->
+    <preference for="\Praxigento\Wallet\Repo\Entity\Log\ISale"
+            type="\Praxigento\Wallet\Repo\Entity\Log\Def\Sale"/>
     <preference for="Praxigento\Wallet\Repo\IModule"
             type="Praxigento\Wallet\Repo\Def\Module"/>
 

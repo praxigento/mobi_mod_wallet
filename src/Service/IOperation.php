@@ -18,6 +18,12 @@ interface IOperation
      */
     public function addToWalletActive(Request\AddToWalletActive $req);
 
+    /**
+     * Create internal money payment for sale order.
+     *
+     * @param Request\PayForSaleOrder $req
+     * @return Response\PayForSaleOrder
+     */
     public function payForSaleOrder(Request\PayForSaleOrder $req);
 
 
