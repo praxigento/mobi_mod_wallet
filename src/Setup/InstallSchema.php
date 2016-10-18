@@ -13,7 +13,7 @@ class InstallSchema extends \Praxigento\Core\Setup\Schema\Base
     {
         /** Read and parse JSON schema. */
         $pathToFile = __DIR__ . '/../etc/dem.json';
-        $pathToNode = '/dBEAR/package/Praxigento/package/Pv';
+        $pathToNode = '/dBEAR/package/Praxigento/package/Wallet';
         $demPackage = $this->_toolDem->readDemPackage($pathToFile, $pathToNode);
 
         /* Log / Sale */
