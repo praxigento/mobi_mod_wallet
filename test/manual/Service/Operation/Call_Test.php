@@ -54,6 +54,7 @@ class Call_ManualTest extends \Praxigento\Core\Test\BaseCase\Mockery
             $req->setBaseAmountToPay(32.10);
             $res = $call->payForSaleOrder($req);
             $this->assertTrue($res->isSucceed());
+            $manTrans->commit($def);
         } finally {
             $manTrans->end($def);
         }

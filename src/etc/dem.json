@@ -8,8 +8,53 @@
           "Wallet": {
             "alias": "wallet",
             "comment": "Top level package for Praxigento_Wallet module",
-            "package": {},
-            "entity": {}
+            "package": {
+              "Log": {
+                "alias": "log",
+                "comment": "Entites for logging",
+                "entity": {
+                  "SaleOrder": {
+                    "alias": "sale",
+                    "comment": "Log sale orders payments operations.",
+                    "attribute": {
+                      "OperationRef": {
+                        "alias": "operation_ref",
+                        "comment": "Reference to the operation.",
+                        "nullable": false,
+                        "type": {"integer": {"unsigned": true}}
+                      },
+                      "SaleOrderRef": {
+                        "alias": "sale_order_ref",
+                        "comment": "Reference to the sale order.",
+                        "nullable": false,
+                        "type": {"integer": {"unsigned": true}}
+                      }
+                    },
+                    "index": {
+                      "PK": {"type": "primary", "aliases": ["operation_ref", "sale_order_ref"]}
+                    },
+                    "relation": {
+                      "toOperation": {
+                        "own": {"aliases": ["operation_ref"]},
+                        "reference": {
+                          "entity": {"completeAlias": "prxgt_acc_operation"},
+                          "aliases": ["id"]
+                        },
+                        "action": {"delete": "restrict", "update": "restrict"}
+                      },
+                      "toMageSaleOrder": {
+                        "own": {"aliases": ["sale_order_ref"]},
+                        "reference": {
+                          "entity": {"completeAlias": "sales_order"},
+                          "aliases": ["entity_id"]
+                        },
+                        "action": {"delete": "restrict", "update": "restrict"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
