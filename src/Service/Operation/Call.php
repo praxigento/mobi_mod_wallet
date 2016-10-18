@@ -8,8 +8,7 @@ use Praxigento\Accounting\Data\Entity\Account;
 use Praxigento\Accounting\Data\Entity\Transaction;
 use Praxigento\Accounting\Service\Account\Request\Get as AccountGetRequest;
 use Praxigento\Accounting\Service\Account\Request\GetRepresentative as AccountGetRepresentativeRequest;
-use Praxigento\Accounting\Service\Operation\Request\Add as OperationAddRequest;
-use Praxigento\Wallet\Config;
+use Praxigento\Wallet\Config as Cfg;
 use Praxigento\Wallet\Service\Operation\Request;
 use Praxigento\Wallet\Service\Operation\Response;
 
@@ -27,8 +26,16 @@ class Call
     protected $_callAccount;
     /** @var  \Praxigento\Accounting\Service\IOperation */
     protected $_callOper;
+    /** @var  \Praxigento\Accounting\Repo\Entity\IAccount */
+    protected $_repoEAcc;
+    /** @var \Praxigento\Accounting\Repo\Entity\Type\IOperation */
+    protected $_repoETypeOper;
+    /** @var \Praxigento\Accounting\Repo\Entity\Type\IAsset */
+    protected $_repoETypeAsset;
     /** @var \Praxigento\Wallet\Repo\IModule */
     protected $_repoMod;
+    /** @var  \Praxigento\Accounting\Repo\IModule */
+    protected $_repoModAcc;
     /** @var \Praxigento\Core\Tool\IDate */
     protected $_toolDate;
 
@@ -38,13 +45,21 @@ class Call
         \Praxigento\Core\Tool\IDate $toolDate,
         \Praxigento\Accounting\Service\IAccount $callAccount,
         \Praxigento\Accounting\Service\IOperation $callOper,
-        \Praxigento\Wallet\Repo\IModule $callMod
+        \Praxigento\Accounting\Repo\Entity\IAccount $repoEAccount,
+        \Praxigento\Accounting\Repo\Entity\Type\IAsset $repoETypeAsset,
+        \Praxigento\Accounting\Repo\Entity\Type\IOperation $repoETypeOper,
+        \Praxigento\Accounting\Repo\IModule $repoModAccount,
+        \Praxigento\Wallet\Repo\IModule $repoMod
     ) {
         parent::__construct($logger, $manObj);
         $this->_toolDate = $toolDate;
         $this->_callAccount = $callAccount;
         $this->_callOper = $callOper;
-        $this->_repoMod = $callMod;
+        $this->_repoEAcc = $repoEAccount;
+        $this->_repoModAcc = $repoModAccount;
+        $this->_repoETypeAsset = $repoETypeAsset;
+        $this->_repoETypeOper = $repoETypeOper;
+        $this->_repoMod = $repoMod;
     }
 
     /**
@@ -78,11 +93,11 @@ class Call
         $datePerformed = is_null($datePerformed) ? $this->_toolDate->getUtcNowForDb() : $datePerformed;
         $dateApplied = is_null($dateApplied) ? $datePerformed : $dateApplied;
         /* get asset type ID */
-        $assetTypeId = $this->_repoMod->getTypeAssetIdByCode(Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
+        $assetTypeId = $this->_repoMod->getTypeAssetIdByCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
         /* get representative customer ID */
         $represAccId = $this->_getRepresentativeAccId($assetTypeId);
         /* save operation */
-        $reqOperAdd = new OperationAddRequest();
+        $reqOperAdd = new \Praxigento\Accounting\Service\Operation\Request\Add();
         $reqOperAdd->setOperationTypeCode($operTypeCode);
         $reqOperAdd->setDatePerformed($datePerformed);
         $reqOperAdd->setAsTransRef($asRef);
@@ -123,4 +138,31 @@ class Call
         return $result;
     }
 
+    public function payForSaleOrder(Request\PayForSaleOrder $req)
+    {
+        $result = new Response\PayForSaleOrder();
+        /* extract request params */
+        $custId = $req->getCustomerId();
+        $value = $req->getBaseAmountToPay();
+        $orderId = $req->getOrderId();
+        /* collect data */
+        $assetTypeId = $this->_repoETypeAsset->getIdByCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
+        $accDebit = $this->_repoEAcc->getByCustomerId($custId, $assetTypeId);
+        $accIdDebit = $accDebit->getId();
+        $accIdCredit = $this->_repoModAcc->getRepresentativeAccountId($assetTypeId);
+        /* compose transaction data */
+        $transaction = new \Praxigento\Accounting\Data\Entity\Transaction();
+        $transaction->setDebitAccId($accIdDebit);
+        $transaction->setCreditAccId($accIdCredit);
+        $transaction->setValue($value);
+        /* create operation using service call */
+        $reqAddOper = new \Praxigento\Accounting\Service\Operation\Request\Add();
+        $reqAddOper->setOperationTypeCode(Cfg::CODE_TYPE_OPER_WALLET_SALE);
+        $reqAddOper->setTransactions([$transaction]);
+        $respAddOper = $this->_callOper->add($reqAddOper);
+        if ($respAddOper->isSucceed()) {
+            $result->markSucceed();
+        }
+        return $result;
+    }
 }

@@ -10,6 +10,9 @@ use Praxigento\Accounting\Data\Entity\Type\Asset as TypeAsset;
 use Praxigento\Accounting\Data\Entity\Type\Operation as TypeOperation;
 use Praxigento\Wallet\Config as Cfg;
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ */
 class InstallData extends \Praxigento\Core\Setup\Data\Base
 {
     private function _addAccountingAssetsTypes()
@@ -39,6 +42,10 @@ class InstallData extends \Praxigento\Core\Setup\Data\Base
                 [
                     Cfg::CODE_TYPE_OPER_WALLET_TRANSFER,
                     'Transfer WALLET_ACTIVE asset between customers accounts (or customer & representative accounts).'
+                ],
+                [
+                    Cfg::CODE_TYPE_OPER_WALLET_SALE,
+                    'Pay by WALLET_ACTIVE asset for sale order.'
                 ]
             ]
         );

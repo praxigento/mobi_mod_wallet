@@ -7,7 +7,8 @@ namespace Praxigento\Wallet\Service;
 use Praxigento\Wallet\Service\Operation\Request;
 use Praxigento\Wallet\Service\Operation\Response;
 
-interface IOperation {
+interface IOperation
+{
     /**
      * Add new operation with WALLET_ACTIVE asset.
      *
@@ -16,6 +17,8 @@ interface IOperation {
      * @return Response\AddToWalletActive
      */
     public function addToWalletActive(Request\AddToWalletActive $req);
+
+    public function payForSaleOrder(Request\PayForSaleOrder $req);
 
 
 }
