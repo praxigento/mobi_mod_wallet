@@ -19,6 +19,14 @@
                                                         <item name="renders" xsi:type="array">
                                                             <!-- merge payment method renders here -->
                                                             <item name="children" xsi:type="array">
+                                                                <item name="prxgt_partial" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Praxigento_Wallet/js/view/payment/method/partial/register</item>
+                                                                    <item name="methods" xsi:type="array">
+                                                                        <item name="prxgt_partial" xsi:type="array">
+                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">false</item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
                                                                 <item name="prxgt_wallet" xsi:type="array">
                                                                     <item name="component" xsi:type="string">Praxigento_Wallet/js/view/payment/method/full/register</item>
                                                                     <item name="methods" xsi:type="array">
