@@ -4,6 +4,10 @@
 
     <!-- Payment Method Facade configuration -->
     <virtualType
+            name="PraxigentoPartialPayment"
+            type="\Praxigento\Wallet\Model\Partial\Payment">
+    </virtualType>
+    <virtualType
             name="PraxigentoWalletPayment"
             type="\Praxigento\Wallet\Model\Payment">
     </virtualType>

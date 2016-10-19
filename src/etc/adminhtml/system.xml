@@ -28,6 +28,23 @@
                     <hint>Hint...</hint>
                 </field>
             </group>
+            <!-- This code should be equal to \Praxigento\Wallet\Model\Partial\Payment::CODE -->
+            <group id="praxigento_partial" translate="label" type="text"
+                    sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Internal Money (Partial)</label>
+                <comment>
+                    <![CDATA[<a href="https://github.com/praxigento/mobi_mod_mage2_wallet" target="_blank">Module sources</a>]]>
+                </comment>
+                <field id="active" translate="label" type="select"
+                        sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text"
+                        sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+            </group>
         </section>
     </system>
 </config>
