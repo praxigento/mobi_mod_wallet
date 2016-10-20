@@ -150,10 +150,17 @@ class Call
         $value = $req->getBaseAmountToPay();
         $saleOrderId = $req->getOrderId();
         /* collect data */
-        $assetTypeId = $this->_repoETypeAsset->getIdByCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
-        $accDebit = $this->_repoEAcc->getByCustomerId($custId, $assetTypeId);
-        $accIdDebit = $accDebit->getId();
-        $accIdCredit = $this->_repoModAcc->getRepresentativeAccountId($assetTypeId);
+        $reqGet = new \Praxigento\Accounting\Service\Account\Request\Get();
+        $reqGet->setCustomerId($custId);
+        $reqGet->setAssetTypeCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
+        $reqGet->setCreateNewAccountIfMissed(true);
+        $respGet = $this->_callAccount->get($reqGet);
+        $accIdDebit = $respGet->getId();
+        $assetTypeId = $respGet->getAssetTypeId();
+        $reqGetRepres = new \Praxigento\Accounting\Service\Account\Request\GetRepresentative();
+        $reqGetRepres->setAssetTypeId($assetTypeId);
+        $respGetRepres = $this->_callAccount->getRepresentative($reqGetRepres);
+        $accIdCredit = $respGetRepres->getId();
         /* compose transaction data */
         $transaction = new \Praxigento\Accounting\Data\Entity\Transaction();
         $transaction->setDebitAccId($accIdDebit);
