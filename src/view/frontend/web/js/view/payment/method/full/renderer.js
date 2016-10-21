@@ -3,10 +3,19 @@ define([
     ], function (Component) {
         'use strict';
 
+        console.log("Full payment renderer is loading...");
+
         return Component.extend({
             defaults: {
                 template: 'Praxigento_Wallet/payment/method/full',
                 transactionResult: ''
+            },
+
+            initContainer: function (parent) {
+                console.log("Full payment renderer is initiated.");
+                this._super();
+                debugger;
+                return this;
             },
 
             initObservable: function () {
