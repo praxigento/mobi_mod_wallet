@@ -1,20 +1,19 @@
 define([
+        'ko',
         'Magento_Checkout/js/view/payment/default'
-    ], function (Component) {
+    ], function (ko, Component) {
         'use strict';
 
         console.log("Full payment renderer is loading...");
 
         return Component.extend({
             defaults: {
-                template: 'Praxigento_Wallet/payment/method/full',
-                transactionResult: ''
+                template: 'Praxigento_Wallet/payment/method/full'
             },
 
             initContainer: function (parent) {
                 console.log("Full payment renderer is initiated.");
                 this._super();
-                debugger;
                 return this;
             },
 
@@ -25,6 +24,14 @@ define([
                         'transactionResult'
                     ]);
                 return this;
+            },
+
+            /**
+             * @return {String}
+             */
+            getBillingAddressFormName: function () {
+                // debugger;
+                return 'billing-address-form-' + this.item.method;
             },
 
             getCode: function () {
@@ -41,17 +48,10 @@ define([
             },
 
             isAvailable: function () {
-                // return quote.totals().grand_total <= 0;
+                // debugger;
                 return true;
             }
-            // getTransactionResults: function () {
-            //     return _.map(window.checkoutConfig.payment.sample_gateway.transactionResults, function (value, key) {
-            //         return {
-            //             'value': key,
-            //             'transaction_result': value
-            //         }
-            //     });
-            // }
+
         });
     }
 );

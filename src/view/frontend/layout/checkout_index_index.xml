@@ -16,22 +16,31 @@
                                             <item name="children" xsi:type="array">
                                                 <item name="payment" xsi:type="array">
                                                     <item name="children" xsi:type="array">
-                                                        <item name="renders" xsi:type="array">
-                                                            <!-- merge payment method renders here -->
+                                                        <!-- Declare additional before payment components. START -->
+                                                        <item name="beforeMethods" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="displayArea" xsi:type="string">beforeMethods</item>
                                                             <item name="children" xsi:type="array">
-                                                                <item name="prxgt_partial" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">Praxigento_Wallet/js/view/payment/method/partial/register</item>
-                                                                    <item name="methods" xsi:type="array">
-                                                                        <item name="prxgt_partial" xsi:type="array">
-                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">false</item>
-                                                                        </item>
-                                                                    </item>
+                                                                <item name="partialHeader" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Praxigento_Wallet/js/view/payment/method/partial/header</item>
                                                                 </item>
-                                                                <item name="prxgt_wallet" xsi:type="array">
+                                                            </item>
+                                                        </item>
+                                                        <item name="renders" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <!--<item name="prxgt_partial" xsi:type="array">-->
+                                                                <!--<item name="component" xsi:type="string">Praxigento_Wallet/js/view/payment/method/partial/register</item>-->
+                                                                <!--<item name="methods" xsi:type="array">-->
+                                                                <!--<item name="prxgt_partial" xsi:type="array">-->
+                                                                <!--<item name="isBillingAddressRequired" xsi:type="boolean">false</item>-->
+                                                                <!--</item>-->
+                                                                <!--</item>-->
+                                                                <!--</item>-->
+                                                                <item name="praxigento_wallet" xsi:type="array">
                                                                     <item name="component" xsi:type="string">Praxigento_Wallet/js/view/payment/method/full/register</item>
                                                                     <item name="methods" xsi:type="array">
-                                                                        <item name="prxgt_wallet" xsi:type="array">
-                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">false</item>
+                                                                        <item name="praxigento_wallet" xsi:type="array">
+                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                                                         </item>
                                                                     </item>
                                                                 </item>
