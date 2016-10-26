@@ -4,15 +4,15 @@ define([
     ], function (ko, Component) {
         'use strict';
 
-        console.log("Full payment renderer is loading...");
+        console.log("Internal Money  payment renderer is loading...");
 
         return Component.extend({
             defaults: {
-                template: 'Praxigento_Wallet/payment/method/full'
+                template: 'Praxigento_Wallet/payment/method/form'
             },
 
             initContainer: function (parent) {
-                console.log("Full payment renderer is initiated.");
+                console.log("Internal Money  payment renderer is initiated.");
                 this._super();
                 return this;
             },

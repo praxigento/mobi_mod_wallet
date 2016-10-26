@@ -4,11 +4,11 @@ define([
     ], function (ko, Component) {
         'use strict';
 
-        console.log("Common subform for all payment methods is loading...");
+        console.log("Common subform for partial payment is loading...");
 
         var uiComp = Component.extend({
             defaults: {
-                template: 'Praxigento_Wallet/payment/method/header',
+                template: 'Praxigento_Wallet/payment/method/partial',
             }
 
 
