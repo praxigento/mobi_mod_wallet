@@ -19,31 +19,37 @@
                 <field id="title" translate="label" type="text"
                         sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Title</label>
+                    <tooltip>This value is used on payment step in the checkout process.</tooltip>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
                 </field>
-                <field id="sample" translate="label" type="text"
+                <field id="partial_enabled" translate="label" type="select"
                         sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Sample field</label>
-                    <comment>Comment should be placed here...</comment>
-                    <tooltip>Tooltip...</tooltip>
-                    <hint>Hint...</hint>
-                </field>
-            </group>
-            <!-- This code should be equal to \Praxigento\Wallet\Model\Partial\Payment::CODE -->
-            <group id="praxigento_partial" translate="label" type="text"
-                    sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Internal Money (Partial)</label>
-                <comment>
-                    <![CDATA[<a href="https://github.com/praxigento/mobi_mod_mage2_wallet" target="_blank">Module sources</a>]]>
-                </comment>
-                <field id="active" translate="label" type="select"
-                        sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Enabled</label>
+                    <label>Enable Partial Payment</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Use internal money with other payment methods.</comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
                 </field>
-                <field id="title" translate="label" type="text"
-                        sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Title</label>
+                <field id="partial_percent" translate="label" type="text"
+                        sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Max. Percent for Partial Payment</label>
+                    <comment>What part of the whole sum is allowed to be paid with internal money.</comment>
+                    <tooltip>Use values from 0.00 to 1.00.</tooltip>
+                    <depends>
+                        <field id="partial_enabled">1</field>
+                    </depends>
                 </field>
+                <!--<field id="sample" translate="label" type="text"-->
+                <!--sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>Sample Parameter</label>-->
+                <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--<comment>Comment should be placed here...</comment>-->
+                <!--<tooltip>This is sample configuration parameter with some allowed XML-nodes in definition.</tooltip>-->
+                <!--<hint>Hint...</hint>-->
+                <!--</field>-->
             </group>
         </section>
     </system>
