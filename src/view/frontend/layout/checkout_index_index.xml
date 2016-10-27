@@ -16,13 +16,9 @@
                                             <item name="children" xsi:type="array">
                                                 <item name="totals" xsi:type="array">
                                                     <item name="children" xsi:type="array">
-                                                        <item name="fee" xsi:type="array">
+                                                        <item name="praxigento_wallet" xsi:type="array">
                                                             <item name="component" xsi:type="string">Praxigento_Wallet/js/view/checkout/cart/totals/partial</item>
-                                                            <item name="sortOrder" xsi:type="string">20</item>
-                                                            <item name="config" xsi:type="array">
-                                                                <item name="template" xsi:type="string">Praxigento_Wallet/checkout/cart/totals/partial</item>
-                                                                <item name="title" xsi:type="string" translate="true">Internal Money (partial)</item>
-                                                            </item>
+                                                            <item name="sortOrder" xsi:type="string">120</item>
                                                         </item>
                                                     </item>
                                                 </item>

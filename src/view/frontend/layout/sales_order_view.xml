@@ -4,8 +4,8 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 
     <body>
-        <referenceContainer name="order_totals">
-            <block class="Sugarcode\Test\Block\Sales\Order\Fee" name="partial"/>
-        </referenceContainer>
+        <referenceBlock name="order_totals">
+            <block class="\Praxigento\Wallet\Block\Sales\Order\Partial" name="praxigento_wallet"/>
+        </referenceBlock>
     </body>
 </page>

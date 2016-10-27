@@ -9,28 +9,40 @@ define(
         "use strict";
         return Component.extend({
             defaults: {
-                isFullTaxSummaryDisplayed: window.checkoutConfig.isFullTaxSummaryDisplayed || false,
+                title: 'eWallet part',
                 template: 'Praxigento_Wallet/checkout/summary/partial'
             },
+
             totals: quote.getTotals(),
-            isTaxDisplayedInGrandTotal: window.checkoutConfig.includeTaxInGrandTotal || false,
+
             isDisplayed: function () {
                 return this.isFullMode();
             },
-            getValue: function () {
-                var price = 0;
+
+            getBaseValue: function () {
+                var price = 43.21;
                 if (this.totals()) {
-                    price = totals.getSegment('fee').value;
+                    //price = totals.getSegment('praxigento_wallet').value;
+                }
+                var result = priceUtils.formatPrice(price, quote.getBasePriceFormat());
+                return result;
+            },
+
+            getValue: function () {
+                var price = 12.34;
+                if (this.totals()) {
+                    //price = totals.getSegment('praxigento_wallet').value;
                 }
                 return this.getFormattedPrice(price);
             },
-            getBaseValue: function () {
-                var price = 0;
-                if (this.totals()) {
-                    price = this.totals().base_fee;
-                }
-                return priceUtils.formatPrice(price, quote.getBasePriceFormat());
-            }
+
+            // getBaseValue: function () {
+            //     var price = 0;
+            //     if (this.totals()) {
+            //         price = this.totals().base_fee;
+            //     }
+            //     return priceUtils.formatPrice(price, quote.getBasePriceFormat());
+            // }
         });
     }
 );

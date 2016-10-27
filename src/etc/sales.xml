@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
     <section name="quote">
         <group name="totals">
-            <item name="prxgtWalletPartial" instance="\Praxigento\Wallet\Model\Quote\Address\Total\Partial" sort_order="510"/>
+            <item name="prxgtWalletPartial" instance="\Praxigento\Wallet\Model\Quote\Address\Total\Partial" sort_order="120"/>
         </group>
     </section>
 </config>

@@ -6,7 +6,8 @@
 namespace Praxigento\Wallet\Block\Sales\Order;
 
 
-class Partial extends \Magento\Framework\View\Element\Template
+class Partial
+    extends \Magento\Framework\View\Element\Template
 {
     /**
      * Tax configuration model
@@ -100,22 +101,17 @@ class Partial extends \Magento\Framework\View\Element\Template
         $this->_order = $parent->getOrder();
         $this->_source = $parent->getSource();
 
-        $store = $this->getStore();
-
-        $fee = new \Magento\Framework\DataObject(
+        $total = new \Magento\Framework\DataObject(
             [
-                'code' => 'fee',
+                'code' => 'praxigento_wallet',
+                'label' => __('eWallet part'),
+                'value' => $this->getOrder()->formatBasePrice(43.21),
                 'strong' => false,
-                'value' => 100,
-                //'value' => $this->_source->getFee(),
-                'label' => __('Fee'),
+                'is_formated' => true
             ]
         );
 
-        $parent->addTotal($fee, 'fee');
-        // $this->_addTax('grand_total');
-        $parent->addTotal($fee, 'fee');
-
+        $parent->addTotal($total, 'praxigneto_wallet');
 
         return $this;
     }

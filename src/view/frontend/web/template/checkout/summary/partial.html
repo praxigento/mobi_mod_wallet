@@ -1,15 +1,11 @@
 <!-- ko -->
-<tr class="totals fee excl">
+<tr class="totals prxgt-wallet">
     <th class="mark" scope="row">
         <span class="label" data-bind="text: title"></span>
-        <span class="value" data-bind="text: getValue()"></span>
+        <span class="value" data-bind="text: getBaseValue()"></span>
     </th>
     <td class="amount">
-
-            <span class="price"
-                  data-bind="text: getValue(), attr: {'data-th': title}"></span>
-
-
+        <span class="price" data-bind="text: getBaseValue(), attr: {'data-th': title}"></span>
     </td>
 </tr>
 <!-- /ko -->
