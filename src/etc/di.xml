@@ -12,7 +12,15 @@
     <!-- Interceptors (Plugins) -->
     <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
         <!-- Add "Partial Payment" checkboxes to the payment forms on checkout -->
-        <plugin name="praxigento_wallet_plugin" type="Praxigento\Wallet\Intercept\Checkout\Block\Checkout\LayoutProcessor" sortOrder="100" disabled="false"/>
+        <plugin name="praxigento_wallet_plugin"
+                type="Praxigento\Wallet\Intercept\Checkout\Block\Checkout\LayoutProcessor"
+                sortOrder="100" disabled="false"/>
+    </type>
+    <type name="\Magento\Quote\Model\Cart\CartTotalRepository">
+        <!-- Add "Partial Payment" checkboxes to the payment forms on checkout -->
+        <plugin name="praxigento_wallet_plugin"
+                type="Praxigento\Wallet\Intercept\Quote\Model\Cart\CartTotalRepository"
+                sortOrder="100" disabled="false"/>
     </type>
 
     <!-- Repo -->

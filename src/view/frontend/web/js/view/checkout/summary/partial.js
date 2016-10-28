@@ -20,18 +20,20 @@ define(
             },
 
             getBaseValue: function () {
-                var price = 43.21;
+                var price = 0;
+                debugger;
                 if (this.totals()) {
-                    //price = totals.getSegment('praxigento_wallet').value;
+                    price = totals.getSegment('praxigento_wallet').value;
                 }
                 var result = priceUtils.formatPrice(price, quote.getBasePriceFormat());
                 return result;
             },
 
             getValue: function () {
-                var price = 12.34;
+                var price = 0;
+                // debugger;
                 if (this.totals()) {
-                    //price = totals.getSegment('praxigento_wallet').value;
+                    // price = totals.getSegment('praxigento_wallet').value;
                 }
                 return this.getFormattedPrice(price);
             },
