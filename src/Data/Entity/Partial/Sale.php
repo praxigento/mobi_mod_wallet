@@ -11,6 +11,7 @@ class Sale
     extends \Praxigento\Core\Data\Entity\Base
 {
     const ATTR_BASE_PARTIAL_AMOUNT = 'base_partial_amount';
+    const ATTR_PARTIAL_AMOUNT = 'partial_amount';
     const ATTR_SALE_ORDER_REF = 'sale_order_ref';
     const ENTITY_NAME = 'prxgt_wallet_partial_sale';
 
@@ -18,6 +19,13 @@ class Sale
     public function getBasePartialAmount()
     {
         $result = parent::getData(self::ATTR_BASE_PARTIAL_AMOUNT);
+        return $result;
+    }
+
+    /** @return float */
+    public function getPartialAmount()
+    {
+        $result = parent::getData(self::ATTR_PARTIAL_AMOUNT);
         return $result;
     }
 
@@ -37,6 +45,12 @@ class Sale
     public function setBasePartialAmount($data)
     {
         parent::setData(self::ATTR_BASE_PARTIAL_AMOUNT, $data);
+    }
+
+    /** @param float $data */
+    public function setPartialAmount($data)
+    {
+        parent::setData(self::ATTR_PARTIAL_AMOUNT, $data);
     }
 
     /** @param int $data */

@@ -73,6 +73,12 @@
                         "comment": "Partial amount in base currency.",
                         "nullable": false,
                         "type": {"numeric": {"precision": 12, "scale": 4}}
+                      },
+                      "PartialAmount": {
+                        "alias": "partial_amount",
+                        "comment": "Partial amount in order currency.",
+                        "nullable": false,
+                        "type": {"numeric": {"precision": 12, "scale": 4}}
                       }
                     },
                     "index": {
@@ -102,6 +108,12 @@
                       "BasePartialAmount": {
                         "alias": "base_partial_amount",
                         "comment": "Partial amount in base currency.",
+                        "nullable": false,
+                        "type": {"numeric": {"precision": 12, "scale": 4}}
+                      },
+                      "PartialAmount": {
+                        "alias": "partial_amount",
+                        "comment": "Partial amount in order currency.",
                         "nullable": false,
                         "type": {"numeric": {"precision": 12, "scale": 4}}
                       }
