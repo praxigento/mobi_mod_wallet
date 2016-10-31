@@ -35,7 +35,7 @@ class Config
      */
     public function getWalletPartialEnabled()
     {
-        $result = $this->_scopeConfig->getValue('payment/praxigento_wallet/partial_enbaled');
+        $result = $this->_scopeConfig->getValue('payment/praxigento_wallet/partial_enabled');
         $result = filter_var($result, FILTER_VALIDATE_BOOLEAN);
         return $result;
     }
@@ -45,7 +45,7 @@ class Config
      */
     public function getWalletPartialPercent()
     {
-        $result = $this->_scopeConfig->getValue('payment/praxigento_wallet/partial_enbaled');
+        $result = $this->_scopeConfig->getValue('payment/praxigento_wallet/partial_percent');
         $result *= 1;
         $result = ($result < 0) || ($result > 1) ? 0 : $result;
         return $result;
