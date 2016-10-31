@@ -14,13 +14,17 @@ class Partial
     const CODE_BASE_TOTAL = 'base_' . self::CODE . '_amount';
     /** Code for partial total amount (order currency) */
     const CODE_TOTAL = self::CODE . '_amount';
+    /** @var \Praxigento\Wallet\Helper\Config */
+    protected $_hlpConfig;
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
     protected $_hlpPriceCurrency;
 
     public function __construct(
-        \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency
+        \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
+        \Praxigento\Wallet\Helper\Config $hlpConfig
     ) {
         $this->_hlpPriceCurrency = $hlpPriceCurrency;
+        $this->_hlpConfig = $hlpConfig;
     }
 
     public function collect(
@@ -29,13 +33,18 @@ class Partial
         \Magento\Quote\Model\Quote\Address\Total $total
     ) {
         parent::collect($quote, $shippingAssignment, $total);
-        $grand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_GRAND_TOTAL);
-        $baseGrand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_BASE_GRAND_TOTAL);
-        /* TODO: get current balance and partial percent then compute amount values (MOBI-491) */
-        $partial = $this->_hlpPriceCurrency->round($grand / 4 * 3);
-        $basePartial = $this->_hlpPriceCurrency->round($baseGrand / 4 * 3);
-        $total->setTotalAmount(self::CODE, $partial);
-        $total->setBaseTotalAmount(self::CODE, $basePartial);
+        $isPartialEnabled = $this->_hlpConfig->getWalletPartialEnabled();
+        if ($isPartialEnabled) {
+            /* get max. percent to pay partially */
+            $percent = $this->_hlpConfig->getWalletPartialPercent();
+            /* ... and compute amounts (TODO: we should account current balances)*/
+            $grand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_GRAND_TOTAL);
+            $baseGrand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_BASE_GRAND_TOTAL);
+            $partial = $this->_hlpPriceCurrency->round($grand * $percent);
+            $basePartial = $this->_hlpPriceCurrency->round($baseGrand * $percent);
+            $total->setTotalAmount(self::CODE, $partial);
+            $total->setBaseTotalAmount(self::CODE, $basePartial);
+        }
         return $this;
     }
 
