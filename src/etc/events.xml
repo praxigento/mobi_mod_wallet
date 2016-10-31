@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="sales_order_payment_place_start">
+        <!-- Perform partial payment (internal wallet operation). -->
+        <observer name="praxigento_wallet_observer" instance="\Praxigento\Wallet\Observer\SalesOrderPaymentPlaceStart"/>
+    </event>
+
+</config>

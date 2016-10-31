@@ -27,7 +27,6 @@ class Partial
         \Magento\Quote\Model\Quote\Address\Total $total
     ) {
         parent::collect($quote, $shippingAssignment, $total);
-        $grand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_GRAND_TOTAL);
         $baseGrand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_BASE_GRAND_TOTAL);
         /* TODO: get current balance and partial percent then compute amount values */
         $basePartial = $this->_hlpPriceCurrency->round($baseGrand / 4 * 3);
