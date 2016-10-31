@@ -8,7 +8,12 @@ namespace Praxigento\Wallet\Model\Quote\Address\Total;
 class Partial
     extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 {
+    /** Code for total itself */
     const CODE = 'prxgt_wallet_partial';
+    /** Code for base total amount (base currency) */
+    const CODE_BASE_TOTAL = 'base_' . self::CODE . '_amount';
+    /** Code for total amount (order currency) */
+    const CODE_TOTAL = self::CODE . '_amount';
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
     protected $_hlpPriceCurrency;
 

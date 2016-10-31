@@ -2,7 +2,7 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Intercept\Checkout\Block\Checkout;
+namespace Praxigento\Wallet\Decorate\Checkout\Block\Checkout;
 
 /**
  * Add "Partial Payment" subform to payment methods components.

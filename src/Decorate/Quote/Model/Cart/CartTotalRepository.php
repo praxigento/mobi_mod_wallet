@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Intercept\Quote\Model\Cart;
+namespace Praxigento\Wallet\Decorate\Quote\Model\Cart;
 
 
 class CartTotalRepository
