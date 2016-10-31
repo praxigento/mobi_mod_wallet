@@ -12,8 +12,6 @@ class Partial
     const CODE = 'prxgt_wallet_partial';
     /** Code for base total amount (base currency) */
     const CODE_BASE_TOTAL = 'base_' . self::CODE . '_amount';
-    /** Code for total amount (order currency) */
-    const CODE_TOTAL = self::CODE . '_amount';
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
     protected $_hlpPriceCurrency;
 
@@ -32,9 +30,7 @@ class Partial
         $grand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_GRAND_TOTAL);
         $baseGrand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_BASE_GRAND_TOTAL);
         /* TODO: get current balance and partial percent then compute amount values */
-        $partial = $this->_hlpPriceCurrency->round($grand / 3 * 2);
-        $basePartial = $this->_hlpPriceCurrency->round($baseGrand / 3 * 2);
-        $total->setTotalAmount(self::CODE, $partial);
+        $basePartial = $this->_hlpPriceCurrency->round($baseGrand / 4 * 3);
         $total->setBaseTotalAmount(self::CODE, $basePartial);
         return $this;
     }

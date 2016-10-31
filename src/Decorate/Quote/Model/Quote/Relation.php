@@ -45,7 +45,7 @@ class Relation
         if ($exist) {
             /* there is record in registry */
             $baseTotalExist = $exist->getBasePartialAmount();
-            if ($baseTotalExist = $baseTotal) {
+            if ($baseTotalExist == $baseTotal) {
                 /* do nothing */
             } elseif ($baseTotal == 0) {
                 /* remove empty data from registry */
