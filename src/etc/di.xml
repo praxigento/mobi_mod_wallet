@@ -22,6 +22,12 @@
                 type="\Praxigento\Wallet\Decorate\Quote\Model\Quote\Relation"
                 sortOrder="100" disabled="false"/>
     </type>
+    <type name="\Magento\Quote\Model\QuoteRepository">
+        <!-- Save partial payment total on quote save -->
+        <plugin name="praxigento_wallet_plugin"
+                type="\Praxigento\Wallet\Decorate\Quote\Model\QuoteRepository"
+                sortOrder="100" disabled="false"/>
+    </type>
     <type name="\Magento\Quote\Model\Cart\CartTotalRepository">
         <!-- Add partial payment totals to data have being got through the REST API -->
         <plugin name="praxigento_wallet_plugin"
