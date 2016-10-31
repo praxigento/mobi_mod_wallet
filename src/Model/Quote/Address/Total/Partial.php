@@ -10,8 +10,10 @@ class Partial
 {
     /** Code for total itself */
     const CODE = 'prxgt_wallet_partial';
-    /** Code for base total amount (base currency) */
+    /** Code for base partial total amount (base currency) */
     const CODE_BASE_TOTAL = 'base_' . self::CODE . '_amount';
+    /** Code for partial total amount (order currency) */
+    const CODE_TOTAL = self::CODE . '_amount';
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
     protected $_hlpPriceCurrency;
 
@@ -27,9 +29,12 @@ class Partial
         \Magento\Quote\Model\Quote\Address\Total $total
     ) {
         parent::collect($quote, $shippingAssignment, $total);
+        $grand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_GRAND_TOTAL);
         $baseGrand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_BASE_GRAND_TOTAL);
-        /* TODO: get current balance and partial percent then compute amount values */
+        /* TODO: get current balance and partial percent then compute amount values (MOBI-491) */
+        $partial = $this->_hlpPriceCurrency->round($grand / 4 * 3);
         $basePartial = $this->_hlpPriceCurrency->round($baseGrand / 4 * 3);
+        $total->setTotalAmount(self::CODE, $partial);
         $total->setBaseTotalAmount(self::CODE, $basePartial);
         return $this;
     }

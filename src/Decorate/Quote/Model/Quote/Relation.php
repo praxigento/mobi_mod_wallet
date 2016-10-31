@@ -20,7 +20,7 @@ class Relation
     }
 
     /**
-     * Process original realtions then save partial payment total.
+     * Process original realtions then save partial payment totals.
      *
      * @param \Magento\Quote\Model\Quote\Relation $subject
      * @param \Closure $proceed
@@ -38,6 +38,7 @@ class Relation
         $quoteId = $object->getId();
         /** @var \Magento\Quote\Model\Quote\Address $addrShipping */
         $addrShipping = $object->getShippingAddress();
+        $total = $addrShipping->getData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_TOTAL);
         $baseTotal = $addrShipping->getData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_BASE_TOTAL);
         /* check if current total exist */
         /** @var \Praxigento\Wallet\Data\Entity\Partial\Quote $exist */
@@ -52,6 +53,7 @@ class Relation
                 $this->_repoPartialQuote->deleteById($quoteId);
             } else {
                 /* update saved value */
+                $exist->setPartialAmount($total);
                 $exist->setBasePartialAmount($baseTotal);
                 $this->_repoPartialQuote->updateById($quoteId, $exist);
             }
