@@ -9,110 +9,54 @@ namespace Praxigento\Wallet\Block\Sales\Order;
 class Partial
     extends \Magento\Framework\View\Element\Template
 {
-    /**
-     * Tax configuration model
-     *
-     * @var \Magento\Tax\Model\Config
-     */
-    protected $_config;
-
-    /**
-     * @var Order
-     */
-    protected $_order;
-
-    /**
-     * @var \Magento\Framework\DataObject
-     */
-    protected $_source;
+    /** @var \Praxigento\Wallet\Repo\Entity\Partial\ISale */
+    protected $_repoPartialSale;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Magento\Tax\Model\Config $taxConfig
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Tax\Model\Config $taxConfig,
+        \Praxigento\Wallet\Repo\Entity\Partial\ISale $repoPartialSale,
         array $data = []
     ) {
-        $this->_config = $taxConfig;
         parent::__construct($context, $data);
+        $this->_repoPartialSale = $repoPartialSale;
     }
 
+
     /**
-     * Check if we nedd display full tax total info
+     * Initialize partial payment related totals (if exist).
      *
-     * @return bool
-     */
-    public function displayFullSummary()
-    {
-        return true;
-    }
-
-    /**
-     * Get data (totals) source model
-     *
-     * @return \Magento\Framework\DataObject
-     */
-    public function getSource()
-    {
-        return $this->_source;
-    }
-
-    public function getStore()
-    {
-        return $this->_order->getStore();
-    }
-
-    /**
-     * @return Order
-     */
-    public function getOrder()
-    {
-        return $this->_order;
-    }
-
-    /**
-     * @return array
-     */
-    public function getLabelProperties()
-    {
-        return $this->getParentBlock()->getLabelProperties();
-    }
-
-    /**
-     * @return array
-     */
-    public function getValueProperties()
-    {
-        return $this->getParentBlock()->getValueProperties();
-    }
-
-    /**
-     * Initialize all order totals relates with tax
-     *
-     * @return \Magento\Tax\Block\Sales\Order\Tax
+     * @return $this
      */
     public function initTotals()
     {
-
+        /** @var \Magento\Sales\Block\Adminhtml\Order\Totals $parent */
         $parent = $this->getParentBlock();
-        $this->_order = $parent->getOrder();
-        $this->_source = $parent->getSource();
-
-        $total = new \Magento\Framework\DataObject(
-            [
-                'code' => 'praxigento_wallet',
-                'label' => __('eWallet part'),
-                'value' => $this->getOrder()->formatBasePrice(43.21),
-                'strong' => false,
-                'is_formated' => true
-            ]
-        );
-
-        $parent->addTotal($total, 'praxigneto_wallet');
-
+        /** @var \Magento\Sales\Model\Order $order */
+        $order = $parent->getOrder();
+        $orderId = $order->getId();
+        $found = $this->_repoPartialSale->getById($orderId);
+        if ($found) {
+            $baseAmount = $found->getBasePartialAmount();
+//            $baseAmount = $order->formatBasePrice($baseAmount);
+            $amount = $found->getPartialAmount();
+//            $amount = $order->formatPrice($amount);
+            $total = new \Magento\Framework\DataObject(
+                [
+                    'code' => 'praxigento_wallet',
+                    'strong' => true,
+                    'base_value' => $baseAmount,
+                    'value' => $amount,
+                    'label' => __('eWallet part'),
+                    'area' => 'footer',
+                    'is_formated' => false
+                ]
+            );
+            $parent->addTotal($total, 'praxigneto_wallet_partial');
+        }
         return $this;
     }
 
