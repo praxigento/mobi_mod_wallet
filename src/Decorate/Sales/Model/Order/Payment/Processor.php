@@ -16,6 +16,16 @@ class Processor
         $this->_repoPartialQuote = $repoPartialQuote;
     }
 
+    /**
+     * Decrease authorization amount for partial payments.
+     *
+     * @param \Magento\Sales\Model\Order\Payment\Processor $subject
+     * @param \Closure $proceed
+     * @param \Magento\Sales\Api\Data\OrderPaymentInterface $payment
+     * @param $isOnline
+     * @param $amount
+     * @return \Magento\Sales\Api\Data\OrderPaymentInterface
+     */
     public function aroundAuthorize(
         \Magento\Sales\Model\Order\Payment\Processor $subject,
         \Closure $proceed,
@@ -35,25 +45,33 @@ class Processor
         return $result;
     }
 
+    /**
+     * Decrease captured amount for partial payments.
+     *
+     * @param \Magento\Sales\Model\Order\Payment\Processor $subject
+     * @param \Closure $proceed
+     * @param \Magento\Sales\Api\Data\OrderPaymentInterface $payment
+     * @param \Magento\Sales\Api\Data\InvoiceInterface|null $invoice
+     * @return \Magento\Sales\Api\Data\OrderPaymentInterface
+     */
     public function aroundCapture(
         \Magento\Sales\Model\Order\Payment\Processor $subject,
         \Closure $proceed,
         \Magento\Sales\Api\Data\OrderPaymentInterface $payment,
         \Magento\Sales\Api\Data\InvoiceInterface $invoice = null
     ) {
-        $order = $payment->getOrder();
-        $quoteId = $order->getQuoteId();
-        $found = $this->_repoPartialQuote->getById($quoteId);
-        if ($found) {
-            $basePartial = $found->getBasePartialAmount();
-            if ($invoice) {
+        if ($invoice) {
+            /* try to find related record in quote registry */
+            $order = $payment->getOrder();
+            $quoteId = $order->getQuoteId();
+            $found = $this->_repoPartialQuote->getById($quoteId);
+            if ($found) {
+                /* decrease amount in invoice */
+                $basePartial = $found->getBasePartialAmount();
                 $amountToPay = $invoice->getBaseGrandTotal();
                 $amountToPay -= $basePartial;
                 $invoice->setBaseGrandTotal($amountToPay);
-            } else {
-                // do nothing yet
             }
-
         }
         $result = $proceed($payment, $invoice);
         return $result;

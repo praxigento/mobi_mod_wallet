@@ -40,12 +40,6 @@
                 type="\Praxigento\Wallet\Decorate\Sales\Model\Order\Payment\Processor"
                 sortOrder="100" disabled="false"/>
     </type>
-    <!--<type name="\Magento\Sales\Model\Order\Payment">-->
-    <!--&lt;!&ndash; Reduce payment amount for partial payments &ndash;&gt;-->
-    <!--<plugin name="praxigento_wallet_decor"-->
-    <!--type="\Praxigento\Wallet\Decorate\Sales\Model\Order\Payment"-->
-    <!--sortOrder="100" disabled="false"/>-->
-    <!--</type>-->
 
     <!-- Repo -->
     <preference for="\Praxigento\Wallet\Repo\Entity\Log\ISale"

@@ -47,9 +47,9 @@ class Relation
             /* there is record in registry */
             $baseTotalExist = $exist->getBasePartialAmount();
             if ($baseTotalExist == $baseTotal) {
-                /* do nothing */
-            } elseif ($baseTotal == 0) {
-                /* remove empty data from registry */
+                /* amount is equal to stored, do nothing */
+            } elseif (abs($baseTotal) < 0.00001) {
+                /* amount is zero, remove data from registry */
                 $this->_repoPartialQuote->deleteById($quoteId);
             } else {
                 /* update saved value */
