@@ -38,6 +38,7 @@ class SalesOrderPaymentPlaceStart
         $quoteId = $order->getQuoteId();
         $regQuote = $this->_repoPartialQuote->getById($quoteId);
         if ($regQuote) {
+            /* TODO: there is no order ID here, we should use other event, where orderId already exists */
             $orderId = $order->getId();
             $customerId = $order->getCustomerId();
             $amount = $regQuote->getBasePartialAmount();
@@ -45,8 +46,7 @@ class SalesOrderPaymentPlaceStart
             $req->setOrderId($orderId);
             $req->setCustomerId($customerId);
             $req->setBaseAmountToPay($amount);
-            $resp = $this->_callOperation->payForSaleOrder($req);
-            /* save partial amount to the registry */
+            $this->_callOperation->payForSaleOrder($req);
         }
 
     }
