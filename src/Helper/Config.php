@@ -6,7 +6,9 @@
 namespace Praxigento\Wallet\Helper;
 
 /**
- * Helper to get configuration parameters.
+ * Helper to get configuration parameters related to the module.
+ *
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
 class Config
 {
@@ -22,6 +24,8 @@ class Config
 
     /**
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
     public function getWalletActive()
     {
@@ -32,16 +36,22 @@ class Config
 
     /**
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
     public function getWalletPartialEnabled()
     {
         $result = $this->_scopeConfig->getValue('payment/praxigento_wallet/partial_enabled');
         $result = filter_var($result, FILTER_VALIDATE_BOOLEAN);
+        /* disable partial payment if eWalllet payment is not active */
+        $result = $result && $this->getWalletActive();
         return $result;
     }
 
     /**
-     * @return bool
+     * Get partial payment maximal percent (0.00-1.00)
+     *
+     * @return float
      */
     public function getWalletPartialPercent()
     {

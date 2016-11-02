@@ -3,6 +3,8 @@ define([
 ], function (Component) {
     'use strict';
 
+    debugger;
+
     return Component.extend({
         defaults: {
             title: 'eWallet part',

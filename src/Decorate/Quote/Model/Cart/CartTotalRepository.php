@@ -6,9 +6,13 @@
 namespace Praxigento\Wallet\Decorate\Quote\Model\Cart;
 
 
+use Flancer32\Lib\DataObject;
+
 class CartTotalRepository
 {
     const TOTAL_SEGMENT = 'praxigento_wallet';
+    /** @var \Praxigento\Wallet\Helper\Config */
+    protected $_hlpCfg;
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
     protected $_hlpPriceCurrency;
     /** @var  \Magento\Framework\ObjectManagerInterface */
@@ -19,15 +23,18 @@ class CartTotalRepository
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $manObj,
         \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
+        \Praxigento\Wallet\Helper\Config $hlpCfg,
         \Praxigento\Wallet\Repo\Entity\Partial\IQuote $repoPartialQuote
     ) {
         $this->_manObj = $manObj;
         $this->_hlpPriceCurrency = $hlpPriceCurrency;
+        $this->_hlpCfg = $hlpCfg;
         $this->_repoPartialQuote = $repoPartialQuote;
     }
 
     /**
-     * Add partial payment data to totals are requested with REST API.
+     * MOBI-486: Add partial payment data to totals are requested with REST API.
+     * MOBI-489: add partial payment attributes to totals extension attributes.
      *
      * @param \Magento\Quote\Model\Cart\CartTotalRepository $subject
      * @param \Closure $proceed
@@ -39,8 +46,18 @@ class CartTotalRepository
         \Closure $proceed,
         $cartId
     ) {
-        /** @var \Magento\Quote\Model\Cart\CartTotalRepository $result */
+        /** @var \Magento\Quote\Model\Cart\Totals $result */
         $result = $proceed($cartId);
+        /* Get partial method configuration */
+        $isPartialEnabled = $this->_hlpCfg->getWalletPartialEnabled();
+        $partialMaxPercent = $this->_hlpCfg->getWalletPartialPercent();
+        $exts = $result->getExtensionAttributes();
+
+//        /** @var \Praxigento\Wallet\Api\Data\Config\Payment\Method $extData */
+//        $extData = new DataObject();
+//        $extData->setPartialMaxPercent($partialMaxPercent);
+//        $extData->setIsPartialEnabled($isPartialEnabled);
+//        $result->setExtensionAttributes($extData);
         /* get partial data from repository */
         /** @var \Praxigento\Wallet\Data\Entity\Partial\Quote $found */
         $found = $this->_repoPartialQuote->getById($cartId);

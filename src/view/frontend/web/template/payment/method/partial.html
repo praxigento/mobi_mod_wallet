@@ -1,5 +1,8 @@
-<!-- This subform should be placed before first payment method -->
-<div id="prxgtPartialHeader" class="" style="border-bottom: 1px solid #CCCCCC">
+<!-- Checkbox to activate partial payment. This subform should be placed before first payment method. -->
+<div id="prxgtPartialHeader"
+     data-bind="visible: isVisible"
+     class=""
+     style="border-bottom: 1px solid #CCCCCC">
 
     <div>
         <input id="prxgtPartialPayment" type="checkbox" value="true"/>
