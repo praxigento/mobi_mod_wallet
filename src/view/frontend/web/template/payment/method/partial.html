@@ -1,12 +1,14 @@
 <!-- Checkbox to activate partial payment. This subform should be placed before first payment method. -->
 <div id="prxgtPartialHeader"
-     data-bind="visible: isVisible"
+     data-bind="visible: isPartialEanbled()"
      class=""
      style="border-bottom: 1px solid #CCCCCC">
 
     <div>
         <input id="prxgtPartialPayment" type="checkbox" value="true"/>
-        <label for="prxgtPartialPayment">Use internal money (Available amount: <span>???.??</span> CUR).</label>
+        <label for="prxgtPartialPayment">Use internal money (up to <span data-bind="text: getMaxPercent()"></span>%;
+            Available
+            amount: <span>???.??</span> CUR).</label>
     </div>
     <div class="clear"></div>
 </div>

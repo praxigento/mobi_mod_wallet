@@ -8,6 +8,14 @@
             type="\Praxigento\Wallet\Model\Payment">
     </virtualType>
 
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="praxigento_wallet_config_provider" xsi:type="object">Praxigento\Wallet\Model\Checkout\ConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
 
     <!-- Interceptors (Plugins) -->
     <type name="\Magento\Checkout\Block\Checkout\LayoutProcessor">

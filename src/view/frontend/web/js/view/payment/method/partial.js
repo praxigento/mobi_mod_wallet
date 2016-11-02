@@ -1,23 +1,29 @@
 /**
- * UI Component partial payment checkout.
+ * UI Component: partial payment checkbox on checkout.
  */
 define([
-        'knockout',
-        'uiComponent',
-        'Magento_Checkout/js/model/quote',
-    ], function (ko, Component, quote) {
+        'ko',
+        'uiComponent'
+    ], function (ko, Component) {
         'use strict';
 
-        var q = quote;
-        debugger;
+        /* see \Praxigento\Wallet\Api\Data\Config\Payment\Method */
+        var paymentConfig = window.checkoutConfig.praxigentoWallet;
 
         var uiComp = Component.extend({
             defaults: {
                 template: 'Praxigento_Wallet/payment/method/partial',
             },
 
-            isVisible: function () {
-                return true;
+            isPartialEanbled: function () {
+                var result = paymentConfig['partial_enabled'];
+                return result;
+            },
+
+            getMaxPercent: function () {
+                var percent = paymentConfig['partial_max_percent'];
+                var result = Number(Math.round(percent * 10000) / 100).toFixed(2);
+                return result;
             }
         });
 

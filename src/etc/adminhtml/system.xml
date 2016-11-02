@@ -39,6 +39,7 @@
                     <comment>What part of the whole sum is allowed to be paid with internal money.</comment>
                     <tooltip>Use values from 0.00 to 1.00.</tooltip>
                     <depends>
+                        <field id="active">1</field>
                         <field id="partial_enabled">1</field>
                     </depends>
                 </field>

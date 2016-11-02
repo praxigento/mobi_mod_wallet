@@ -8,10 +8,6 @@ define(
     function (Component, quote, priceUtils, totals) {
         "use strict";
 
-        var uTotal = totals;
-        var qTotals = quote.getTotals();
-        debugger;
-
         return Component.extend({
             defaults: {
                 title: 'eWallet part',
@@ -30,7 +26,6 @@ define(
 
             getBaseValue: function () {
                 var price = 0;
-                debugger;
                 if (this.totals()) {
                     price = totals.getSegment('praxigento_wallet').value;
                 }
@@ -40,7 +35,6 @@ define(
 
             getValue: function () {
                 var price = 0;
-                // debugger;
                 if (this.totals()) {
                     // price = totals.getSegment('praxigento_wallet').value;
                 }

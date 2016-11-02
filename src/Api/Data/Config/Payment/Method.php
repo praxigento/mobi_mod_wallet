@@ -15,6 +15,7 @@ class Method
     extends DataObject
     implements \Magento\Framework\Api\ExtensionAttributesInterface
 {
+    const ATTR_ENABLED = 'enabled';
     const ATTR_PARTIAL_ENABLED = 'partial_enabled';
     const ATTR_PARTIAL_MAX_PERCENT = 'partial_max_percent';
 
@@ -30,11 +31,29 @@ class Method
     /**
      * @return bool
      */
+    public function isEnabled()
+    {
+        $result = $this->getData(self::ATTR_ENABLED);
+        return $result;
+    }
+
+    /**
+     * @return bool
+     */
     public function isPartialEnabled()
     {
         $result = $this->getData(self::ATTR_PARTIAL_ENABLED);
         return $result;
     }
+
+    /**
+     * @param bool $data
+     */
+    public function setIsEnabled($data)
+    {
+        $this->setData(self::ATTR_ENABLED, $data);
+    }
+
 
     /**
      * @param bool $data

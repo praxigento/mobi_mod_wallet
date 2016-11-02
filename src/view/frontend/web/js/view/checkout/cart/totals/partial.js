@@ -3,7 +3,7 @@ define([
 ], function (Component) {
     'use strict';
 
-    debugger;
+    // debugger;
 
     return Component.extend({
         defaults: {
