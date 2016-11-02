@@ -3,8 +3,9 @@
  */
 define([
         'ko',
-        'Magento_Checkout/js/view/payment/default'
-    ], function (ko, Component) {
+        'Magento_Checkout/js/view/payment/default',
+        'Praxigento_Wallet/js/view/payment/method/partial'
+    ], function (ko, Component, uiPartial) {
         'use strict';
 
         /* see \Praxigento\Wallet\Api\Data\Config\Payment\Method*/
@@ -14,6 +15,12 @@ define([
             defaults: {
                 template: 'Praxigento_Wallet/payment/method/form'
             },
+
+            isEnabled: ko.computed(function () {
+                var isPartialChecked = uiPartial.prototype.isPartialChecked();
+                var result = !isPartialChecked;
+                return result;
+            }),
 
             // initContainer: function (parent) {
             //     console.log("Internal Money  payment renderer is initiated.");
@@ -48,10 +55,10 @@ define([
             //     };
             // },
 
-            isEnabled: function () {
-                var result = paymentConfig['enabled'];
-                return result;
-            }
+            // isEnabled: function () {
+            //     var result = paymentConfig['enabled'];
+            //     return result;
+            // }
 
         });
 

@@ -15,6 +15,8 @@ define([
                 template: 'Praxigento_Wallet/payment/method/partial',
             },
 
+            isPartialChecked: ko.observable(false),
+
             isPartialEanbled: function () {
                 var result = paymentConfig['partial_enabled'];
                 return result;
