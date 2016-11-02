@@ -7,6 +7,11 @@ define(
     ],
     function (Component, quote, priceUtils, totals) {
         "use strict";
+
+        var uTotal = totals;
+        var qTotals = quote.getTotals();
+        debugger;
+
         return Component.extend({
             defaults: {
                 title: 'eWallet part',
@@ -14,6 +19,10 @@ define(
             },
 
             totals: quote.getTotals(),
+
+            isDisplayed: function () {
+                return this.isFullMode();
+            },
 
             isDisplayed: function () {
                 return this.isFullMode();
