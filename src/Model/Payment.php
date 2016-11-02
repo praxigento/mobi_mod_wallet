@@ -10,14 +10,14 @@ class Payment
     extends \Magento\Payment\Model\Method\AbstractMethod
 {
     const CODE = 'praxigento_wallet';
+    /** @var \Praxigento\Wallet\Service\IOperation */
+    protected $_callOperation;
     protected $_canCapture = true;
     protected $_canCapturePartial = true;
     protected $_canRefund = true;
     protected $_canRefundInvoicePartial = true;
     protected $_code = self::CODE;
     protected $_isGateway = true;
-    /** @var \Praxigento\Wallet\Service\IOperation */
-    protected $_callOperation;
 
     public function __construct(
         \Magento\Framework\Model\Context $context,
@@ -53,7 +53,10 @@ class Payment
         $req->setCustomerId($customerId);
         $req->setOrderId($orderId);
         $req->setBaseAmountToPay($amount);
-        $this->_callOperation->payForSaleOrder($req);
+        $resp = $this->_callOperation->payForSaleOrder($req);
+        /* TODO: add transaction ID to payment */
+        $operId = $resp->getOperationId();
+        $payment->setTransaction($operId);
         return $this;
     }
 }

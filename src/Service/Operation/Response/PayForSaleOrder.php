@@ -4,8 +4,8 @@
  */
 namespace Praxigento\Wallet\Service\Operation\Response;
 
-
 class PayForSaleOrder
-    extends \Praxigento\Accounting\Service\Operation\Response\Add {
+    extends \Praxigento\Accounting\Service\Operation\Response\Add
+{
 
 }
