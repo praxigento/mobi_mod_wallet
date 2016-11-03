@@ -12,7 +12,6 @@ define(
         });
 
         /** Add view logic here if needed */
-        console.log("Internal Money payment register is loaded. Empty component is returned.");
 
         return Component.extend({});
     }

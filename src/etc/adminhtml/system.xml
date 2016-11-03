@@ -7,7 +7,7 @@
             <!-- This code should be equal to \Praxigento\Wallet\Model\Payment::CODE -->
             <group id="praxigento_wallet" translate="label" type="text"
                     sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Internal Money</label>
+                <label>eWallet</label>
                 <comment>
                     <![CDATA[<a href="https://github.com/praxigento/mobi_mod_mage2_wallet" target="_blank">Module sources</a>]]>
                 </comment>
@@ -28,7 +28,7 @@
                         sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Enable Partial Payment</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Use internal money with other payment methods.</comment>
+                    <comment>Use eWallet with other payment methods.</comment>
                     <depends>
                         <field id="active">1</field>
                     </depends>
@@ -36,7 +36,7 @@
                 <field id="partial_percent" translate="label" type="text"
                         sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Max. Percent for Partial Payment</label>
-                    <comment>What part of the whole sum is allowed to be paid with internal money.</comment>
+                    <comment>What part of the whole sum is allowed to be paid from eWallet.</comment>
                     <tooltip>Use values from 0.00 to 1.00.</tooltip>
                     <depends>
                         <field id="active">1</field>
