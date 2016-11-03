@@ -37,13 +37,15 @@ class Partial
         if ($isPartialEnabled) {
             /* get max. percent to pay partially */
             $percent = $this->_hlpConfig->getWalletPartialPercent();
-            /* ... and compute amounts (TODO: we should account current balances)*/
-            $grand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_GRAND_TOTAL);
-            $baseGrand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_BASE_GRAND_TOTAL);
-            $partial = $this->_hlpPriceCurrency->round($grand * $percent);
-            $basePartial = $this->_hlpPriceCurrency->round($baseGrand * $percent);
-            $total->setTotalAmount(self::CODE, $partial);
-            $total->setBaseTotalAmount(self::CODE, $basePartial);
+            /* ... and compute amounts TODO: compute amount if partial payment is selected  */
+            if (false) {
+                $grand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_GRAND_TOTAL);
+                $baseGrand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_BASE_GRAND_TOTAL);
+                $partial = $this->_hlpPriceCurrency->round($grand * $percent);
+                $basePartial = $this->_hlpPriceCurrency->round($baseGrand * $percent);
+                $total->setTotalAmount(self::CODE, $partial);
+                $total->setBaseTotalAmount(self::CODE, $basePartial);
+            }
         }
         return $this;
     }

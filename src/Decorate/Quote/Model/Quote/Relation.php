@@ -57,10 +57,11 @@ class Relation
                 $exist->setBasePartialAmount($baseTotal);
                 $this->_repoPartialQuote->updateById($quoteId, $exist);
             }
-        } else {
+        } elseif (abs($baseTotal) > 0.00001) {
             /* create new record in registry */
             $data = new \Praxigento\Wallet\Data\Entity\Partial\Quote();
             $data->setQuoteRef($quoteId);
+            $exist->setPartialAmount($total);
             $data->setBasePartialAmount($baseTotal);
             $this->_repoPartialQuote->create($data);
         }
