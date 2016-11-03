@@ -13,6 +13,7 @@ define(
 
         /** Add view logic here if needed */
 
-        return Component.extend({});
+        var result = Component.extend({});
+        return result;
     }
 );

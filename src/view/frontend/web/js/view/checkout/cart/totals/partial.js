@@ -1,18 +1,16 @@
+/**
+ * Display eWallet payment part for partial payment in shopping cart summary (right sided block).
+ * URL: /checkout/cart/
+ */
 define([
     'Praxigento_Wallet/js/view/checkout/summary/partial'
 ], function (Component) {
     'use strict';
 
-    // debugger;
-
-    return Component.extend({
+    var result = Component.extend({
         defaults: {
-            title: 'eWallet part',
             template: 'Praxigento_Wallet/checkout/cart/totals/partial' // redefine template
-        },
-
-        isDisplayed: function () {
-            return true;
         }
     });
+    return result;
 });

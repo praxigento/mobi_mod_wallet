@@ -11,7 +11,7 @@ define([
         /* see \Praxigento\Wallet\Api\Data\Config\Payment\Method*/
         var paymentConfig = window.checkoutConfig.praxigentoWallet;
 
-        var uiComp = Component.extend({
+        var result = Component.extend({
             defaults: {
                 template: 'Praxigento_Wallet/payment/method/form'
             },
@@ -62,6 +62,6 @@ define([
 
         });
 
-        return uiComp;
+        return result;
     }
 );

@@ -36,7 +36,7 @@ class CartTotalRepository
 
     /**
      * MOBI-486: Add partial payment data to totals are requested with REST API.
-     * MOBI-489: add partial payment attributes to totals extension attributes.
+     * MOBI-489: Add partial payment configuration to totals extension attributes.
      *
      * @param \Magento\Quote\Model\Cart\CartTotalRepository $subject
      * @param \Closure $proceed
@@ -52,29 +52,31 @@ class CartTotalRepository
         $result = $proceed($cartId);
         /* Get partial method configuration */
         $isPartialEnabled = $this->_hlpCfg->getWalletPartialEnabled();
-        $partialMaxPercent = $this->_hlpCfg->getWalletPartialPercent();
-        /** @var \Magento\Quote\Api\Data\TotalExtensionInterface $exts */
-        $exts = $this->_factTotalExt->create();
-        /** @var \Praxigento\Wallet\Api\Data\Config\Payment\Method $extData */
-        $extData = new \Praxigento\Wallet\Api\Data\Config\Payment\Method();
-        $extData->setPartialMaxPercent($partialMaxPercent);
-        $extData->setIsPartialEnabled($isPartialEnabled);
-        $exts->setPraxigentoWalletPaymentConfig($extData);
-        $result->setExtensionAttributes($exts);
-        /* get partial data from repository */
-        /** @var \Praxigento\Wallet\Data\Entity\Partial\Quote $found */
-        $found = $this->_repoPartialQuote->getById($cartId);
-        if ($found) {
-            $basePartial = $found->getBasePartialAmount();
-            $basePartial = $this->_hlpPriceCurrency->round($basePartial);
-            /* add current partial total to segment */
-            $segments = $result->getTotalSegments();
-            /** @var \Magento\Quote\Api\Data\TotalSegmentInterface $seg */
-            $seg = $this->_manObj->create(\Magento\Quote\Api\Data\TotalSegmentInterface::class);
-            $seg->setCode(self::TOTAL_SEGMENT);
-            $seg->setValue($basePartial);
-            $segments[self::TOTAL_SEGMENT] = $seg;
-            $result->setTotalSegments($segments);
+        if ($isPartialEnabled) {
+//            $partialMaxPercent = $this->_hlpCfg->getWalletPartialPercent();
+//            /** @var \Magento\Quote\Api\Data\TotalExtensionInterface $exts */
+//            $exts = $this->_factTotalExt->create();
+//            /** @var \Praxigento\Wallet\Api\Data\Config\Payment\Method $extData */
+//            $extData = new \Praxigento\Wallet\Api\Data\Config\Payment\Method();
+//            $extData->setPartialMaxPercent($partialMaxPercent);
+//            $extData->setIsPartialEnabled($isPartialEnabled);
+//            $exts->setPraxigentoWalletPaymentConfig($extData);
+//            $result->setExtensionAttributes($exts);
+            /* get partial data from repository */
+            /** @var \Praxigento\Wallet\Data\Entity\Partial\Quote $found */
+            $found = $this->_repoPartialQuote->getById($cartId);
+            if ($found) {
+                $basePartial = $found->getBasePartialAmount();
+                $basePartial = $this->_hlpPriceCurrency->round($basePartial);
+                /* add current partial total to segment */
+                $segments = $result->getTotalSegments();
+                /** @var \Magento\Quote\Api\Data\TotalSegmentInterface $seg */
+                $seg = $this->_manObj->create(\Magento\Quote\Api\Data\TotalSegmentInterface::class);
+                $seg->setCode(self::TOTAL_SEGMENT);
+                $seg->setValue($basePartial);
+                $segments[self::TOTAL_SEGMENT] = $seg;
+                $result->setTotalSegments($segments);
+            }
         }
         return $result;
     }

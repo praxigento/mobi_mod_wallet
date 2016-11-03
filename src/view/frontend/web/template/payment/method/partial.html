@@ -1,12 +1,12 @@
 <!-- Checkbox to activate partial payment. This subform should be placed before first payment method. -->
 <div id="prxgtPartialHeader"
-     data-bind="visible: isPartialEanbled()"
+     data-bind="visible: isVisible()"
      class=""
      style="border-bottom: 1px solid #CCCCCC">
 
     <div>
         <input id="prxgtPartialPayment" type="checkbox" data-bind="checked: isPartialChecked"/>
-        <label for="prxgtPartialPayment">Use eWallet (up to <span data-bind="text: getMaxPercent()"></span>%;
+        <label for="prxgtPartialPayment">Use eWallet (up to <span data-bind="text: partialMaxPercent"></span>%;
             Available amount: <span>???.??</span> CUR).</label>
     </div>
     <div class="clear"></div>
