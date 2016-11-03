@@ -2,16 +2,18 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
+namespace Praxigento\Wallet\Model\Payment;
 
-namespace Praxigento\Wallet\Model;
-
-
-class Payment
+/**
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
+class Method
     extends \Magento\Payment\Model\Method\AbstractMethod
 {
     const CODE = 'praxigento_wallet';
     /** @var \Praxigento\Wallet\Service\IOperation */
-    protected $_callOperation;
+    protected $callOperation;
     protected $_canCapture = true;
     protected $_canCapturePartial = true;
     protected $_canRefund = true;
@@ -19,11 +21,16 @@ class Payment
     protected $_code = self::CODE;
     protected $_isGateway = true;
 
+    /**
+     * @inheritdoc
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory,
-        \Magento\Framework\Api\AttributeValueFactory $customAttributeFactory,
+        \Magento\Framework\Api\AttributeValueFactory $attrValueFactory,
         \Magento\Payment\Helper\Data $paymentData,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Payment\Model\Method\Logger $logger,
@@ -33,10 +40,10 @@ class Payment
         array $data = []
     ) {
         parent::__construct(
-            $context, $registry, $extensionFactory, $customAttributeFactory,
+            $context, $registry, $extensionFactory, $attrValueFactory,
             $paymentData, $scopeConfig, $logger, $resource, $resourceCollection, $data
         );
-        $this->_callOperation = $callOperation;
+        $this->callOperation = $callOperation;
     }
 
     public function capture(\Magento\Payment\Model\InfoInterface $payment, $amount)
@@ -53,10 +60,10 @@ class Payment
         $req->setCustomerId($customerId);
         $req->setOrderId($orderId);
         $req->setBaseAmountToPay($amount);
-        $resp = $this->_callOperation->payForSaleOrder($req);
+        $resp = $this->callOperation->payForSaleOrder($req);
         /* TODO: add transaction ID to payment */
         $operId = $resp->getOperationId();
-        $payment->setTransaction($operId);
+        $payment->setTransactionId($operId);
         return $this;
     }
 }

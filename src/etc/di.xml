@@ -5,10 +5,11 @@
     <!-- Payment Method Facade configuration -->
     <virtualType
             name="PraxigentoWalletPayment"
-            type="\Praxigento\Wallet\Model\Payment">
-    </virtualType>
+            type="\Praxigento\Wallet\Model\Payment\Method"/>
+
 
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <!-- Add eWallet payment method configuration to checkout config. -->
         <arguments>
             <argument name="configProviders" xsi:type="array">
                 <item name="praxigento_wallet_config_provider" xsi:type="object">Praxigento\Wallet\Model\Checkout\ConfigProvider</item>
@@ -18,12 +19,6 @@
 
 
     <!-- Interceptors (Plugins) -->
-    <type name="\Magento\Checkout\Block\Checkout\LayoutProcessor">
-        <!-- Add "Partial Payment" checkboxes to the payment forms on checkout -->
-        <plugin name="praxigento_wallet_decor"
-                type="\Praxigento\Wallet\Decorate\Checkout\Block\Checkout\LayoutProcessor"
-                sortOrder="100" disabled="false"/>
-    </type>
     <type name="\Magento\Quote\Model\Cart\CartTotalRepository">
         <!-- Add partial payment totals to data have being got through the REST API -->
         <plugin name="praxigento_wallet_decor"
