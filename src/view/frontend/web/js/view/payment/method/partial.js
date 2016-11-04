@@ -4,8 +4,9 @@
 define([
         'ko',
         'uiComponent',
-        'Magento_Checkout/js/model/totals'
-    ], function (ko, Component, uiTotals) {
+        'Magento_Checkout/js/model/totals',
+        'Magento_Checkout/js/view/payment/default'
+    ], function (ko, Component, uiTotals, uiPaymentDefault) {
         'use strict';
         /* save totals uiComponent to local context */
         // var totals = uiTotals;
@@ -15,6 +16,14 @@ define([
         /* eWallet payment method config (see \Praxigento\Wallet\Api\Data\Config\Payment\Method) */
         var paymentConfig = window.checkoutConfig.praxigentoWallet;
         var initState = getAmount() > 0;
+        /* decorate pyment data, add partial payment state */
+        var fnGetData = uiPaymentDefault.prototype.getData;
+        uiPaymentDefault.prototype.getData = function () {
+            /* get original data from current object */
+            var result = fnGetData.apply(this);
+            result.additional_data = {use_partial: true};
+            return result;
+        }
 
         /**
          * Extract partial payment amount from totals segment.
