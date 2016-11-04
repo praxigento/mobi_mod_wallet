@@ -16,14 +16,6 @@ define([
         /* eWallet payment method config (see \Praxigento\Wallet\Api\Data\Config\Payment\Method) */
         var paymentConfig = window.checkoutConfig.praxigentoWallet;
         var initState = getAmount() > 0;
-        /* decorate pyment data, add partial payment state */
-        var fnGetData = uiPaymentDefault.prototype.getData;
-        uiPaymentDefault.prototype.getData = function () {
-            /* get original data from current object */
-            var result = fnGetData.apply(this);
-            result.additional_data = {use_partial: true};
-            return result;
-        }
 
         /**
          * Extract partial payment amount from totals segment.
@@ -44,7 +36,7 @@ define([
             return result;
         }
 
-        var result = Component.extend({
+        var exportResult = Component.extend({
             defaults: {
                 template: 'Praxigento_Wallet/payment/method/partial',
                 partialMaxPercent: ko.observable(getMaxPercent()),
@@ -67,6 +59,19 @@ define([
 
         });
 
-        return result;
+        /* decorate payment data, add partial payment state */
+        var fnGetData = uiPaymentDefault.prototype.getData;
+        uiPaymentDefault.prototype.getData = function () {
+            /* put this UI Component into the local context */
+            var uiPartial = exportResult;
+            /* get original data from current object */
+            var result = fnGetData.apply(this);
+            /* compose partial payment state and add to payment data */
+            var usePartial = uiPartial.prototype.isPartialChecked();
+            result.additional_data = {use_partial: usePartial};
+            return result;
+        }
+
+        return exportResult;
     }
 );
