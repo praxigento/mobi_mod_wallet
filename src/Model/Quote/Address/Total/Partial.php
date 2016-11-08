@@ -4,6 +4,7 @@
  */
 namespace Praxigento\Wallet\Model\Quote\Address\Total;
 
+use Praxigento\Wallet\Config as Cfg;
 
 class Partial
     extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
@@ -11,11 +12,11 @@ class Partial
     /** Quote attribute to switch on/off partial payment total collection. */
     const ATTR_QUOTE_SWITCH_PARTIAL_PAYMENT = 'prxgt_partial_payment_switch';
     /** Code for total itself */
-    const CODE = 'prxgt_wallet_partial';
+    const CODE = Cfg::CODE_TOTAL_PARTIAL;
     /** Code for base partial total amount (base currency) */
-    const CODE_BASE_TOTAL = 'base_' . self::CODE . '_amount';
+    const CODE_BASE_TOTAL = Cfg::CODE_TOTAL_PARTIAL_AMOUNT_BASE;
     /** Code for partial total amount (order currency) */
-    const CODE_TOTAL = self::CODE . '_amount';
+    const CODE_TOTAL = Cfg::CODE_TOTAL_PARTIAL_AMOUNT;
     /** @var \Praxigento\Wallet\Helper\Config */
     protected $hlpConfig;
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
@@ -27,8 +28,7 @@ class Partial
         \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
         \Praxigento\Wallet\Helper\Config $hlpConfig,
         \Praxigento\Wallet\Repo\Entity\Partial\IQuote $repoPartialQuote
-    )
-    {
+    ) {
         $this->hlpPriceCurrency = $hlpPriceCurrency;
         $this->hlpConfig = $hlpConfig;
         $this->repoPartialQuote = $repoPartialQuote;
@@ -38,8 +38,7 @@ class Partial
         \Magento\Quote\Model\Quote $quote,
         \Magento\Quote\Api\Data\ShippingAssignmentInterface $shippingAssignment,
         \Magento\Quote\Model\Quote\Address\Total $total
-    )
-    {
+    ) {
         parent::collect($quote, $shippingAssignment, $total);
         /* get fresh grands from calculating totals */
         $grandBase = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_BASE_GRAND_TOTAL);

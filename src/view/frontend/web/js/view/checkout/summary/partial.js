@@ -31,7 +31,7 @@ define(
 
         var result = Component.extend({
             defaults: {
-                title: 'eWallet part',
+                title: 'Paid by eWallet',
                 template: 'Praxigento_Wallet/checkout/summary/partial'
             },
 

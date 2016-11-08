@@ -4,16 +4,11 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="invoice_totals">
-            <!-- Partial totals are placed in the footer -->
+            <!-- Partial totals are placed in the footer; 'grand' should be after 'partial' -->
             <block class="\Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total\Partial"
-                    name="praxigento_wallet_partial">
-            </block>
+                    name="praxigento_wallet_partial"/>
             <block class="\Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total\Grand"
-                    name="praxigento_wallet_partial_grand">
-                <action method="setAfterCondition">
-                    <argument name="condition" xsi:type="string">praxigento_wallet_partial</argument>
-                </action>
-            </block>
+                    name="praxigento_wallet_partial_grand"/>
         </referenceBlock>
     </body>
 </page>

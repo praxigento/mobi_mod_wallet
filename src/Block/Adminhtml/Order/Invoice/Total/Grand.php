@@ -4,11 +4,21 @@
  */
 namespace Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total;
 
+use Praxigento\Wallet\Config as Cfg;
+
+/**
+ * This block is based on 'partial' block and should be placed
+ * after '\Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total\Partial'
+ * in 'src/view/adminhtml/layout/sales_order_invoice_new.xml'
+ */
 class Grand
     extends \Magento\Sales\Block\Adminhtml\Order\Invoice\Totals
 {
-    const CODE = 'praxigento_wallet_partial_grand';
+    const CODE = Cfg::CODE_TOTAL_PARTIAL . '_grand';
     const CODE_GRAND_INCL = 'grand_total_incl';
+    const CODE_GRAND = 'grand_total';
+    const CODE_TAX = 'tax';
+    const CODE_PARTIAL = \Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total\Partial::CODE;
     /** @var \Praxigento\Wallet\Repo\Entity\Partial\ISale */
     protected $repoPartialSale;
 
@@ -37,29 +47,44 @@ class Grand
     {
         /** @var \Magento\Sales\Block\Adminhtml\Order\Totals $parent */
         $parent = $this->getParentBlock();
-        $totalPartial = $parent
-            ->getTotal(\Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total\Partial::CODE);
+        $totalPartial = $parent->getTotal(self::CODE_PARTIAL);
         if ($totalPartial) {
-            $totalGrandFixed = $parent
-                ->getTotal(self::CODE_GRAND_INCL);
+            $totalGrandIncFixed = $parent->getTotal(self::CODE_GRAND_INCL);
             $partialBase = $totalPartial->getData('base_value');
             $partial = $totalPartial->getData('value');
-            $grandFixedBase = $totalGrandFixed->getData('base_value');
-            $grandFixed = $totalGrandFixed->getData('value');
-            $baseAmount = $grandFixedBase - $partialBase;
-            $amount = $grandFixed - $partial;
+            $grandIncFixedBase = $totalGrandIncFixed->getData('base_value');
+            $grandIncFixed = $totalGrandIncFixed->getData('value');
+            /* add grand total with eWallet part */
+            $baseAmount = $grandIncFixedBase + $partialBase;
+            $amount = $grandIncFixed + $partial;
             $total = new \Magento\Framework\DataObject(
                 [
                     'code' => self::CODE,
                     'strong' => true,
                     'base_value' => $baseAmount,
                     'value' => $amount,
-                    'label' => __('Grand Total (Incl.Tax, Excl.eWallet)'),
+                    'label' => __('Grand Total (Incl. Tax, Incl. eWallet)'),
                     'area' => 'footer',
                     'is_formated' => false
                 ]
             );
             $parent->addTotal($total);
+            /* fix grand total excl. tax */
+            /** @var \Magento\Sales\Model\Order $order */
+            $order = $parent->getOrder();
+            $invoices = $order->getInvoiceCollection();
+            $invoice = $invoices->getFirstItem();
+            /* see \Magento\Sales\Model\Order\Invoice\Total\Tax::collect */
+            $taxBase = $invoice->getBaseTaxAmount();
+            $tax = $invoice->getTaxAmount();
+            $taxCompensationBase = $invoice->getBaseDiscountTaxCompensationAmount();
+            $taxCompensation = $invoice->getDiscountTaxCompensationAmount();
+            $grandBase = $baseAmount - $taxBase - $taxCompensationBase;
+            $grand = $amount - $tax - $taxCompensation;
+            $totalGrandFixed = $parent->getTotal(self::CODE_GRAND);
+            $totalGrandFixed->setData('base_value', $grandBase);
+            $totalGrandFixed->setData('value', $grand);
+
         }
         return $this;
     }

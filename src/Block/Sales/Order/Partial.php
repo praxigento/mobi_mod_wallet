@@ -49,7 +49,7 @@ class Partial
                     'strong' => true,
                     'base_value' => $baseAmount,
                     'value' => $amount,
-                    'label' => __('eWallet part'),
+                    'label' => __('Paid by eWallet'),
                     'area' => 'footer',
                     'is_formated' => false
                 ]
