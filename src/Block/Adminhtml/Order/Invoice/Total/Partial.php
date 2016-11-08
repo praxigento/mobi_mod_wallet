@@ -2,14 +2,12 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Block\Sales\Order;
+namespace Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total;
 
-/**
- * Block to display partial totals for invoice in adminhtml.
- */
 class Partial
-    extends \Magento\Framework\View\Element\Template
+    extends \Magento\Sales\Block\Adminhtml\Order\Invoice\Totals
 {
+    const CODE = 'praxigento_wallet_partial';
     /** @var \Praxigento\Wallet\Repo\Entity\Partial\ISale */
     protected $repoPartialSale;
 
@@ -19,10 +17,12 @@ class Partial
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Sales\Helper\Admin $adminHelper,
         \Praxigento\Wallet\Repo\Entity\Partial\ISale $repoPartialSale,
         array $data = []
     ) {
-        parent::__construct($context, $data);
+        parent::__construct($context, $registry, $adminHelper, $data);
         $this->repoPartialSale = $repoPartialSale;
     }
 
@@ -41,11 +41,12 @@ class Partial
         $orderId = $order->getId();
         $found = $this->repoPartialSale->getById($orderId);
         if ($found) {
+            /* add partial total */
             $baseAmount = $found->getBasePartialAmount();
             $amount = $found->getPartialAmount();
             $total = new \Magento\Framework\DataObject(
                 [
-                    'code' => 'praxigento_wallet',
+                    'code' => self::CODE,
                     'strong' => true,
                     'base_value' => $baseAmount,
                     'value' => $amount,
@@ -55,14 +56,6 @@ class Partial
                 ]
             );
             $parent->addTotal($total);
-            /* MOBI-497: fix 'due' amount */
-            $totalDue = $parent->getTotal('due');
-            $due = $totalDue->getData('value');
-            $dueBase = $totalDue->getData('base_value');
-            $dueFixed = $due - $amount;
-            $dueFixedBase = $dueBase - $baseAmount;
-            $totalDue->setData('value', $dueFixed);
-            $totalDue->setData('base_value', $dueFixedBase);
         }
         return $this;
     }
