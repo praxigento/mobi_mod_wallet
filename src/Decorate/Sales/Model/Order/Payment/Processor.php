@@ -67,10 +67,14 @@ class Processor
             $found = $this->_repoPartialQuote->getById($quoteId);
             if ($found) {
                 /* decrease amount in invoice */
-                $basePartial = $found->getBasePartialAmount();
-                $amountToPay = $invoice->getBaseGrandTotal();
-                $amountToPay -= $basePartial;
-                $invoice->setBaseGrandTotal($amountToPay);
+                $partialBase = $found->getBasePartialAmount();
+                $partial = $found->getPartialAmount();
+                $grandTotalBase = $invoice->getBaseGrandTotal();
+                $grandTotal = $invoice->getGrandTotal();
+                $grandTotalBase -= $partialBase;
+                $grandTotal -= $partial;
+                $invoice->setBaseGrandTotal($grandTotalBase);
+                $invoice->setGrandTotal($grandTotal);
             }
         }
         $result = $proceed($payment, $invoice);

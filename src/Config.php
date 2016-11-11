@@ -12,7 +12,7 @@ class Config
     /** Code for quote/order/invoice totals to save part of eWallet payment */
     const CODE_TOTAL_PARTIAL = 'prxgt_wallet_partial';
     const CODE_TOTAL_PARTIAL_AMOUNT = self::CODE_TOTAL_PARTIAL . '_amount';
-    const CODE_TOTAL_PARTIAL_AMOUNT_BASE = 'base_' . self::CODE_TOTAL_PARTIAL . '_amount';
+    const CODE_TOTAL_PARTIAL_AMOUNT_BASE = 'base_' . self::CODE_TOTAL_PARTIAL_AMOUNT;
     const CODE_TYPE_ASSET_WALLET_ACTIVE = 'WALLET_ACTIVE';
     const CODE_TYPE_ASSET_WALLET_HOLD = 'WALLET_HOLD';
     /** Pay by WALLET_ACTIVE asset for sale order. */
