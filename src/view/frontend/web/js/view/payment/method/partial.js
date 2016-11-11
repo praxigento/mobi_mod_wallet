@@ -1,12 +1,15 @@
 /**
  * UI Component: partial payment checkbox on checkout.
+ *
+ * Decorates getData() functions for other methods' UiComponents.
  */
 define([
         'ko',
         'uiComponent',
         'Magento_Checkout/js/model/totals',
-        'Magento_Checkout/js/view/payment/default'
-    ], function (ko, Component, uiTotals, uiPaymentDefault) {
+        'Magento_Checkout/js/view/payment/default',
+        'Magento_Braintree/js/view/payment/method-renderer/hosted-fields'
+    ], function (ko, Component, uiTotals, uiPaymentDefault, uiPaymentBraintree) {
         'use strict';
         /* save totals uiComponent to local context */
         // var totals = uiTotals;
@@ -36,6 +39,9 @@ define([
             return result;
         }
 
+        /**
+         * This UiComponent. Should be placed before 'getData()' decorators.
+         */
         var exportResult = Component.extend({
             defaults: {
                 template: 'Praxigento_Wallet/payment/method/partial',
@@ -59,16 +65,29 @@ define([
 
         });
 
-        /* decorate payment data, add partial payment state */
-        var fnGetData = uiPaymentDefault.prototype.getData;
+        /* decorate default payment data ('checkmo' method), add partial payment state */
+        var fnGetDataDefault = uiPaymentDefault.prototype.getData;
         uiPaymentDefault.prototype.getData = function () {
             /* put this UI Component into the local context */
             var uiPartial = exportResult;
             /* get original data from current object */
-            var result = fnGetData.apply(this);
+            var result = fnGetDataDefault.apply(this);
             /* compose partial payment state and add to payment data */
             var usePartial = uiPartial.prototype.isPartialChecked();
             result.additional_data = {use_partial: usePartial};
+            return result;
+        }
+
+        /* decorate Braintree payment data, add partial payment state */
+        var fnGetDataBraintree = uiPaymentBraintree.prototype.getData;
+        uiPaymentBraintree.prototype.getData = function () {
+            /* put this UI Component into the local context */
+            var uiPartial = exportResult;
+            /* get original data from current object */
+            var result = fnGetDataBraintree.apply(this);
+            /* compose partial payment state and add to payment data */
+            var usePartial = uiPartial.prototype.isPartialChecked();
+            result.additional_data.use_partial = usePartial;
             return result;
         }
 
