@@ -37,13 +37,15 @@ class ConfigProvider
 
     protected function _populateCustomerData()
     {
-        $result = [];
+        $result[self::CFG_CUST_BALANCE] = 0;
         if ($this->sessionCustomer) {
             $customerId = $this->sessionCustomer->getCustomerId();
             $assetTypeId = $this->repoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
             $account = $this->repoAccount->getByCustomerId($customerId, $assetTypeId);
-            $balance = $account->getBalance();
-            $result[self::CFG_CUST_BALANCE] = $balance;
+            if ($account) {
+                $balance = $account->getBalance();
+                $result[self::CFG_CUST_BALANCE] = $balance;
+            }
         }
         return $result;
     }
