@@ -11,13 +11,17 @@ define([
         'Magento_Braintree/js/view/payment/method-renderer/hosted-fields'
     ], function (ko, Component, uiTotals, uiPaymentDefault, uiPaymentBraintree) {
         'use strict';
-        /* save totals uiComponent to local context */
-        // var totals = uiTotals;
-        /* see globals in 'Magento_Checkout/js/model/quote.js' */
-        // var quoteData = window.checkoutConfig.quoteData;
-        // var totalsData = window.checkoutConfig.totalsData;
+        /* get Checkout configuration data (see \Praxigento\Wallet\Model\Checkout\ConfigProvider) */
+        var quoteData = window.checkoutConfig.quoteData;
+        var baseCurrency = quoteData['base_currency_code'];
+        var baseGrandTotal = quoteData['base_grand_total'];
         /* eWallet payment method config (see \Praxigento\Wallet\Api\Data\Config\Payment\Method) */
         var paymentConfig = window.checkoutConfig.praxigentoWallet;
+        var negativeBalanceEnabled = paymentConfig['negative_balance_enabled'];
+        var partialPaymentMaxPercent = paymentConfig['partial_max_percent'];
+        var customerData = window.customerData;
+        // \Praxigento\Wallet\Model\Checkout\ConfigProvider::CFG_CUST_...
+        var customerAccountBalance = customerData['prxgtWalletBalance'];
         var initState = getAmount() > 0;
 
         /**
@@ -34,8 +38,30 @@ define([
         }
 
         function getMaxPercent() {
-            var percent = paymentConfig['partial_max_percent'];
-            var result = Number(Math.round(percent * 10000) / 100).toFixed(2);
+            var result = Number(Math.round(partialPaymentMaxPercent * 10000) / 100).toFixed(2);
+            return result;
+        }
+
+        function getCustomerBalance() {
+            var result = Number(Math.round(customerAccountBalance * 100) / 100).toFixed(2);
+            return result;
+        }
+
+        function getAvailableAmount() {
+            /* limit available amount by MAX percent */
+            var result = baseGrandTotal * partialPaymentMaxPercent;
+            if (customerAccountBalance < result) {
+                /* limit available amount by customer balance */
+                result = customerAccountBalance;
+            }
+            if (
+                !negativeBalanceEnabled &&
+                (result < 0)
+            ) {
+                /* reset available amount if it is negative and negative balance is disabled*/
+                result = 0;
+            }
+            result = Number(Math.round(result * 100) / 100).toFixed(2);
             return result;
         }
 
@@ -46,6 +72,9 @@ define([
             defaults: {
                 template: 'Praxigento_Wallet/payment/method/partial',
                 partialMaxPercent: ko.observable(getMaxPercent()),
+                baseCurrency: ko.observable(baseCurrency),
+                availableAmount: ko.observable(getAvailableAmount()),
+                customerBalance: ko.observable(getCustomerBalance()),
             },
 
             /**
@@ -54,12 +83,17 @@ define([
             isPartialChecked: ko.observable(initState),
 
             /**
-             * Switch visibility for partial checkbox node.
+             * Switch visibility for partial checkbox node. Checkbox is available
+             *  -
              *
              * @returns {boolean}
              */
             isVisible: function () {
-                var result = Boolean(paymentConfig['partial_enabled']);
+                var enabled = Boolean(paymentConfig['partial_enabled']);
+                var amountAvailable = getAvailableAmount();
+                /* hide if available amount equals to grand total - this is not partial */
+                var enoughAmount = (baseGrandTotal - amountAvailable) < 0.00001;
+                var result = enabled && (amountAvailable > 0) && !enoughAmount;
                 return result;
             },
 

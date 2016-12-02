@@ -1,5 +1,5 @@
 /**
- * UI Component: eWallet payment on checkout.
+ * UI Component: eWallet payment on checkout (radio button).
  */
 define([
         'ko',
@@ -7,58 +7,28 @@ define([
         'Praxigento_Wallet/js/view/payment/method/partial'
     ], function (ko, Component, uiPartial) {
         'use strict';
-
+        /* get Checkout configuration data (see \Praxigento\Wallet\Model\Checkout\ConfigProvider) */
+        var quoteData = window.checkoutConfig.quoteData;
+        var baseGrandTotal = quoteData['base_grand_total'];
         /* see \Praxigento\Wallet\Api\Data\Config\Payment\Method*/
         var paymentConfig = window.checkoutConfig.praxigentoWallet;
+        var negativeBalanceEnabled = paymentConfig['negative_balance_enabled'];
 
         var result = Component.extend({
             defaults: {
                 template: 'Praxigento_Wallet/payment/method/form'
             },
 
-            isEnabled: ko.computed(function () {
+            /**
+             * Display/hide payment method section on the page.
+             */
+            isVisible: ko.computed(function () {
                 var isPartialChecked = uiPartial.prototype.isPartialChecked();
-                var result = !isPartialChecked;
+                var customerBalance = uiPartial().customerBalance();
+                var isAmountEnough = (baseGrandTotal - customerBalance ) <= 0;
+                var result = !isPartialChecked && (isAmountEnough || negativeBalanceEnabled);
                 return result;
             }),
-
-            // initContainer: function (parent) {
-            //     console.log("Internal Money  payment renderer is initiated.");
-            //     this._super();
-            //     return this;
-            // },
-            //
-            // initObservable: function () {
-            //
-            //     this._super()
-            //         .observe([
-            //             'transactionResult'
-            //         ]);
-            //     return this;
-            // },
-
-            // getBillingAddressFormName: function () {
-            //     // debugger;
-            //     return 'billing-address-form-' + this.item.method;
-            // },
-            //
-            // getCode: function () {
-            //     return 'praxigento_wallet';
-            // },
-
-            // getData: function () {
-            //     return {
-            //         'method': this.item.method,
-            //         'additional_data': {
-            //             'transaction_result': this.transactionResult()
-            //         }
-            //     };
-            // },
-
-            // isEnabled: function () {
-            //     var result = paymentConfig['enabled'];
-            //     return result;
-            // }
 
         });
 

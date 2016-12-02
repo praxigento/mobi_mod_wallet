@@ -39,6 +39,20 @@ class Config
      *
      * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
+    public function getWalletNegativeBalanceEnabled()
+    {
+        $result = $this->_scopeConfig->getValue('payment/praxigento_wallet/negative_balance_enabled');
+        $result = filter_var($result, FILTER_VALIDATE_BOOLEAN);
+        /* disable negative balance if eWalllet payment is not active */
+        $result = $result && $this->getWalletActive();
+        return $result;
+    }
+
+    /**
+     * @return bool
+     *
+     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
+     */
     public function getWalletPartialEnabled()
     {
         $result = $this->_scopeConfig->getValue('payment/praxigento_wallet/partial_enabled');

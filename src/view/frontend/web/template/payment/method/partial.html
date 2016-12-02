@@ -6,8 +6,11 @@
 
     <div>
         <input id="prxgtPartialPayment" type="checkbox" data-bind="checked: isPartialChecked"/>
-        <label for="prxgtPartialPayment">Use eWallet (up to <span data-bind="text: partialMaxPercent"></span>%;
-            Available amount: <span>???.??</span> CUR).</label>
+        <label for="prxgtPartialPayment">Use eWallet
+            (up to <span data-bind="text: partialMaxPercent"></span>%;
+            Available: <span data-bind="text: availableAmount"></span> <span data-bind="text: baseCurrency"></span>;
+            Balance: <span data-bind="text: customerBalance"></span> <span data-bind="text: baseCurrency"></span>).
+        </label>
     </div>
     <div class="clear"></div>
 </div>

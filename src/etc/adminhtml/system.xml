@@ -24,8 +24,17 @@
                         <field id="active">1</field>
                     </depends>
                 </field>
+                <field id="negative_balance_enabled" translate="label" type="select"
+                        sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allow Negative Balance</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Allow negative balances on eWallet accounts.</comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
                 <field id="partial_enabled" translate="label" type="select"
-                        sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="0">
+                        sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Enable Partial Payment</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Use eWallet with other payment methods.</comment>
@@ -34,7 +43,7 @@
                     </depends>
                 </field>
                 <field id="partial_percent" translate="label" type="text"
-                        sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="0">
+                        sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Max. Percent for Partial Payment</label>
                     <comment>What part of the whole sum is allowed to be paid from eWallet.</comment>
                     <tooltip>Use values from 0.00 to 1.00.</tooltip>

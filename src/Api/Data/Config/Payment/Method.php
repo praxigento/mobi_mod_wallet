@@ -16,6 +16,7 @@ class Method
     implements \Magento\Framework\Api\ExtensionAttributesInterface
 {
     const ATTR_ENABLED = 'enabled';
+    const ATTR_NEGATIVE_BALANCE_ENABLED = 'negative_balance_enabled';
     const ATTR_PARTIAL_ENABLED = 'partial_enabled';
     const ATTR_PARTIAL_MAX_PERCENT = 'partial_max_percent';
 
@@ -40,6 +41,15 @@ class Method
     /**
      * @return bool
      */
+    public function isNegativeBalanceEnabled()
+    {
+        $result = $this->getData(self::ATTR_NEGATIVE_BALANCE_ENABLED);
+        return $result;
+    }
+
+    /**
+     * @return bool
+     */
     public function isPartialEnabled()
     {
         $result = $this->getData(self::ATTR_PARTIAL_ENABLED);
@@ -54,6 +64,13 @@ class Method
         $this->setData(self::ATTR_ENABLED, $data);
     }
 
+    /**
+     * @param bool $data
+     */
+    public function setIsNegativeBalanceEnabled($data)
+    {
+        $this->setData(self::ATTR_NEGATIVE_BALANCE_ENABLED, $data);
+    }
 
     /**
      * @param bool $data
