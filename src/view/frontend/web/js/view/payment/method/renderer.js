@@ -1,5 +1,5 @@
 /**
- * UI Component: eWallet payment on checkout (radio button).
+ * UI Component: eWallet payment method on checkout (radio button).
  */
 define([
         'ko',
@@ -23,10 +23,16 @@ define([
              * Display/hide payment method section on the page.
              */
             isVisible: ko.computed(function () {
+                /* hide full method if partial is enabled */
                 var isPartialChecked = uiPartial.prototype.isPartialChecked();
+                /* available balance should be not less then base grand total or negative balance is allowed */
                 var customerBalance = uiPartial().customerBalance();
-                var isAmountEnough = (baseGrandTotal - customerBalance ) <= 0;
-                var result = !isPartialChecked && (isAmountEnough || negativeBalanceEnabled);
+                var isAmountEnough = ((baseGrandTotal - customerBalance ) <= 0) || negativeBalanceEnabled;
+                /* MAX % should be equal to 100% */
+                var maxPercent = uiPartial().partialMaxPercent();
+                var isMaxPercent100 = Math.abs(maxPercent - 100) < 0.0001;
+                /* compose compex condition */
+                var result = !isPartialChecked && isAmountEnough && isMaxPercent100;
                 return result;
             }),
 
