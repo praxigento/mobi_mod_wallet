@@ -48,18 +48,13 @@ define([
         }
 
         function getAvailableAmount() {
-            /* limit available amount by MAX percent */
+            /* limit available amount by MAX percent of the baseGrandTotal */
             var result = baseGrandTotal * partialPaymentMaxPercent;
-            if (customerAccountBalance < result) {
-                /* limit available amount by customer balance */
-                result = customerAccountBalance;
-            }
-            if (
-                !negativeBalanceEnabled &&
-                (result < 0)
-            ) {
-                /* reset available amount if it is negative and negative balance is disabled*/
-                result = 0;
+            if (customerAccountBalance <= result) {
+                if (!negativeBalanceEnabled) {
+                    /* limit available amount by customer balance */
+                    result = customerAccountBalance;
+                }
             }
             result = Number(Math.round(result * 100) / 100).toFixed(2);
             return result;
@@ -84,7 +79,8 @@ define([
 
             /**
              * Switch visibility for partial checkbox node. Checkbox is available
-             *  -
+             *  - if partial payment is available
+             *  - AND customer balance is
              *
              * @returns {boolean}
              */
@@ -92,7 +88,7 @@ define([
                 var enabled = Boolean(paymentConfig['partial_enabled']);
                 var amountAvailable = getAvailableAmount();
                 /* hide if available amount equals to grand total - this is not partial */
-                var enoughAmount = (baseGrandTotal - amountAvailable) < 0.00001;
+                var enoughAmount = ((baseGrandTotal - amountAvailable) < 0.00001);
                 var result = enabled && (amountAvailable > 0) && !enoughAmount;
                 return result;
             },
