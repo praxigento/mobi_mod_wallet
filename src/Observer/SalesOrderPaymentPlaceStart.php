@@ -20,7 +20,7 @@ class SalesOrderPaymentPlaceStart
     protected $_callOperation;
 
     public function __construct(
-        \Psr\Log\LoggerInterface $logger,
+        \Praxigento\Core\Fw\Logger\App $logger,
         \Praxigento\Wallet\Repo\Entity\Partial\IQuote $repoPartialQuote,
         \Praxigento\Wallet\Service\IOperation $callOperation
     ) {
