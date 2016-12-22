@@ -40,8 +40,8 @@ class Partial
             $grandFixedBase = $grandBase - $partialBase;
             $invoice->setGrandTotal($grandFixed);
             $invoice->setBaseGrandTotal($grandFixedBase);
-            $invoice->setData(Cfg::CODE_TOTAL_PARTIAL_AMOUNT, $partial);
-            $invoice->setData(Cfg::CODE_TOTAL_PARTIAL_AMOUNT_BASE, $partialBase);
+            $invoice->set(Cfg::CODE_TOTAL_PARTIAL_AMOUNT, $partial);
+            $invoice->set(Cfg::CODE_TOTAL_PARTIAL_AMOUNT_BASE, $partialBase);
         }
         return $this;
     }

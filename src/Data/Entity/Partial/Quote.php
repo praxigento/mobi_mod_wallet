@@ -18,14 +18,14 @@ class Quote
     /** @return float */
     public function getBasePartialAmount()
     {
-        $result = parent::getData(self::ATTR_BASE_PARTIAL_AMOUNT);
+        $result = parent::get(self::ATTR_BASE_PARTIAL_AMOUNT);
         return $result;
     }
 
     /** @return float */
     public function getPartialAmount()
     {
-        $result = parent::getData(self::ATTR_PARTIAL_AMOUNT);
+        $result = parent::get(self::ATTR_PARTIAL_AMOUNT);
         return $result;
     }
 
@@ -37,26 +37,26 @@ class Quote
     /** @return int */
     public function getQuoteRef()
     {
-        $result = parent::getData(self::ATTR_QUOTE_REF);
+        $result = parent::get(self::ATTR_QUOTE_REF);
         return $result;
     }
 
     /** @param float $data */
     public function setBasePartialAmount($data)
     {
-        parent::setData(self::ATTR_BASE_PARTIAL_AMOUNT, $data);
+        parent::set(self::ATTR_BASE_PARTIAL_AMOUNT, $data);
     }
 
     /** @param float $data */
     public function setPartialAmount($data)
     {
-        parent::setData(self::ATTR_PARTIAL_AMOUNT, $data);
+        parent::set(self::ATTR_PARTIAL_AMOUNT, $data);
     }
 
     /** @param int $data */
     public function setQuoteRef($data)
     {
-        parent::setData(self::ATTR_QUOTE_REF, $data);
+        parent::set(self::ATTR_QUOTE_REF, $data);
     }
 
 }

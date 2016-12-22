@@ -20,17 +20,17 @@ class InstallSchema extends \Praxigento\Core\Setup\Schema\Base
 
         /* Partial / Sale */
         $entityAlias = EPartialQuote::ENTITY_NAME;
-        $demEntity = $demPackage->getData('package/Partial/entity/SaleQuote');
+        $demEntity = $demPackage->get('package/Partial/entity/SaleQuote');
         $this->_toolDem->createEntity($entityAlias, $demEntity);
 
         /* Partial / Sale */
         $entityAlias = EPartialSale::ENTITY_NAME;
-        $demEntity = $demPackage->getData('package/Partial/entity/SaleOrder');
+        $demEntity = $demPackage->get('package/Partial/entity/SaleOrder');
         $this->_toolDem->createEntity($entityAlias, $demEntity);
 
         /* Log / Sale */
         $entityAlias = ELogSale::ENTITY_NAME;
-        $demEntity = $demPackage->getData('package/Log/entity/SaleOrder');
+        $demEntity = $demPackage->get('package/Log/entity/SaleOrder');
         $this->_toolDem->createEntity($entityAlias, $demEntity);
 
     }

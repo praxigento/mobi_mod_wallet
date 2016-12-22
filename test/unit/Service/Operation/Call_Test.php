@@ -73,14 +73,14 @@ class Call_UnitTest
         $this->mCallAccount
             ->shouldReceive('getRepresentative')
             ->andReturn($mResp);
-        $mResp->setData(Account::ATTR_CUST_ID, $custIdRepres);
+        $mResp->set(Account::ATTR_CUST_ID, $custIdRepres);
         // $respGetAccount = $this->_callAccount->get($reqGetAccount);
         $mResGet = new AccountGetResponse();
         $this->mCallAccount
             ->shouldReceive('get')
             ->andReturn($mResGet);
-        // $accId = $respGetAccount->getData(Account::ATTR_ID);
-        $mResGet->setData(Account::ATTR_ID, 54);
+        // $accId = $respGetAccount->get(Account::ATTR_ID);
+        $mResGet->set(Account::ATTR_ID, 54);
         // $respOperAdd = $this->_callOper->add($reqOperAdd);
         $mRespAdd = new OperationAddResponse();
         $this->mCallOper

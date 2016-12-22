@@ -68,7 +68,7 @@ class ConfigProvider
         /* and add configuration data to checkout config */
         $result = [
             'customerData' => $customerData, // see \Magento\Checkout\Model\DefaultConfigProvider::getConfig
-            self::CFG_NAME => $data->getData()
+            self::CFG_NAME => $data->get()
         ];
         return $result;
     }

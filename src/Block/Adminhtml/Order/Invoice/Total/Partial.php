@@ -39,9 +39,9 @@ class Partial
         /* check collected partial totals (for currently processed invoices only) */
         $invoices = $order->getInvoiceCollection();
         $invoice = $invoices->getFirstItem();
-        $partialBase = $invoice->getData(Cfg::CODE_TOTAL_PARTIAL_AMOUNT_BASE);
+        $partialBase = $invoice->get(Cfg::CODE_TOTAL_PARTIAL_AMOUNT_BASE);
         if ($partialBase) {
-            $partial = $invoice->getData(Cfg::CODE_TOTAL_PARTIAL_AMOUNT);
+            $partial = $invoice->get(Cfg::CODE_TOTAL_PARTIAL_AMOUNT);
         } else {
             /* check sales registry in repo */
             $orderId = $order->getId();

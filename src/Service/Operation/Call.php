@@ -78,7 +78,7 @@ class Call
         $req = new AccountGetRepresentativeRequest();
         $req->setAssetTypeId($assetTypeId);
         $resp = $this->_callAccount->getRepresentative($req);
-        $result = $resp->getData(Account::ATTR_ID);
+        $result = $resp->get(Account::ATTR_ID);
         return $result;
     }
 
@@ -116,7 +116,7 @@ class Call
                 /* get WALLET_ACTIVE account ID for customer */
                 $reqGetAccount->setCustomerId($custId);
                 $respGetAccount = $this->_callAccount->get($reqGetAccount);
-                $accId = $respGetAccount->getData(Account::ATTR_ID);
+                $accId = $respGetAccount->get(Account::ATTR_ID);
                 $one = [
                     Transaction::ATTR_DEBIT_ACC_ID => $represAccId,
                     Transaction::ATTR_CREDIT_ACC_ID => $accId,
@@ -136,7 +136,7 @@ class Call
         $respOperAdd = $this->_callOper->add($reqOperAdd);
         $operId = $respOperAdd->getOperationId();
         $this->_logger->debug("New operation (type id '$operTypeCode') is added with id=$operId .");
-        $result->setData($respOperAdd->getData());
+        $result->set($respOperAdd->get());
         $result->markSucceed();
         $this->_logger->info("'Add to Wallet Active' operation is completed.");
         return $result;

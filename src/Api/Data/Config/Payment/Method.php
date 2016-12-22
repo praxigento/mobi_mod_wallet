@@ -25,7 +25,7 @@ class Method
      */
     public function getPartialMaxPercent()
     {
-        $result = $this->getData(self::ATTR_PARTIAL_MAX_PERCENT);
+        $result = $this->get(self::ATTR_PARTIAL_MAX_PERCENT);
         return $result;
     }
 
@@ -34,7 +34,7 @@ class Method
      */
     public function isEnabled()
     {
-        $result = $this->getData(self::ATTR_ENABLED);
+        $result = $this->get(self::ATTR_ENABLED);
         return $result;
     }
 
@@ -43,7 +43,7 @@ class Method
      */
     public function isNegativeBalanceEnabled()
     {
-        $result = $this->getData(self::ATTR_NEGATIVE_BALANCE_ENABLED);
+        $result = $this->get(self::ATTR_NEGATIVE_BALANCE_ENABLED);
         return $result;
     }
 
@@ -52,7 +52,7 @@ class Method
      */
     public function isPartialEnabled()
     {
-        $result = $this->getData(self::ATTR_PARTIAL_ENABLED);
+        $result = $this->get(self::ATTR_PARTIAL_ENABLED);
         return $result;
     }
 
@@ -61,7 +61,7 @@ class Method
      */
     public function setIsEnabled($data)
     {
-        $this->setData(self::ATTR_ENABLED, $data);
+        $this->set(self::ATTR_ENABLED, $data);
     }
 
     /**
@@ -69,7 +69,7 @@ class Method
      */
     public function setIsNegativeBalanceEnabled($data)
     {
-        $this->setData(self::ATTR_NEGATIVE_BALANCE_ENABLED, $data);
+        $this->set(self::ATTR_NEGATIVE_BALANCE_ENABLED, $data);
     }
 
     /**
@@ -77,7 +77,7 @@ class Method
      */
     public function setIsPartialEnabled($data)
     {
-        $this->setData(self::ATTR_PARTIAL_ENABLED, $data);
+        $this->set(self::ATTR_PARTIAL_ENABLED, $data);
     }
 
     /**
@@ -85,6 +85,6 @@ class Method
      */
     public function setPartialMaxPercent($data)
     {
-        $this->setData(self::ATTR_PARTIAL_MAX_PERCENT, $data);
+        $this->set(self::ATTR_PARTIAL_MAX_PERCENT, $data);
     }
 }

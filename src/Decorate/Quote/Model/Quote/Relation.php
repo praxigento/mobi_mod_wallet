@@ -38,8 +38,8 @@ class Relation
         $quoteId = $object->getId();
         /** @var \Magento\Quote\Model\Quote\Address $addrShipping */
         $addrShipping = $object->getShippingAddress();
-        $total = $addrShipping->getData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_TOTAL);
-        $baseTotal = $addrShipping->getData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_BASE_TOTAL);
+        $total = $addrShipping->get(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_TOTAL);
+        $baseTotal = $addrShipping->get(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_BASE_TOTAL);
         /* check if current total exist */
         /** @var \Praxigento\Wallet\Data\Entity\Partial\Quote $exist */
         $exist = $this->_repoPartialQuote->getById($quoteId);

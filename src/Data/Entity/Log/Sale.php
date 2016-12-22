@@ -17,14 +17,14 @@ class Sale
     /** @return int */
     public function getSaleOrderRef()
     {
-        $result = parent::getData(self::ATTR_SALE_ORDER_REF);
+        $result = parent::get(self::ATTR_SALE_ORDER_REF);
         return $result;
     }
 
     /** @return int */
     public function getOperationRef()
     {
-        $result = parent::getData(self::ATTR_OPER_REF);
+        $result = parent::get(self::ATTR_OPER_REF);
         return $result;
     }
 
@@ -36,13 +36,13 @@ class Sale
     /** @param int $data */
     public function setSaleOrderRef($data)
     {
-        parent::setData(self::ATTR_SALE_ORDER_REF, $data);
+        parent::set(self::ATTR_SALE_ORDER_REF, $data);
     }
 
     /** @param int $data */
     public function setOperationRef($data)
     {
-        parent::setData(self::ATTR_OPER_REF, $data);
+        parent::set(self::ATTR_OPER_REF, $data);
     }
 
 }
