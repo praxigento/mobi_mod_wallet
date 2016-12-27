@@ -50,10 +50,10 @@ class Grand
         $totalPartial = $parent->getTotal(self::CODE_PARTIAL);
         if ($totalPartial) {
             $totalGrandIncFixed = $parent->getTotal(self::CODE_GRAND_INCL);
-            $partialBase = $totalPartial->get('base_value');
-            $partial = $totalPartial->get('value');
-            $grandIncFixedBase = $totalGrandIncFixed->get('base_value');
-            $grandIncFixed = $totalGrandIncFixed->get('value');
+            $partialBase = $totalPartial->getData('base_value');
+            $partial = $totalPartial->getData('value');
+            $grandIncFixedBase = $totalGrandIncFixed->getData('base_value');
+            $grandIncFixed = $totalGrandIncFixed->getData('value');
             /* add grand total with eWallet part */
             $baseAmount = $grandIncFixedBase + $partialBase;
             $amount = $grandIncFixed + $partial;
@@ -82,9 +82,8 @@ class Grand
             $grandBase = $baseAmount - $taxBase - $taxCompensationBase;
             $grand = $amount - $tax - $taxCompensation;
             $totalGrandFixed = $parent->getTotal(self::CODE_GRAND);
-            $totalGrandFixed->set('base_value', $grandBase);
-            $totalGrandFixed->set('value', $grand);
-
+            $totalGrandFixed->setData('base_value', $grandBase);
+            $totalGrandFixed->setData('value', $grand);
         }
         return $this;
     }

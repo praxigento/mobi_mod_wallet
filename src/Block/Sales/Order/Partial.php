@@ -58,8 +58,8 @@ class Partial
             /* MOBI-497: fix 'due' amount */
             $totalDue = $parent->getTotal('due');
             if ($totalDue) {
-                $due = $totalDue->get('value');
-                $dueBase = $totalDue->get('base_value');
+                $due = $totalDue->getData('value');
+                $dueBase = $totalDue->getData('base_value');
                 $dueFixed = $due - $amount;
                 $dueFixedBase = $dueBase - $baseAmount;
                 $totalDue->setData('value', $dueFixed);
