@@ -35,16 +35,19 @@ class ConfigProvider
         $this->hlpCfg = $hlpCfg;
     }
 
-    protected function _populateCustomerData()
+    protected function populateCustomerData()
     {
-        $result[self::CFG_CUST_BALANCE] = 0;
+        $result = [];
         if ($this->sessionCustomer) {
             $customerId = $this->sessionCustomer->getCustomerId();
-            $assetTypeId = $this->repoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
-            $account = $this->repoAccount->getByCustomerId($customerId, $assetTypeId);
-            if ($account) {
-                $balance = $account->getBalance();
-                $result[self::CFG_CUST_BALANCE] = $balance;
+            if ($customerId) {
+                $result[self::CFG_CUST_BALANCE] = 0;
+                $assetTypeId = $this->repoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
+                $account = $this->repoAccount->getByCustomerId($customerId, $assetTypeId);
+                if ($account) {
+                    $balance = $account->getBalance();
+                    $result[self::CFG_CUST_BALANCE] = $balance;
+                }
             }
         }
         return $result;
@@ -58,7 +61,7 @@ class ConfigProvider
         $isPartialEnabled = $this->hlpCfg->getWalletPartialEnabled();
         $partialMaxPercent = $this->hlpCfg->getWalletPartialPercent();
         /* ... and additional configuration for other objects */
-        $customerData = $this->_populateCustomerData();
+        $customerData = $this->populateCustomerData();
         /* then compose data transfer object */
         $data = new \Praxigento\Wallet\Api\Data\Config\Payment\Method();
         $data->setIsEnabled($isEnabled);
