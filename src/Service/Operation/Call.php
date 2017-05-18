@@ -92,7 +92,7 @@ class Call
         $asAmount = $req->getAsAmount();
         $asCustId = $req->getAsCustomerId();
         $asRef = $req->getAsRef();
-        $this->_logger->info("'Add to Wallet Active' operation is started.");
+        $this->logger->info("'Add to Wallet Active' operation is started.");
         /* prepare additional data */
         $datePerformed = is_null($datePerformed) ? $this->_toolDate->getUtcNowForDb() : $datePerformed;
         $dateApplied = is_null($dateApplied) ? $datePerformed : $dateApplied;
@@ -127,18 +127,18 @@ class Call
                     $one[$asRef] = $item[$asRef];
                 }
                 $trans[] = $one;
-                $this->_logger->debug("Transaction ($value) for customer #$custId (acc #$accId) is added to operation with type '$operTypeCode'.");
+                $this->logger->debug("Transaction ($value) for customer #$custId (acc #$accId) is added to operation with type '$operTypeCode'.");
             } else {
-                $this->_logger->debug("Transaction for customer #$custId is '$value'. Transaction is not included in operation with type '$operTypeCode'.");
+                $this->logger->debug("Transaction for customer #$custId is '$value'. Transaction is not included in operation with type '$operTypeCode'.");
             }
         }
         $reqOperAdd->setTransactions($trans);
         $respOperAdd = $this->_callOper->add($reqOperAdd);
         $operId = $respOperAdd->getOperationId();
-        $this->_logger->debug("New operation (type id '$operTypeCode') is added with id=$operId .");
+        $this->logger->debug("New operation (type id '$operTypeCode') is added with id=$operId .");
         $result->set($respOperAdd->get());
         $result->markSucceed();
-        $this->_logger->info("'Add to Wallet Active' operation is completed.");
+        $this->logger->info("'Add to Wallet Active' operation is completed.");
         return $result;
     }
 
