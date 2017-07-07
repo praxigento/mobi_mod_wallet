@@ -5,7 +5,7 @@
 
     <body>
         <referenceBlock name="order_totals">
-            <block class="\Praxigento\Wallet\Block\Sales\Order\Partial" name="praxigento_wallet_partial"/>
+            <block class="Praxigento\Wallet\Block\Sales\Order\Partial" name="praxigento_wallet_partial"/>
         </referenceBlock>
     </body>
 </page>
