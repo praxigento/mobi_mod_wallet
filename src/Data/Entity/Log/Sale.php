@@ -28,7 +28,7 @@ class Sale
         return $result;
     }
 
-    public function getPrimaryKeyAttrs()
+    public static function getPrimaryKeyAttrs()
     {
         return [self::ATTR_OPER_REF, self::ATTR_SALE_ORDER_REF];
     }
