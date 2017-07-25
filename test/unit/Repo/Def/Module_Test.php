@@ -17,7 +17,7 @@ class Module_UnitTest extends \Praxigento\Core\Test\BaseCase\Repo
     {
         parent::setUp();
         /** create mocks */
-        $this->mRepoTypeAsset = $this->_mock(\Praxigento\Accounting\Repo\Entity\Type\IAsset::class);
+        $this->mRepoTypeAsset = $this->_mock(\Praxigento\Accounting\Repo\Entity\Type\Def\Asset::class);
         $this->obj = new Module(
             $this->mResource,
             $this->mRepoTypeAsset

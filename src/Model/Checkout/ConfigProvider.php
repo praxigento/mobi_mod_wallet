@@ -16,41 +16,23 @@ class ConfigProvider
     const CFG_NAME = 'praxigentoWallet';
     /** @var \Praxigento\Wallet\Helper\Config */
     protected $hlpCfg;
-    /** @var \Praxigento\Accounting\Repo\Entity\IAccount */
+    /** @var \Praxigento\Accounting\Repo\Entity\Def\Account */
     protected $repoAccount;
-    /** @var \Praxigento\Accounting\Repo\Entity\Type\IAsset */
+    /** @var \Praxigento\Accounting\Repo\Entity\Type\Def\Asset */
     protected $repoAssetType;
     /** @var \Magento\Customer\Model\Session */
     protected $sessionCustomer;
 
     public function __construct(
         \Magento\Customer\Model\Session $sessionCustomer,
-        \Praxigento\Accounting\Repo\Entity\IAccount $repoAccount,
-        \Praxigento\Accounting\Repo\Entity\Type\IAsset $repoAssetType,
+        \Praxigento\Accounting\Repo\Entity\Def\Account $repoAccount,
+        \Praxigento\Accounting\Repo\Entity\Type\Def\Asset $repoAssetType,
         \Praxigento\Wallet\Helper\Config $hlpCfg
     ) {
         $this->sessionCustomer = $sessionCustomer;
         $this->repoAccount = $repoAccount;
         $this->repoAssetType = $repoAssetType;
         $this->hlpCfg = $hlpCfg;
-    }
-
-    protected function populateCustomerData()
-    {
-        $result = [];
-        if ($this->sessionCustomer) {
-            $customerId = $this->sessionCustomer->getCustomerId();
-            if ($customerId) {
-                $result[self::CFG_CUST_BALANCE] = 0;
-                $assetTypeId = $this->repoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
-                $account = $this->repoAccount->getByCustomerId($customerId, $assetTypeId);
-                if ($account) {
-                    $balance = $account->getBalance();
-                    $result[self::CFG_CUST_BALANCE] = $balance;
-                }
-            }
-        }
-        return $result;
     }
 
     public function getConfig()
@@ -73,6 +55,24 @@ class ConfigProvider
             'customerData' => $customerData, // see \Magento\Checkout\Model\DefaultConfigProvider::getConfig
             self::CFG_NAME => $data->get()
         ];
+        return $result;
+    }
+
+    protected function populateCustomerData()
+    {
+        $result = [];
+        if ($this->sessionCustomer) {
+            $customerId = $this->sessionCustomer->getCustomerId();
+            if ($customerId) {
+                $result[self::CFG_CUST_BALANCE] = 0;
+                $assetTypeId = $this->repoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
+                $account = $this->repoAccount->getByCustomerId($customerId, $assetTypeId);
+                if ($account) {
+                    $balance = $account->getBalance();
+                    $result[self::CFG_CUST_BALANCE] = $balance;
+                }
+            }
+        }
         return $result;
     }
 
