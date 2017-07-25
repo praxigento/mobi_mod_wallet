@@ -16,17 +16,17 @@ class ConfigProvider
     const CFG_NAME = 'praxigentoWallet';
     /** @var \Praxigento\Wallet\Helper\Config */
     protected $hlpCfg;
-    /** @var \Praxigento\Accounting\Repo\Entity\Def\Account */
+    /** @var \Praxigento\Accounting\Repo\Entity\Account */
     protected $repoAccount;
-    /** @var \Praxigento\Accounting\Repo\Entity\Type\Def\Asset */
+    /** @var \Praxigento\Accounting\Repo\Entity\Type\Asset */
     protected $repoAssetType;
     /** @var \Magento\Customer\Model\Session */
     protected $sessionCustomer;
 
     public function __construct(
         \Magento\Customer\Model\Session $sessionCustomer,
-        \Praxigento\Accounting\Repo\Entity\Def\Account $repoAccount,
-        \Praxigento\Accounting\Repo\Entity\Type\Def\Asset $repoAssetType,
+        \Praxigento\Accounting\Repo\Entity\Account $repoAccount,
+        \Praxigento\Accounting\Repo\Entity\Type\Asset $repoAssetType,
         \Praxigento\Wallet\Helper\Config $hlpCfg
     ) {
         $this->sessionCustomer = $sessionCustomer;

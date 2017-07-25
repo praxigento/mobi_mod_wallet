@@ -26,13 +26,13 @@ class Call
     protected $_callAccount;
     /** @var  \Praxigento\Accounting\Service\IOperation */
     protected $_callOper;
-    /** @var  \Praxigento\Accounting\Repo\Entity\Def\Account */
+    /** @var  \Praxigento\Accounting\Repo\Entity\Account */
     protected $_repoEAcc;
     /** @var \Praxigento\Wallet\Repo\Entity\Log\ISale */
     protected $_repoELogSale;
-    /** @var \Praxigento\Accounting\Repo\Entity\Type\Def\Asset */
+    /** @var \Praxigento\Accounting\Repo\Entity\Type\Asset */
     protected $_repoETypeAsset;
-    /** @var \Praxigento\Accounting\Repo\Entity\Type\Def\Operation */
+    /** @var \Praxigento\Accounting\Repo\Entity\Type\Operation */
     protected $_repoETypeOper;
     /** @var \Praxigento\Wallet\Repo\IModule */
     protected $_repoMod;
@@ -47,9 +47,9 @@ class Call
         \Praxigento\Core\Tool\IDate $toolDate,
         \Praxigento\Accounting\Service\IAccount $callAccount,
         \Praxigento\Accounting\Service\IOperation $callOper,
-        \Praxigento\Accounting\Repo\Entity\Def\Account $repoEAccount,
-        \Praxigento\Accounting\Repo\Entity\Type\Def\Asset $repoETypeAsset,
-        \Praxigento\Accounting\Repo\Entity\Type\Def\Operation $repoETypeOper,
+        \Praxigento\Accounting\Repo\Entity\Account $repoEAccount,
+        \Praxigento\Accounting\Repo\Entity\Type\Asset $repoETypeAsset,
+        \Praxigento\Accounting\Repo\Entity\Type\Operation $repoETypeOper,
         \Praxigento\Accounting\Repo\IModule $repoModAccount,
         \Praxigento\Wallet\Repo\IModule $repoMod,
         \Praxigento\Wallet\Repo\Entity\Log\ISale $repoELogSale
