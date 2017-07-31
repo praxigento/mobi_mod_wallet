@@ -15,11 +15,11 @@ class Grand
     extends \Magento\Sales\Block\Adminhtml\Order\Invoice\Totals
 {
     const CODE = Cfg::CODE_TOTAL_PARTIAL . '_grand';
-    const CODE_GRAND_INCL = 'grand_total_incl';
     const CODE_GRAND = 'grand_total';
-    const CODE_TAX = 'tax';
+    const CODE_GRAND_INCL = 'grand_total_incl';
     const CODE_PARTIAL = \Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total\Partial::CODE;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\ISale */
+    const CODE_TAX = 'tax';
+    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Def\Sale */
     protected $repoPartialSale;
 
     /**
@@ -30,7 +30,7 @@ class Grand
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Sales\Helper\Admin $adminHelper,
-        \Praxigento\Wallet\Repo\Entity\Partial\ISale $repoPartialSale,
+        \Praxigento\Wallet\Repo\Entity\Partial\Def\Sale $repoPartialSale,
         array $data = []
     ) {
         parent::__construct($context, $registry, $adminHelper, $data);

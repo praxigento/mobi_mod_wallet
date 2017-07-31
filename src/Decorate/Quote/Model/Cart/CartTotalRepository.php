@@ -9,23 +9,23 @@ namespace Praxigento\Wallet\Decorate\Quote\Model\Cart;
 class CartTotalRepository
 {
     const TOTAL_SEGMENT = 'praxigento_wallet';
+    /** @var \Magento\Quote\Api\Data\TotalsExtensionFactory */
+    protected $_factTotalExt;
     /** @var \Praxigento\Wallet\Helper\Config */
     protected $_hlpCfg;
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
     protected $_hlpPriceCurrency;
     /** @var  \Magento\Framework\ObjectManagerInterface */
     protected $_manObj;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\IQuote */
+    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote */
     protected $_repoPartialQuote;
-    /** @var \Magento\Quote\Api\Data\TotalsExtensionFactory */
-    protected $_factTotalExt;
 
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $manObj,
         \Magento\Quote\Api\Data\TotalsExtensionFactory $factTotalExt,
         \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
         \Praxigento\Wallet\Helper\Config $hlpCfg,
-        \Praxigento\Wallet\Repo\Entity\Partial\IQuote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote $repoPartialQuote
     ) {
         $this->_manObj = $manObj;
         $this->_factTotalExt = $factTotalExt;

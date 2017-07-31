@@ -28,7 +28,7 @@ class Call
     protected $_callOper;
     /** @var  \Praxigento\Accounting\Repo\Entity\Account */
     protected $_repoEAcc;
-    /** @var \Praxigento\Wallet\Repo\Entity\Log\ISale */
+    /** @var \Praxigento\Wallet\Repo\Entity\Log\Def\Sale */
     protected $_repoELogSale;
     /** @var \Praxigento\Accounting\Repo\Entity\Type\Asset */
     protected $_repoETypeAsset;
@@ -52,7 +52,7 @@ class Call
         \Praxigento\Accounting\Repo\Entity\Type\Operation $repoETypeOper,
         \Praxigento\Accounting\Repo\IModule $repoModAccount,
         \Praxigento\Wallet\Repo\IModule $repoMod,
-        \Praxigento\Wallet\Repo\Entity\Log\ISale $repoELogSale
+        \Praxigento\Wallet\Repo\Entity\Log\Def\Sale $repoELogSale
     ) {
         parent::__construct($logger, $manObj);
         $this->_toolDate = $toolDate;

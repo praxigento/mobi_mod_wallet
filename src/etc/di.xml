@@ -51,12 +51,6 @@
     </type>
 
     <!-- Repo -->
-    <preference for="\Praxigento\Wallet\Repo\Entity\Log\ISale"
-            type="\Praxigento\Wallet\Repo\Entity\Log\Def\Sale"/>
-    <preference for="\Praxigento\Wallet\Repo\Entity\Partial\IQuote"
-            type="\Praxigento\Wallet\Repo\Entity\Partial\Def\Quote"/>
-    <preference for="\Praxigento\Wallet\Repo\Entity\Partial\ISale"
-            type="\Praxigento\Wallet\Repo\Entity\Partial\Def\Sale"/>
     <preference for="Praxigento\Wallet\Repo\IModule"
             type="Praxigento\Wallet\Repo\Def\Module"/>
 

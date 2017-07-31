@@ -12,16 +12,16 @@ class SalesOrderPaymentPlaceStart
 {
     /* Names for the items in the event's data */
     const DATA_PAYMENT = 'payment';
-    /** @var \Psr\Log\LoggerInterface */
-    protected $_logger;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\IQuote */
-    protected $_repoPartialQuote;
     /** @var \Praxigento\Wallet\Service\IOperation */
     protected $_callOperation;
+    /** @var \Psr\Log\LoggerInterface */
+    protected $_logger;
+    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote */
+    protected $_repoPartialQuote;
 
     public function __construct(
         \Praxigento\Core\Fw\Logger\App $logger,
-        \Praxigento\Wallet\Repo\Entity\Partial\IQuote $repoPartialQuote,
+        \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote $repoPartialQuote,
         \Praxigento\Wallet\Service\IOperation $callOperation
     ) {
         $this->_logger = $logger;

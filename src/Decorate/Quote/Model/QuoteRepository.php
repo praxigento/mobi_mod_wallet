@@ -10,11 +10,11 @@ namespace Praxigento\Wallet\Decorate\Quote\Model;
  */
 class QuoteRepository
 {
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\IQuote */
+    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote */
     protected $_repoPartialQuote;
 
     public function __construct(
-        \Praxigento\Wallet\Repo\Entity\Partial\IQuote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote $repoPartialQuote
     ) {
         $this->_repoPartialQuote = $repoPartialQuote;
     }
