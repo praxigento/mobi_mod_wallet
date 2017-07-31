@@ -15,12 +15,12 @@ class SalesModelServiceQuoteSubmitSuccess
     const DATA_QUOTE = 'quote';
     /** @var \Psr\Log\LoggerInterface */
     protected $_logger;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Def\Sale */
+    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Sale */
     protected $_repoPartialSale;
 
     public function __construct(
         \Praxigento\Core\Fw\Logger\App $logger,
-        \Praxigento\Wallet\Repo\Entity\Partial\Def\Sale $repoPartialSale
+        \Praxigento\Wallet\Repo\Entity\Partial\Sale $repoPartialSale
     ) {
         $this->_logger = $logger;
         $this->_repoPartialSale = $repoPartialSale;

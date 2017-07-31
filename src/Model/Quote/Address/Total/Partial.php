@@ -21,13 +21,13 @@ class Partial
     protected $hlpConfig;
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
     protected $hlpPriceCurrency;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote */
+    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Quote */
     protected $repoPartialQuote;
 
     public function __construct(
         \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
         \Praxigento\Wallet\Helper\Config $hlpConfig,
-        \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote
     ) {
         $this->hlpPriceCurrency = $hlpPriceCurrency;
         $this->hlpConfig = $hlpConfig;

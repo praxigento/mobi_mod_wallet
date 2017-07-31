@@ -17,7 +17,7 @@ class CartTotalRepository
     protected $_hlpPriceCurrency;
     /** @var  \Magento\Framework\ObjectManagerInterface */
     protected $_manObj;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote */
+    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Quote */
     protected $_repoPartialQuote;
 
     public function __construct(
@@ -25,7 +25,7 @@ class CartTotalRepository
         \Magento\Quote\Api\Data\TotalsExtensionFactory $factTotalExt,
         \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
         \Praxigento\Wallet\Helper\Config $hlpCfg,
-        \Praxigento\Wallet\Repo\Entity\Partial\Def\Quote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote
     ) {
         $this->_manObj = $manObj;
         $this->_factTotalExt = $factTotalExt;
