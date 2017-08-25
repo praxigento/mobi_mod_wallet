@@ -4,8 +4,8 @@
  */
 namespace Praxigento\Wallet\Service\Operation;
 
-use Praxigento\Accounting\Data\Entity\Account;
-use Praxigento\Accounting\Data\Entity\Transaction;
+use Praxigento\Accounting\Repo\Entity\Data\Account;
+use Praxigento\Accounting\Repo\Entity\Data\Transaction;
 use Praxigento\Accounting\Service\Account\Request\Get as AccountGetRequest;
 use Praxigento\Accounting\Service\Account\Request\GetRepresentative as AccountGetRepresentativeRequest;
 use Praxigento\Wallet\Config as Cfg;
@@ -162,7 +162,7 @@ class Call
         $respGetRepres = $this->_callAccount->getRepresentative($reqGetRepres);
         $accIdCredit = $respGetRepres->getId();
         /* compose transaction data */
-        $transaction = new \Praxigento\Accounting\Data\Entity\Transaction();
+        $transaction = new \Praxigento\Accounting\Repo\Entity\Data\Transaction();
         $transaction->setDebitAccId($accIdDebit);
         $transaction->setCreditAccId($accIdCredit);
         $transaction->setValue($value);

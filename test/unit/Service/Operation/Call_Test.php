@@ -4,7 +4,7 @@
  */
 namespace Praxigento\Wallet\Service\Operation;
 
-use Praxigento\Accounting\Data\Entity\Account;
+use Praxigento\Accounting\Repo\Entity\Data\Account;
 use Praxigento\Accounting\Service\Account\Response\Get as AccountGetResponse;
 use Praxigento\Accounting\Service\Account\Response\GetRepresentative as GetRepresentativeResponse;
 use Praxigento\Accounting\Service\Operation\Response\Add as OperationAddResponse;

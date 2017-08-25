@@ -6,8 +6,8 @@
  */
 namespace Praxigento\Wallet\Setup;
 
-use Praxigento\Accounting\Data\Entity\Type\Asset as TypeAsset;
-use Praxigento\Accounting\Data\Entity\Type\Operation as TypeOperation;
+use Praxigento\Accounting\Repo\Entity\Data\Type\Asset as TypeAsset;
+use Praxigento\Accounting\Repo\Entity\Data\Type\Operation as TypeOperation;
 use Praxigento\Wallet\Config as Cfg;
 
 /**
