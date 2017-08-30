@@ -63,7 +63,7 @@ class CartTotalRepository
 //            $exts->setPraxigentoWalletPaymentConfig($extData);
 //            $result->setExtensionAttributes($exts);
             /* get partial data from repository */
-            /** @var \Praxigento\Wallet\Data\Entity\Partial\Quote $found */
+            /** @var \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote $found */
             $found = $this->_repoPartialQuote->getById($cartId);
             if ($found) {
                 $basePartial = $found->getBasePartialAmount();

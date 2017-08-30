@@ -175,7 +175,7 @@ class Call
         $operId = $respAddOper->getOperationId();
         $result->setOperationId($operId);
 //        /* log sale order operation */
-//        $log = new \Praxigento\Wallet\Data\Entity\Log\Sale();
+//        $log = new \Praxigento\Wallet\Repo\Entity\Data\Log\Sale();
 //        $log->setOperationRef($operId);
 //        $log->setSaleOrderRef($saleOrderId);
         if ($respAddOper->isSucceed()) {

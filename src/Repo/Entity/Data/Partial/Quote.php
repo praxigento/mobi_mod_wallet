@@ -2,7 +2,8 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Data\Entity\Partial;
+
+namespace Praxigento\Wallet\Repo\Entity\Data\Partial;
 
 /**
  * Partial payments amount for sale quotes.

@@ -12,7 +12,7 @@ class Quote
         \Magento\Framework\App\ResourceConnection $resource,
         \Praxigento\Core\Repo\IGeneric $repoGeneric
     ) {
-        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Data\Entity\Partial\Quote::class);
+        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote::class);
     }
 
     public function create($data)
@@ -23,7 +23,7 @@ class Quote
 
     /**
      * @param int $id
-     * @return \Praxigento\Wallet\Data\Entity\Partial\Quote|false
+     * @return \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote|false
      *
      * @SuppressWarnings(PHPMD.ShortVariable)
      */

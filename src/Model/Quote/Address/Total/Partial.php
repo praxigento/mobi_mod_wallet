@@ -51,7 +51,7 @@ class Partial
             $isPartialEnabled = $this->hlpConfig->getWalletPartialEnabled();
             if ($isPartialEnabled) {
                 $quoteId = $quote->getId();
-                /** @var \Praxigento\Wallet\Data\Entity\Partial\Quote $partialDataSaved */
+                /** @var \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote $partialDataSaved */
                 $partialDataSaved = $this->repoPartialQuote->getById($quoteId);
                 /**
                  * Check quote for partial payment switcher.
@@ -83,7 +83,7 @@ class Partial
                             }
                         } else {
                             /* create new record in the registry */
-                            $partialDataSaved = new \Praxigento\Wallet\Data\Entity\Partial\Quote();
+                            $partialDataSaved = new \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote();
                             $partialDataSaved->setQuoteRef($quoteId);
                             $partialDataSaved->setBasePartialAmount($partialBase);
                             $partialDataSaved->setPartialAmount($partial);

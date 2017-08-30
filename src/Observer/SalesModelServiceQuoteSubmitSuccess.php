@@ -40,7 +40,7 @@ class SalesModelServiceQuoteSubmitSuccess
             /** @var \Magento\Sales\Model\Order $order */
             $order = $observer->getData(self::DATA_ORDER);
             $orderId = $order->getId();
-            $data = new \Praxigento\Wallet\Data\Entity\Partial\Sale();
+            $data = new \Praxigento\Wallet\Repo\Entity\Data\Partial\Sale();
             $data->setPartialAmount($partialAmount);
             $data->setBasePartialAmount($basePartialAmount);
             $data->setSaleOrderRef($orderId);

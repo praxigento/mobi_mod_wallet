@@ -12,7 +12,7 @@ class Sale
         \Magento\Framework\App\ResourceConnection $resource,
         \Praxigento\Core\Repo\IGeneric $repoGeneric
     ) {
-        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Data\Entity\Log\Sale::class);
+        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Entity\Data\Log\Sale::class);
     }
 
 }

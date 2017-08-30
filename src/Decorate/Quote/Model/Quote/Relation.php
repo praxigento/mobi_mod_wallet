@@ -41,7 +41,7 @@ class Relation
         $total = $addrShipping->getData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_TOTAL);
         $baseTotal = $addrShipping->getData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_BASE_TOTAL);
         /* check if current total exist */
-        /** @var \Praxigento\Wallet\Data\Entity\Partial\Quote $exist */
+        /** @var \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote $exist */
         $exist = $this->_repoPartialQuote->getById($quoteId);
         if ($exist) {
             /* there is record in registry */
@@ -59,7 +59,7 @@ class Relation
             }
         } elseif (abs($baseTotal) > 0.00001) {
             /* create new record in registry */
-            $data = new \Praxigento\Wallet\Data\Entity\Partial\Quote();
+            $data = new \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote();
             $data->setQuoteRef($quoteId);
             $exist->setPartialAmount($total);
             $data->setBasePartialAmount($baseTotal);

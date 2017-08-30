@@ -12,7 +12,7 @@ class Sale
         \Magento\Framework\App\ResourceConnection $resource,
         \Praxigento\Core\Repo\IGeneric $repoGeneric
     ) {
-        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Data\Entity\Partial\Sale::class);
+        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Entity\Data\Partial\Sale::class);
     }
 
     public function create($data)
@@ -23,7 +23,7 @@ class Sale
 
     /**
      * @param array|int|string $id
-     * @return \Praxigento\Wallet\Data\Entity\Partial\Sale|false
+     * @return \Praxigento\Wallet\Repo\Entity\Data\Partial\Sale|false
      *
      * @SuppressWarnings(PHPMD.ShortVariable)
      */
