@@ -4,7 +4,7 @@
  */
 namespace Praxigento\Wallet\Api\Data\Config\Payment;
 
-use Flancer32\Lib\Data as DataObject;
+use Praxigento\Core\Data as DataObject;
 
 /**
  * Configuration parameters for the payment method.
