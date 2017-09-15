@@ -50,9 +50,6 @@
                 sortOrder="100" disabled="false"/>
     </type>
 
-    <!-- Repo -->
-    <preference for="Praxigento\Wallet\Repo\IModule"
-            type="Praxigento\Wallet\Repo\Def\Module"/>
 
     <!-- Service -->
     <preference for="Praxigento\Wallet\Service\IOperation"

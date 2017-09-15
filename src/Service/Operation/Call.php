@@ -34,10 +34,6 @@ class Call
     protected $_repoETypeAsset;
     /** @var \Praxigento\Accounting\Repo\Entity\Type\Operation */
     protected $_repoETypeOper;
-    /** @var \Praxigento\Wallet\Repo\IModule */
-    protected $_repoMod;
-    /** @var  \Praxigento\Accounting\Repo\IModule */
-    protected $_repoModAcc;
     /** @var \Praxigento\Core\Tool\IDate */
     protected $_toolDate;
 
@@ -50,8 +46,6 @@ class Call
         \Praxigento\Accounting\Repo\Entity\Account $repoEAccount,
         \Praxigento\Accounting\Repo\Entity\Type\Asset $repoETypeAsset,
         \Praxigento\Accounting\Repo\Entity\Type\Operation $repoETypeOper,
-        \Praxigento\Accounting\Repo\IModule $repoModAccount,
-        \Praxigento\Wallet\Repo\IModule $repoMod,
         \Praxigento\Wallet\Repo\Entity\Log\Sale $repoELogSale
     ) {
         parent::__construct($logger, $manObj);
@@ -59,10 +53,8 @@ class Call
         $this->_callAccount = $callAccount;
         $this->_callOper = $callOper;
         $this->_repoEAcc = $repoEAccount;
-        $this->_repoModAcc = $repoModAccount;
         $this->_repoETypeAsset = $repoETypeAsset;
         $this->_repoETypeOper = $repoETypeOper;
-        $this->_repoMod = $repoMod;
         $this->_repoELogSale = $repoELogSale;
     }
 
@@ -97,7 +89,7 @@ class Call
         $datePerformed = is_null($datePerformed) ? $this->_toolDate->getUtcNowForDb() : $datePerformed;
         $dateApplied = is_null($dateApplied) ? $datePerformed : $dateApplied;
         /* get asset type ID */
-        $assetTypeId = $this->_repoMod->getTypeAssetIdByCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
+        $assetTypeId = $this->_repoETypeAsset->getIdByCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
         /* get representative customer ID */
         $represAccId = $this->_getRepresentativeAccId($assetTypeId);
         /* save operation */
