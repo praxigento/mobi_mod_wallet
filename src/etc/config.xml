@@ -4,7 +4,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <payment>
-            <!-- This code should be equal to \Praxigento\Wallet\Model\Payment::CODE -->
+            <!-- See 'code' argument for '\Praxigento\Wallet\Model\Payment\Method\Wallet' in './etc/di.xml' -->
             <praxigento_wallet>
                 <active>0</active>
                 <!-- Configure Payment facade in '/etc/di.xml' -->

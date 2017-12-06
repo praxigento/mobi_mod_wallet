@@ -2,6 +2,7 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
+
 namespace Praxigento\Wallet\Model\Checkout;
 
 /**
@@ -14,21 +15,23 @@ class ConfigProvider
     const CFG_CUST_BALANCE = 'prxgtWalletBalance';
     /** Name for configuration top level attribute to collect configuration data. */
     const CFG_NAME = 'praxigentoWallet';
+
     /** @var \Praxigento\Wallet\Helper\Config */
-    protected $hlpCfg;
+    private $hlpCfg;
     /** @var \Praxigento\Accounting\Repo\Entity\Account */
-    protected $repoAccount;
+    private $repoAccount;
     /** @var \Praxigento\Accounting\Repo\Entity\Type\Asset */
-    protected $repoAssetType;
+    private $repoAssetType;
     /** @var \Magento\Customer\Model\Session */
-    protected $sessionCustomer;
+    private $sessionCustomer;
 
     public function __construct(
         \Magento\Customer\Model\Session $sessionCustomer,
         \Praxigento\Accounting\Repo\Entity\Account $repoAccount,
         \Praxigento\Accounting\Repo\Entity\Type\Asset $repoAssetType,
         \Praxigento\Wallet\Helper\Config $hlpCfg
-    ) {
+    )
+    {
         $this->sessionCustomer = $sessionCustomer;
         $this->repoAccount = $repoAccount;
         $this->repoAssetType = $repoAssetType;
@@ -38,7 +41,7 @@ class ConfigProvider
     public function getConfig()
     {
         /* Get payment method configuration */
-        $isEnabled = $this->hlpCfg->getWalletActive();
+        $isEnabled = $this->isEnabled();
         $isNegativeBalanceEnabled = $this->hlpCfg->getWalletNegativeBalanceEnabled();
         $isPartialEnabled = $this->hlpCfg->getWalletPartialEnabled();
         $partialMaxPercent = $this->hlpCfg->getWalletPartialPercent();
@@ -48,7 +51,7 @@ class ConfigProvider
         $data = new \Praxigento\Wallet\Api\Data\Config\Payment\Method();
         $data->setIsEnabled($isEnabled);
         $data->setIsNegativeBalanceEnabled($isNegativeBalanceEnabled);
-        $data->setIsPartialEnabled($isPartialEnabled);
+        $data->setIsPartialEnabled($isEnabled && $isPartialEnabled);
         $data->setPartialMaxPercent($partialMaxPercent);
         /* and add configuration data to checkout config */
         $result = [
@@ -58,7 +61,18 @@ class ConfigProvider
         return $result;
     }
 
-    protected function populateCustomerData()
+    private function isEnabled()
+    {
+        $result = $this->hlpCfg->getWalletActive();
+        if ($result) {
+            /* validate customer group */
+            $isLoggedIn = $this->sessionCustomer->isLoggedIn();
+            $result = $result && $isLoggedIn;
+        }
+        return $result;
+    }
+
+    private function populateCustomerData()
     {
         $result = [];
         if ($this->sessionCustomer) {

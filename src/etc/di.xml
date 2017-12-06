@@ -3,10 +3,34 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <!-- Payment Method Facade configuration -->
+    <!--<virtualType-->
+            <!--name="PraxigentoWalletPayment"-->
+            <!--type="\Praxigento\Wallet\Model\Payment\Method"/>-->
     <virtualType
             name="PraxigentoWalletPayment"
-            type="\Praxigento\Wallet\Model\Payment\Method"/>
-
+            type="\Praxigento\Wallet\Model\Payment\Method\Wallet"/>
+    <!-- Payment Method configuration -->
+    <type name="\Praxigento\Wallet\Model\Payment\Method\Wallet">
+        <arguments>
+            <argument name="config" xsi:type="object">\Magento\Payment\Gateway\Config\Config</argument>
+            <argument name="valueHandlerPool" xsi:type="object">PraxigentoWalletPaymentValueHandlerPool</argument>
+            <argument name="code" xsi:type="string">praxigento_wallet</argument>
+        </arguments>
+    </type>
+    <!-- @api create virtual type based on default value handler if it required by payment method -->
+    <virtualType name="PraxigentoWalletPaymentDefaultValueHandler" type="\Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">\Magento\Payment\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+    <!-- @api create virtual type based on default value handler pool if it required by payment method -->
+    <virtualType name="PraxigentoWalletPaymentValueHandlerPool" type="\Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">PraxigentoWalletPaymentDefaultValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
 
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <!-- Add eWallet payment method configuration to checkout config. -->
