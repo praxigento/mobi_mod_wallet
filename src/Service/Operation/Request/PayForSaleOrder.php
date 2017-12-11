@@ -14,6 +14,6 @@ namespace Praxigento\Wallet\Service\Operation\Request;
  * @method void setBaseAmountToPay(float $data)
  */
 class PayForSaleOrder
-    extends \Praxigento\Core\Service\Base\Request
+    extends \Praxigento\Core\App\Service\Base\Request
 {
 }

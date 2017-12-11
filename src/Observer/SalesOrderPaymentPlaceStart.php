@@ -20,7 +20,7 @@ class SalesOrderPaymentPlaceStart
     protected $_repoPartialQuote;
 
     public function __construct(
-        \Praxigento\Core\Fw\Logger\App $logger,
+        \Praxigento\Core\App\Logger\App $logger,
         \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote,
         \Praxigento\Wallet\Service\IOperation $callOperation
     ) {

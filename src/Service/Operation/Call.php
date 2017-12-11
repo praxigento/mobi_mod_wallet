@@ -18,7 +18,7 @@ use Praxigento\Wallet\Service\Operation\Response;
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Call
-    extends \Praxigento\Core\Service\Base\Call
+    extends \Praxigento\Core\App\Service\Base\Call
     implements \Praxigento\Wallet\Service\IOperation
 {
 
@@ -38,7 +38,7 @@ class Call
     protected $_toolDate;
 
     public function __construct(
-        \Praxigento\Core\Fw\Logger\App $logger,
+        \Praxigento\Core\App\Logger\App $logger,
         \Magento\Framework\ObjectManagerInterface $manObj,
         \Praxigento\Core\Tool\IDate $toolDate,
         \Praxigento\Accounting\Service\IAccount $callAccount,

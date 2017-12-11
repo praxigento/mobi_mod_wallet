@@ -9,7 +9,7 @@ namespace Praxigento\Wallet\Repo\Entity\Data\Partial;
  * Partial payments amount for sale orders.
  */
 class Sale
-    extends \Praxigento\Core\Data\Entity\Base
+    extends \Praxigento\Core\App\Repo\Data\Entity\Base
 {
     const ATTR_BASE_PARTIAL_AMOUNT = 'base_partial_amount';
     const ATTR_PARTIAL_AMOUNT = 'partial_amount';

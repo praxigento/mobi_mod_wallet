@@ -19,7 +19,7 @@ class SalesQuotePaymentImportDataBefore
     protected $_logger;
 
     public function __construct(
-        \Praxigento\Core\Fw\Logger\App $logger
+        \Praxigento\Core\App\Logger\App $logger
     )
     {
         $this->_logger = $logger;

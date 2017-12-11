@@ -9,7 +9,7 @@ namespace Praxigento\Wallet\Repo\Entity\Data\Log;
  * Log for sale order payments operations.
  */
 class Sale
-    extends \Praxigento\Core\Data\Entity\Base
+    extends \Praxigento\Core\App\Repo\Data\Entity\Base
 {
     const ATTR_OPER_REF = 'operation_ref';
     const ATTR_SALE_ORDER_REF = 'sale_order_ref';

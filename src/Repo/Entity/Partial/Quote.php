@@ -6,11 +6,11 @@
 namespace Praxigento\Wallet\Repo\Entity\Partial;
 
 class Quote
-    extends \Praxigento\Core\Repo\Def\Entity
+    extends \Praxigento\Core\App\Repo\Def\Entity
 {
     public function __construct(
         \Magento\Framework\App\ResourceConnection $resource,
-        \Praxigento\Core\Repo\IGeneric $repoGeneric
+        \Praxigento\Core\App\Repo\IGeneric $repoGeneric
     ) {
         parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote::class);
     }
