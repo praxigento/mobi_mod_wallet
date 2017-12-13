@@ -4,10 +4,9 @@
  */
 namespace Praxigento\Wallet\Service\Operation;
 
+use Praxigento\Accounting\Api\Service\Account\Get\Request as AccountGetRequest;
 use Praxigento\Accounting\Repo\Entity\Data\Account;
 use Praxigento\Accounting\Repo\Entity\Data\Transaction;
-use Praxigento\Accounting\Service\Account\Request\Get as AccountGetRequest;
-use Praxigento\Accounting\Service\Account\Request\GetRepresentative as AccountGetRepresentativeRequest;
 use Praxigento\Wallet\Config as Cfg;
 use Praxigento\Wallet\Service\Operation\Request;
 use Praxigento\Wallet\Service\Operation\Response;
@@ -22,7 +21,7 @@ class Call
     implements \Praxigento\Wallet\Service\IOperation
 {
 
-    /** @var  \Praxigento\Accounting\Service\IAccount */
+    /** @var  \Praxigento\Accounting\Api\Service\Account\Get */
     protected $_callAccount;
     /** @var  \Praxigento\Accounting\Service\IOperation */
     protected $_callOper;
@@ -41,7 +40,7 @@ class Call
         \Praxigento\Core\App\Logger\App $logger,
         \Magento\Framework\ObjectManagerInterface $manObj,
         \Praxigento\Core\Tool\IDate $toolDate,
-        \Praxigento\Accounting\Service\IAccount $callAccount,
+        \Praxigento\Accounting\Api\Service\Account\Get $callAccount,
         \Praxigento\Accounting\Service\IOperation $callOper,
         \Praxigento\Accounting\Repo\Entity\Account $repoEAccount,
         \Praxigento\Accounting\Repo\Entity\Type\Asset $repoETypeAsset,
@@ -67,9 +66,10 @@ class Call
      */
     private function _getRepresentativeAccId($assetTypeId)
     {
-        $req = new AccountGetRepresentativeRequest();
+        $req = new AccountGetRequest();
+        $req->setIsRepresentative(TRUE);
         $req->setAssetTypeId($assetTypeId);
-        $resp = $this->_callAccount->getRepresentative($req);
+        $resp = $this->_callAccount->exec($req);
         $result = $resp->get(Account::ATTR_ID);
         return $result;
     }
@@ -99,7 +99,6 @@ class Call
         $reqOperAdd->setAsTransRef($asRef);
         $trans = [];
         $reqGetAccount = new AccountGetRequest();
-        $reqGetAccount->setCreateNewAccountIfMissed();
         $reqGetAccount->setAssetTypeId($assetTypeId);
         foreach ($transData as $item) {
             $custId = $item[$asCustId];
@@ -107,7 +106,7 @@ class Call
             if ($value > 0) {
                 /* get WALLET_ACTIVE account ID for customer */
                 $reqGetAccount->setCustomerId($custId);
-                $respGetAccount = $this->_callAccount->get($reqGetAccount);
+                $respGetAccount = $this->_callAccount->exec($reqGetAccount);
                 $accId = $respGetAccount->get(Account::ATTR_ID);
                 $one = [
                     Transaction::ATTR_DEBIT_ACC_ID => $represAccId,
@@ -142,16 +141,16 @@ class Call
         $value = $req->getBaseAmountToPay();
         $saleOrderId = $req->getOrderId();
         /* collect data */
-        $reqGet = new \Praxigento\Accounting\Service\Account\Request\Get();
+        $reqGet = new \Praxigento\Accounting\Api\Service\Account\Get\Request();
         $reqGet->setCustomerId($custId);
         $reqGet->setAssetTypeCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
-        $reqGet->setCreateNewAccountIfMissed(true);
-        $respGet = $this->_callAccount->get($reqGet);
+        $respGet = $this->_callAccount->exec($reqGet);
         $accIdDebit = $respGet->getId();
         $assetTypeId = $respGet->getAssetTypeId();
-        $reqGetRepres = new \Praxigento\Accounting\Service\Account\Request\GetRepresentative();
+        $reqGetRepres = new \Praxigento\Accounting\Api\Service\Account\Get\Request();
+        $reqGetRepres->setIsRepresentative(TRUE);
         $reqGetRepres->setAssetTypeId($assetTypeId);
-        $respGetRepres = $this->_callAccount->getRepresentative($reqGetRepres);
+        $respGetRepres = $this->_callAccount->exec($reqGetRepres);
         $accIdCredit = $respGetRepres->getId();
         /* compose transaction data */
         $transaction = new \Praxigento\Accounting\Repo\Entity\Data\Transaction();
