@@ -19,7 +19,7 @@ class SalesModelServiceQuoteSubmitSuccess
     protected $_repoPartialSale;
 
     public function __construct(
-        \Praxigento\Core\App\Logger\App $logger,
+        \Psr\Log\LoggerInterface $logger,
         \Praxigento\Wallet\Repo\Entity\Partial\Sale $repoPartialSale
     ) {
         $this->_logger = $logger;
