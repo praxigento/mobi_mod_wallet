@@ -2,6 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
     <section name="quote">
+        <!-- see .../module-sales/etc/sales.xml -->
         <group name="totals">
             <!-- MOBI-486 : collect partial payment totals in quotes (see \Praxigento\Wallet\Config::CODE_TOTAL_PARTIAL) -->
             <item name="prxgt_wallet_partial"
@@ -10,9 +11,9 @@
         </group>
     </section>
     <section name="order_invoice">
+        <!-- see .../module-sales/etc/sales.xml -->
         <group name="totals">
             <!-- MOBI-497 : collect partial payment totals in invoices (see \Praxigento\Wallet\Config::CODE_TOTAL_PARTIAL) -->
-            <!-- see .../module-sales/etc/sales.xml -->
             <item name="prxgt_wallet_partial"
                     instance="\Praxigento\Wallet\Model\Order\Invoice\Total\Partial"
                     sort_order="700"/>

@@ -20,7 +20,7 @@ class Relation
     }
 
     /**
-     * Process original realtions then save partial payment totals.
+     * Process original relations then save partial payment totals.
      *
      * @param \Magento\Quote\Model\Quote\Relation $subject
      * @param \Closure $proceed
