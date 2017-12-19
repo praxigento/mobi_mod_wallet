@@ -2,7 +2,7 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Decorate\Sales\Model\Order\Payment;
+namespace Praxigento\Wallet\Plugin\Sales\Model\Order\Payment;
 
 
 class Processor

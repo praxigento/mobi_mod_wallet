@@ -22,7 +22,7 @@ define(
          */
         function getAmount() {
             var result = 0;
-            /* see \Praxigento\Wallet\Decorate\Quote\Model\Cart\CartTotalRepository::TOTAL_SEGMENT */
+            /* see \Praxigento\Wallet\Plugin\Quote\Model\Cart\CartTotalRepository::TOTAL_SEGMENT */
             if (totals && totals.getSegment('praxigento_wallet')) {
                 result = totals.getSegment('praxigento_wallet').value;
             }

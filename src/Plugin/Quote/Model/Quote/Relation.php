@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Decorate\Quote\Model\Quote;
+namespace Praxigento\Wallet\Plugin\Quote\Model\Quote;
 
 /**
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
@@ -11,12 +11,12 @@ namespace Praxigento\Wallet\Decorate\Quote\Model\Quote;
 class Relation
 {
     /** @var \Praxigento\Wallet\Repo\Entity\Partial\Quote */
-    protected $_repoPartialQuote;
+    private $repoPartialQuote;
 
     public function __construct(
         \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote
     ) {
-        $this->_repoPartialQuote = $repoPartialQuote;
+        $this->repoPartialQuote = $repoPartialQuote;
     }
 
     /**
@@ -42,7 +42,7 @@ class Relation
         $baseTotal = $addrShipping->getData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_BASE_TOTAL);
         /* check if current total exist */
         /** @var \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote $exist */
-        $exist = $this->_repoPartialQuote->getById($quoteId);
+        $exist = $this->repoPartialQuote->getById($quoteId);
         if ($exist) {
             /* there is record in registry */
             $baseTotalExist = $exist->getBasePartialAmount();
@@ -50,12 +50,12 @@ class Relation
                 /* amount is equal to stored, do nothing */
             } elseif (abs($baseTotal) < 0.00001) {
                 /* amount is zero, remove data from registry */
-                $this->_repoPartialQuote->deleteById($quoteId);
+                $this->repoPartialQuote->deleteById($quoteId);
             } else {
                 /* update saved value */
                 $exist->setPartialAmount($total);
                 $exist->setBasePartialAmount($baseTotal);
-                $this->_repoPartialQuote->updateById($quoteId, $exist);
+                $this->repoPartialQuote->updateById($quoteId, $exist);
             }
         } elseif (abs($baseTotal) > 0.00001) {
             /* create new record in registry */
@@ -63,7 +63,7 @@ class Relation
             $data->setQuoteRef($quoteId);
             $exist->setPartialAmount($total);
             $data->setBasePartialAmount($baseTotal);
-            $this->_repoPartialQuote->create($data);
+            $this->repoPartialQuote->create($data);
         }
     }
 }

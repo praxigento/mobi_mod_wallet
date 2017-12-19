@@ -30,7 +30,7 @@ define([
          */
         function getAmount() {
             var result = 0;
-            /* see \Praxigento\Wallet\Decorate\Quote\Model\Cart\CartTotalRepository::TOTAL_SEGMENT */
+            /* see \Praxigento\Wallet\Plugin\Quote\Model\Cart\CartTotalRepository::TOTAL_SEGMENT */
             if (uiTotals && uiTotals.getSegment('praxigento_wallet')) {
                 result = uiTotals.getSegment('praxigento_wallet').value;
             }

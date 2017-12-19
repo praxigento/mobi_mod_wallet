@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Decorate\Quote\Model;
+namespace Praxigento\Wallet\Plugin\Quote\Model;
 
 /**
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
@@ -11,12 +11,12 @@ namespace Praxigento\Wallet\Decorate\Quote\Model;
 class QuoteRepository
 {
     /** @var \Praxigento\Wallet\Repo\Entity\Partial\Quote */
-    protected $_repoPartialQuote;
+    private $repoPartialQuote;
 
     public function __construct(
         \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote
     ) {
-        $this->_repoPartialQuote = $repoPartialQuote;
+        $this->repoPartialQuote = $repoPartialQuote;
     }
 
     /**
@@ -33,7 +33,7 @@ class QuoteRepository
         \Magento\Quote\Api\Data\CartInterface $quote
     ) {
         $quoteId = $quote->getId();
-        $this->_repoPartialQuote->deleteById($quoteId);
+        $this->repoPartialQuote->deleteById($quoteId);
         return [$quote];
     }
 }

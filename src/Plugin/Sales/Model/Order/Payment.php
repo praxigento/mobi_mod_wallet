@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Decorate\Sales\Model\Order;
+namespace Praxigento\Wallet\Plugin\Sales\Model\Order;
 
 
 /**
