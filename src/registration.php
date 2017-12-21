@@ -4,6 +4,7 @@
  *
  * User: Alex Gusev <alex@flancer64.com>
  */
+
 use Magento\Framework\Component\ComponentRegistrar as Registrar;
 use Praxigento\Wallet\Config as Config;
 
