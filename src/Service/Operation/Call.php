@@ -23,7 +23,7 @@ class Call
 
     /** @var  \Praxigento\Accounting\Api\Service\Account\Get */
     protected $_callAccount;
-    /** @var  \Praxigento\Accounting\Service\IOperation */
+    /** @var  \Praxigento\Accounting\Api\Service\Operation */
     protected $_callOper;
     /** @var  \Praxigento\Accounting\Repo\Entity\Account */
     protected $_repoEAcc;
@@ -41,7 +41,7 @@ class Call
         \Magento\Framework\ObjectManagerInterface $manObj,
         \Praxigento\Core\Tool\IDate $toolDate,
         \Praxigento\Accounting\Api\Service\Account\Get $callAccount,
-        \Praxigento\Accounting\Service\IOperation $callOper,
+        \Praxigento\Accounting\Api\Service\Operation $callOper,
         \Praxigento\Accounting\Repo\Entity\Account $repoEAccount,
         \Praxigento\Accounting\Repo\Entity\Type\Asset $repoETypeAsset,
         \Praxigento\Accounting\Repo\Entity\Type\Operation $repoETypeOper,
@@ -93,7 +93,7 @@ class Call
         /* get representative customer ID */
         $represAccId = $this->_getRepresentativeAccId($assetTypeId);
         /* save operation */
-        $reqOperAdd = new \Praxigento\Accounting\Service\Operation\Request\Add();
+        $reqOperAdd = new \Praxigento\Accounting\Api\Service\Operation\Request();
         $reqOperAdd->setOperationTypeCode($operTypeCode);
         $reqOperAdd->setDatePerformed($datePerformed);
         $reqOperAdd->setAsTransRef($asRef);
@@ -124,7 +124,7 @@ class Call
             }
         }
         $reqOperAdd->setTransactions($trans);
-        $respOperAdd = $this->_callOper->add($reqOperAdd);
+        $respOperAdd = $this->_callOper->exec($reqOperAdd);
         $operId = $respOperAdd->getOperationId();
         $this->logger->debug("New operation (type id '$operTypeCode') is added with id=$operId .");
         $result->set($respOperAdd->get());
@@ -158,11 +158,11 @@ class Call
         $transaction->setCreditAccId($accIdCredit);
         $transaction->setValue($value);
         /* create operation using service call */
-        $reqAddOper = new \Praxigento\Accounting\Service\Operation\Request\Add();
+        $reqAddOper = new \Praxigento\Accounting\Api\Service\Operation\Request();
         $reqAddOper->setOperationTypeCode(Cfg::CODE_TYPE_OPER_WALLET_SALE);
         $reqAddOper->setTransactions([$transaction]);
         $reqAddOper->setCustomerId($custId);
-        $respAddOper = $this->_callOper->add($reqAddOper);
+        $respAddOper = $this->_callOper->exec($reqAddOper);
         $operId = $respAddOper->getOperationId();
         $result->setOperationId($operId);
 //        /* log sale order operation */
