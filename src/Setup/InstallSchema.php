@@ -3,6 +3,7 @@
  * Create DB schema.
  * User: Alex Gusev <alex@flancer64.com>
  */
+
 namespace Praxigento\Wallet\Setup;
 
 use Praxigento\Wallet\Repo\Entity\Data\Log\Sale as ELogSale;
@@ -11,27 +12,24 @@ use Praxigento\Wallet\Repo\Entity\Data\Partial\Sale as EPartialSale;
 
 class InstallSchema extends \Praxigento\Core\App\Setup\Schema\Base
 {
-    protected function _setup()
+    protected function setup()
     {
         /** Read and parse JSON schema. */
         $pathToFile = __DIR__ . '/../etc/dem.json';
         $pathToNode = '/dBEAR/package/Praxigento/package/Wallet';
-        $demPackage = $this->_toolDem->readDemPackage($pathToFile, $pathToNode);
+        $demPackage = $this->toolDem->readDemPackage($pathToFile, $pathToNode);
 
         /* Partial / Sale */
-        $entityAlias = EPartialQuote::ENTITY_NAME;
         $demEntity = $demPackage->get('package/Partial/entity/SaleQuote');
-        $this->_toolDem->createEntity($entityAlias, $demEntity);
+        $this->toolDem->createEntity(EPartialQuote::ENTITY_NAME, $demEntity);
 
         /* Partial / Sale */
-        $entityAlias = EPartialSale::ENTITY_NAME;
         $demEntity = $demPackage->get('package/Partial/entity/SaleOrder');
-        $this->_toolDem->createEntity($entityAlias, $demEntity);
+        $this->toolDem->createEntity(EPartialSale::ENTITY_NAME, $demEntity);
 
         /* Log / Sale */
-        $entityAlias = ELogSale::ENTITY_NAME;
         $demEntity = $demPackage->get('package/Log/entity/SaleOrder');
-        $this->_toolDem->createEntity($entityAlias, $demEntity);
+        $this->toolDem->createEntity(ELogSale::ENTITY_NAME, $demEntity);
 
     }
 
