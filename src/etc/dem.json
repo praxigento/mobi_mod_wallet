@@ -119,13 +119,13 @@
                       }
                     },
                     "index": {
-                      "PK": {"type": "primary", "aliases": ["sale_ref"]}
+                      "PK": {"type": "primary", "aliases": ["sale_order_ref"]}
                     },
                     "relation": {
                       "toSaleOrder": {
                         "own": {"aliases": ["sale_order_ref"]},
                         "reference": {
-                          "entity": {"completeAlias": "sale_order"},
+                          "entity": {"completeAlias": "sales_order"},
                           "aliases": ["entity_id"]
                         },
                         "action": {"delete": "restrict", "update": "restrict"}
