@@ -33,13 +33,13 @@ class Call
     protected $_repoETypeAsset;
     /** @var \Praxigento\Accounting\Repo\Entity\Type\Operation */
     protected $_repoETypeOper;
-    /** @var \Praxigento\Core\Tool\IDate */
+    /** @var \Praxigento\Core\Api\Helper\Date */
     protected $_toolDate;
 
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
         \Magento\Framework\ObjectManagerInterface $manObj,
-        \Praxigento\Core\Tool\IDate $toolDate,
+        \Praxigento\Core\Api\Helper\Date $toolDate,
         \Praxigento\Accounting\Api\Service\Account\Get $callAccount,
         \Praxigento\Accounting\Api\Service\Operation $callOper,
         \Praxigento\Accounting\Repo\Entity\Account $repoEAccount,
