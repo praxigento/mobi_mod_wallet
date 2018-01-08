@@ -39,7 +39,7 @@ class Call
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
         \Magento\Framework\ObjectManagerInterface $manObj,
-        \Praxigento\Core\Api\Helper\Date $toolDate,
+        \Praxigento\Core\Api\Helper\Date $hlpDate,
         \Praxigento\Accounting\Api\Service\Account\Get $callAccount,
         \Praxigento\Accounting\Api\Service\Operation $callOper,
         \Praxigento\Accounting\Repo\Entity\Account $repoEAccount,
@@ -48,7 +48,7 @@ class Call
         \Praxigento\Wallet\Repo\Entity\Log\Sale $repoELogSale
     ) {
         parent::__construct($logger, $manObj);
-        $this->_toolDate = $toolDate;
+        $this->_toolDate = $hlpDate;
         $this->_callAccount = $callAccount;
         $this->_callOper = $callOper;
         $this->_repoEAcc = $repoEAccount;
