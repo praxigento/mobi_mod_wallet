@@ -89,7 +89,7 @@ class Call
         $datePerformed = is_null($datePerformed) ? $this->_toolDate->getUtcNowForDb() : $datePerformed;
         $dateApplied = is_null($dateApplied) ? $datePerformed : $dateApplied;
         /* get asset type ID */
-        $assetTypeId = $this->_repoETypeAsset->getIdByCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
+        $assetTypeId = $this->_repoETypeAsset->getIdByCode(Cfg::CODE_TYPE_ASSET_WALLET);
         /* get representative customer ID */
         $represAccId = $this->_getRepresentativeAccId($assetTypeId);
         /* save operation */
@@ -143,7 +143,7 @@ class Call
         /* collect data */
         $reqGet = new \Praxigento\Accounting\Api\Service\Account\Get\Request();
         $reqGet->setCustomerId($custId);
-        $reqGet->setAssetTypeCode(Cfg::CODE_TYPE_ASSET_WALLET_ACTIVE);
+        $reqGet->setAssetTypeCode(Cfg::CODE_TYPE_ASSET_WALLET);
         $respGet = $this->_callAccount->exec($reqGet);
         $accIdDebit = $respGet->getId();
         $assetTypeId = $respGet->getAssetTypeId();

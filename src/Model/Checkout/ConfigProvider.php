@@ -79,7 +79,7 @@ class ConfigProvider
             $customerId = $this->sessionCustomer->getCustomerId();
             if ($customerId) {
                 $result[self::CFG_CUST_BALANCE] = 0;
-                $assetTypeId = $this->repoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET_ACTIVE);
+                $assetTypeId = $this->repoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET);
                 $account = $this->repoAccount->getByCustomerId($customerId, $assetTypeId);
                 if ($account) {
                     $balance = $account->getBalance();
