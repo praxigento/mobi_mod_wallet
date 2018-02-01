@@ -15,7 +15,7 @@ use Praxigento\Wallet\Config as Cfg;
  */
 class InstallData extends \Praxigento\Core\App\Setup\Data\Base
 {
-    private function _addAccountingAssetsTypes()
+    private function addAccountingAssetsTypes()
     {
         $this->_conn->insertArray(
             $this->_resource->getTableName(TypeAsset::ENTITY_NAME),
@@ -35,7 +35,7 @@ class InstallData extends \Praxigento\Core\App\Setup\Data\Base
         );
     }
 
-    private function _addAccountingOperationsTypes()
+    private function addAccountingOperationsTypes()
     {
         $this->_conn->insertArray(
             $this->_resource->getTableName(TypeOperation::ENTITY_NAME),
@@ -55,7 +55,7 @@ class InstallData extends \Praxigento\Core\App\Setup\Data\Base
 
     protected function _setup()
     {
-        $this->_addAccountingAssetsTypes();
-        $this->_addAccountingOperationsTypes();
+        $this->addAccountingAssetsTypes();
+        $this->addAccountingOperationsTypes();
     }
 }
