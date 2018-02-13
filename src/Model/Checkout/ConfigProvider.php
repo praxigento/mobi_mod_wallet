@@ -6,7 +6,7 @@
 namespace Praxigento\Wallet\Model\Checkout;
 
 /**
- * Provde payment method configuration data for checkout process.
+ * Provide payment method configuration data for checkout process.
  */
 class ConfigProvider
     implements \Magento\Checkout\Model\ConfigProviderInterface

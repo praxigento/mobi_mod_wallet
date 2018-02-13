@@ -15,6 +15,8 @@
             <argument name="config" xsi:type="object">\Magento\Payment\Gateway\Config\Config</argument>
             <argument name="valueHandlerPool" xsi:type="object">PraxigentoWalletPaymentValueHandlerPool</argument>
             <argument name="code" xsi:type="string">praxigento_wallet</argument>
+            <argument name="formBlockType" xsi:type="string"></argument>
+            <argument name="infoBlockType" xsi:type="string"></argument>
         </arguments>
     </type>
     <!-- @api create virtual type based on default value handler if it required by payment method -->
