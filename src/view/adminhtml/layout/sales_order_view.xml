@@ -4,7 +4,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="order_totals">
-            <block class="\Praxigento\Wallet\Block\Sales\Order\Partial" name="praxigento_wallet_partial">
+            <block class="Praxigento\Wallet\Block\Sales\Order\Partial" name="praxigento_wallet_partial">
                 <action method="setBeforeCondition">
                     <argument name="condition" xsi:type="string">refunded</argument>
                 </action>
