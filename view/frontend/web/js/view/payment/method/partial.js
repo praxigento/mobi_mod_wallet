@@ -106,7 +106,7 @@ define([
             var usePartial = uiPartial.prototype.isPartialChecked();
             result.additional_data = {use_partial: usePartial};
             return result;
-        }
+        };
 
         /* decorate Braintree payment data, add partial payment state */
         var fnGetDataBraintree = uiPaymentBraintree.prototype.getData;
@@ -119,7 +119,7 @@ define([
             var usePartial = uiPartial.prototype.isPartialChecked();
             result.additional_data.use_partial = usePartial;
             return result;
-        }
+        };
 
         return exportResult;
     }

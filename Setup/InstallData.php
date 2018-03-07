@@ -15,6 +15,12 @@ use Praxigento\Wallet\Config as Cfg;
  */
 class InstallData extends \Praxigento\Core\App\Setup\Data\Base
 {
+    protected function _setup()
+    {
+        $this->addAccountingAssetsTypes();
+        $this->addAccountingOperationsTypes();
+    }
+
     private function addAccountingAssetsTypes()
     {
         $this->_conn->insertArray(
@@ -51,11 +57,5 @@ class InstallData extends \Praxigento\Core\App\Setup\Data\Base
                 ]
             ]
         );
-    }
-
-    protected function _setup()
-    {
-        $this->addAccountingAssetsTypes();
-        $this->addAccountingOperationsTypes();
     }
 }
