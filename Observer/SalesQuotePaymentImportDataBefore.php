@@ -15,11 +15,11 @@ class SalesQuotePaymentImportDataBefore
     /* see \Magento\Quote\Model\Quote\Payment::$_eventObject */
     const DATA_PAYMENT = 'payment';
 
-    /** @var \Praxigento\Core\App\Api\Logger\Main */
+    /** @var \Praxigento\Core\Api\App\Logger\Main */
     protected $_logger;
 
     public function __construct(
-        \Praxigento\Core\App\Api\Logger\Main $logger
+        \Praxigento\Core\Api\App\Logger\Main $logger
     )
     {
         $this->_logger = $logger;

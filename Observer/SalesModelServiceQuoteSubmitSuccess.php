@@ -13,13 +13,13 @@ class SalesModelServiceQuoteSubmitSuccess
 {
     const DATA_ORDER = 'order';
     const DATA_QUOTE = 'quote';
-    /** @var \Praxigento\Core\App\Api\Logger\Main */
+    /** @var \Praxigento\Core\Api\App\Logger\Main */
     protected $_logger;
     /** @var \Praxigento\Wallet\Repo\Entity\Partial\Sale */
     protected $_repoPartialSale;
 
     public function __construct(
-        \Praxigento\Core\App\Api\Logger\Main $logger,
+        \Praxigento\Core\Api\App\Logger\Main $logger,
         \Praxigento\Wallet\Repo\Entity\Partial\Sale $repoPartialSale
     ) {
         $this->_logger = $logger;

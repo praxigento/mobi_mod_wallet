@@ -14,13 +14,13 @@ class SalesOrderPaymentPlaceStart
     const DATA_PAYMENT = 'payment';
     /** @var \Praxigento\Wallet\Service\IOperation */
     protected $_callOperation;
-    /** @var \Praxigento\Core\App\Api\Logger\Main */
+    /** @var \Praxigento\Core\Api\App\Logger\Main */
     protected $_logger;
     /** @var \Praxigento\Wallet\Repo\Entity\Partial\Quote */
     protected $_repoPartialQuote;
 
     public function __construct(
-        \Praxigento\Core\App\Api\Logger\Main $logger,
+        \Praxigento\Core\Api\App\Logger\Main $logger,
         \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote,
         \Praxigento\Wallet\Service\IOperation $callOperation
     ) {
