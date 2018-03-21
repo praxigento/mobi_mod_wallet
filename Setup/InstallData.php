@@ -49,7 +49,7 @@ class InstallData extends \Praxigento\Core\App\Setup\Data\Base
             [
                 [
                     Cfg::CODE_TYPE_OPER_WALLET_TRANSFER,
-                    'Transfer WALLET_ACTIVE asset between customers accounts (or customer & representative accounts).'
+                    'Transfer WALLET_ACTIVE asset between customers accounts (or customer & system accounts).'
                 ],
                 [
                     Cfg::CODE_TYPE_OPER_WALLET_SALE,

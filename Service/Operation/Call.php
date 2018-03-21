@@ -58,16 +58,16 @@ class Call
     }
 
     /**
-     * Get account ID for representative customer.
+     * Get account ID for system customer.
      *
      * @param int $assetTypeId
      *
      * @return int
      */
-    private function _getRepresentativeAccId($assetTypeId)
+    private function _getSysAccId($assetTypeId)
     {
         $req = new AccountGetRequest();
-        $req->setIsRepresentative(TRUE);
+        $req->setIsSystem(TRUE);
         $req->setAssetTypeId($assetTypeId);
         $resp = $this->_callAccount->exec($req);
         $result = $resp->get(Account::ATTR_ID);
@@ -90,8 +90,8 @@ class Call
         $dateApplied = is_null($dateApplied) ? $datePerformed : $dateApplied;
         /* get asset type ID */
         $assetTypeId = $this->_repoETypeAsset->getIdByCode(Cfg::CODE_TYPE_ASSET_WALLET);
-        /* get representative customer ID */
-        $represAccId = $this->_getRepresentativeAccId($assetTypeId);
+        /* get system customer ID */
+        $sysAccId = $this->_getSysAccId($assetTypeId);
         /* save operation */
         $reqOperAdd = new \Praxigento\Accounting\Api\Service\Operation\Request();
         $reqOperAdd->setOperationTypeCode($operTypeCode);
@@ -109,7 +109,7 @@ class Call
                 $respGetAccount = $this->_callAccount->exec($reqGetAccount);
                 $accId = $respGetAccount->get(Account::ATTR_ID);
                 $one = [
-                    Transaction::ATTR_DEBIT_ACC_ID => $represAccId,
+                    Transaction::ATTR_DEBIT_ACC_ID => $sysAccId,
                     Transaction::ATTR_CREDIT_ACC_ID => $accId,
                     Transaction::ATTR_DATE_APPLIED => $dateApplied,
                     Transaction::ATTR_VALUE => $value
@@ -147,11 +147,11 @@ class Call
         $respGet = $this->_callAccount->exec($reqGet);
         $accIdDebit = $respGet->getId();
         $assetTypeId = $respGet->getAssetTypeId();
-        $reqGetRepres = new \Praxigento\Accounting\Api\Service\Account\Get\Request();
-        $reqGetRepres->setIsRepresentative(TRUE);
-        $reqGetRepres->setAssetTypeId($assetTypeId);
-        $respGetRepres = $this->_callAccount->exec($reqGetRepres);
-        $accIdCredit = $respGetRepres->getId();
+        $reqGetSys = new \Praxigento\Accounting\Api\Service\Account\Get\Request();
+        $reqGetSys->setIsSystem(TRUE);
+        $reqGetSys->setAssetTypeId($assetTypeId);
+        $respGetSys = $this->_callAccount->exec($reqGetSys);
+        $accIdCredit = $respGetSys->getId();
         /* compose transaction data */
         $transaction = new \Praxigento\Accounting\Repo\Entity\Data\Transaction();
         $transaction->setDebitAccId($accIdDebit);
