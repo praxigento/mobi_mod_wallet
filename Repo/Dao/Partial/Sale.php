@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Repo\Entity\Partial;
+namespace Praxigento\Wallet\Repo\Dao\Partial;
 
 class Sale
     extends \Praxigento\Core\App\Repo\Def\Entity
@@ -12,7 +12,7 @@ class Sale
         \Magento\Framework\App\ResourceConnection $resource,
         \Praxigento\Core\App\Repo\IGeneric $repoGeneric
     ) {
-        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Entity\Data\Partial\Sale::class);
+        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Data\Partial\Sale::class);
     }
 
     public function create($data)
@@ -23,7 +23,7 @@ class Sale
 
     /**
      * @param array|int|string $id
-     * @return \Praxigento\Wallet\Repo\Entity\Data\Partial\Sale|false
+     * @return \Praxigento\Wallet\Repo\Data\Partial\Sale|false
      *
      * @SuppressWarnings(PHPMD.ShortVariable)
      */

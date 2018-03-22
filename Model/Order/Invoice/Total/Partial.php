@@ -15,11 +15,11 @@ use Praxigento\Wallet\Config as Cfg;
 class Partial
     extends \Magento\Sales\Model\Order\Invoice\Total\AbstractTotal
 {
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Sale */
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
     protected $repoPartialSale;
 
     public function __construct(
-        \Praxigento\Wallet\Repo\Entity\Partial\Sale $repoPartialSale,
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $repoPartialSale,
         array $data = []
     ) {
         parent::__construct($data);

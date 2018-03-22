@@ -10,7 +10,7 @@ namespace Praxigento\Wallet\Block\Sales\Order;
 class Partial
     extends \Magento\Framework\View\Element\Template
 {
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Sale */
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
     protected $repoPartialSale;
 
     /**
@@ -19,7 +19,7 @@ class Partial
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Praxigento\Wallet\Repo\Entity\Partial\Sale $repoPartialSale,
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $repoPartialSale,
         array $data = []
     ) {
         parent::__construct($context, $data);

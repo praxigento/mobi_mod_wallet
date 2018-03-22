@@ -15,12 +15,12 @@ class SalesModelServiceQuoteSubmitSuccess
     const DATA_QUOTE = 'quote';
     /** @var \Praxigento\Core\Api\App\Logger\Main */
     protected $_logger;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Sale */
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
     protected $_repoPartialSale;
 
     public function __construct(
         \Praxigento\Core\Api\App\Logger\Main $logger,
-        \Praxigento\Wallet\Repo\Entity\Partial\Sale $repoPartialSale
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $repoPartialSale
     ) {
         $this->_logger = $logger;
         $this->_repoPartialSale = $repoPartialSale;
@@ -40,7 +40,7 @@ class SalesModelServiceQuoteSubmitSuccess
             /** @var \Magento\Sales\Model\Order $order */
             $order = $observer->getData(self::DATA_ORDER);
             $orderId = $order->getId();
-            $data = new \Praxigento\Wallet\Repo\Entity\Data\Partial\Sale();
+            $data = new \Praxigento\Wallet\Repo\Data\Partial\Sale();
             $data->setPartialAmount($partialAmount);
             $data->setBasePartialAmount($basePartialAmount);
             $data->setSaleOrderRef($orderId);

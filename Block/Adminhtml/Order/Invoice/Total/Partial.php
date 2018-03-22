@@ -11,14 +11,14 @@ class Partial
 {
     /** see src/view/adminhtml/layout/sales_order_invoice_new.xml */
     const CODE = Cfg::CODE_TOTAL_PARTIAL;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Sale */
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
     protected $repoPartialSale;
 
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Sales\Helper\Admin $adminHelper,
-        \Praxigento\Wallet\Repo\Entity\Partial\Sale $repoPartialSale,
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $repoPartialSale,
         array $data = []
     ) {
         parent::__construct($context, $registry, $adminHelper, $data);

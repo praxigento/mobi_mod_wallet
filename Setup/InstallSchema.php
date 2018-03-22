@@ -6,9 +6,9 @@
 
 namespace Praxigento\Wallet\Setup;
 
-use Praxigento\Wallet\Repo\Entity\Data\Log\Sale as ELogSale;
-use Praxigento\Wallet\Repo\Entity\Data\Partial\Quote as EPartialQuote;
-use Praxigento\Wallet\Repo\Entity\Data\Partial\Sale as EPartialSale;
+use Praxigento\Wallet\Repo\Data\Log\Sale as ELogSale;
+use Praxigento\Wallet\Repo\Data\Partial\Quote as EPartialQuote;
+use Praxigento\Wallet\Repo\Data\Partial\Sale as EPartialSale;
 
 class InstallSchema extends \Praxigento\Core\App\Setup\Schema\Base
 {

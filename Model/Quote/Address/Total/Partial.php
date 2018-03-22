@@ -21,13 +21,13 @@ class Partial
     protected $hlpConfig;
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
     protected $hlpPriceCurrency;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Quote */
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
     protected $repoPartialQuote;
 
     public function __construct(
         \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
         \Praxigento\Wallet\Helper\Config $hlpConfig,
-        \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $repoPartialQuote
     ) {
         $this->hlpPriceCurrency = $hlpPriceCurrency;
         $this->hlpConfig = $hlpConfig;
@@ -51,7 +51,7 @@ class Partial
             $isPartialEnabled = $this->hlpConfig->getWalletPartialEnabled();
             if ($isPartialEnabled) {
                 $quoteId = $quote->getId();
-                /** @var \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote $partialDataSaved */
+                /** @var \Praxigento\Wallet\Repo\Data\Partial\Quote $partialDataSaved */
                 $partialDataSaved = $this->repoPartialQuote->getById($quoteId);
                 /**
                  * Check quote for partial payment switcher.
@@ -83,7 +83,7 @@ class Partial
                             }
                         } else {
                             /* create new record in the registry */
-                            $partialDataSaved = new \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote();
+                            $partialDataSaved = new \Praxigento\Wallet\Repo\Data\Partial\Quote();
                             $partialDataSaved->setQuoteRef($quoteId);
                             $partialDataSaved->setBasePartialAmount($partialBase);
                             $partialDataSaved->setPartialAmount($partial);

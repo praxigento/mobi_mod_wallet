@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Repo\Entity\Log;
+namespace Praxigento\Wallet\Repo\Dao\Log;
 
 class Sale
     extends \Praxigento\Core\App\Repo\Def\Entity
@@ -12,7 +12,7 @@ class Sale
         \Magento\Framework\App\ResourceConnection $resource,
         \Praxigento\Core\App\Repo\IGeneric $repoGeneric
     ) {
-        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Entity\Data\Log\Sale::class);
+        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Data\Log\Sale::class);
     }
 
 }

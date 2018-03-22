@@ -27,7 +27,7 @@ class Call
     protected $_callOper;
     /** @var  \Praxigento\Accounting\Repo\Dao\Account */
     protected $_repoEAcc;
-    /** @var \Praxigento\Wallet\Repo\Entity\Log\Sale */
+    /** @var \Praxigento\Wallet\Repo\Dao\Log\Sale */
     protected $_repoELogSale;
     /** @var \Praxigento\Accounting\Repo\Dao\Type\Asset */
     protected $_repoETypeAsset;
@@ -45,7 +45,7 @@ class Call
         \Praxigento\Accounting\Repo\Dao\Account $repoEAccount,
         \Praxigento\Accounting\Repo\Dao\Type\Asset $repoETypeAsset,
         \Praxigento\Accounting\Repo\Dao\Type\Operation $repoETypeOper,
-        \Praxigento\Wallet\Repo\Entity\Log\Sale $repoELogSale
+        \Praxigento\Wallet\Repo\Dao\Log\Sale $repoELogSale
     ) {
         parent::__construct($logger, $manObj);
         $this->_toolDate = $hlpDate;
@@ -166,7 +166,7 @@ class Call
         $operId = $respAddOper->getOperationId();
         $result->setOperationId($operId);
 //        /* log sale order operation */
-//        $log = new \Praxigento\Wallet\Repo\Entity\Data\Log\Sale();
+//        $log = new \Praxigento\Wallet\Repo\Data\Log\Sale();
 //        $log->setOperationRef($operId);
 //        $log->setSaleOrderRef($saleOrderId);
         if ($respAddOper->isSucceed()) {

@@ -16,12 +16,12 @@ class SalesOrderPaymentPlaceStart
     protected $_callOperation;
     /** @var \Praxigento\Core\Api\App\Logger\Main */
     protected $_logger;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Quote */
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
     protected $_repoPartialQuote;
 
     public function __construct(
         \Praxigento\Core\Api\App\Logger\Main $logger,
-        \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote,
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $repoPartialQuote,
         \Praxigento\Wallet\Service\IOperation $callOperation
     ) {
         $this->_logger = $logger;

@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Repo\Entity\Data\Log;
+namespace Praxigento\Wallet\Repo\Data\Log;
 
 /**
  * Log for sale order payments operations.

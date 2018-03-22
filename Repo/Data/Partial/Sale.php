@@ -3,18 +3,18 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Repo\Entity\Data\Partial;
+namespace Praxigento\Wallet\Repo\Data\Partial;
 
 /**
- * Partial payments amount for sale quotes.
+ * Partial payments amount for sale orders.
  */
-class Quote
+class Sale
     extends \Praxigento\Core\App\Repo\Data\Entity\Base
 {
     const ATTR_BASE_PARTIAL_AMOUNT = 'base_partial_amount';
     const ATTR_PARTIAL_AMOUNT = 'partial_amount';
-    const ATTR_QUOTE_REF = 'quote_ref';
-    const ENTITY_NAME = 'prxgt_wallet_partial_quote';
+    const ATTR_SALE_ORDER_REF = 'sale_order_ref';
+    const ENTITY_NAME = 'prxgt_wallet_partial_sale';
 
     /** @return float */
     public function getBasePartialAmount()
@@ -32,13 +32,13 @@ class Quote
 
     public static function getPrimaryKeyAttrs()
     {
-        return [self::ATTR_QUOTE_REF];
+        return [self::ATTR_SALE_ORDER_REF];
     }
 
     /** @return int */
-    public function getQuoteRef()
+    public function getSaleOrderRef()
     {
-        $result = parent::get(self::ATTR_QUOTE_REF);
+        $result = parent::get(self::ATTR_SALE_ORDER_REF);
         return $result;
     }
 
@@ -55,9 +55,9 @@ class Quote
     }
 
     /** @param int $data */
-    public function setQuoteRef($data)
+    public function setSaleOrderRef($data)
     {
-        parent::set(self::ATTR_QUOTE_REF, $data);
+        parent::set(self::ATTR_SALE_ORDER_REF, $data);
     }
 
 }

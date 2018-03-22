@@ -16,14 +16,14 @@ class CartTotalRepository
     private $hlpPriceCurrency;
     /** @var  \Magento\Framework\ObjectManagerInterface */
     private $manObj;
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Quote */
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
     private $repoPartialQuote;
 
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $manObj,
         \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
         \Praxigento\Wallet\Helper\Config $hlpCfg,
-        \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $repoPartialQuote
     ) {
         $this->manObj = $manObj;
         $this->hlpPriceCurrency = $hlpPriceCurrency;
@@ -60,7 +60,7 @@ class CartTotalRepository
 //            $exts->setPraxigentoWalletPaymentConfig($extData);
 //            $result->setExtensionAttributes($exts);
             /* get partial data from repository */
-            /** @var \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote $found */
+            /** @var \Praxigento\Wallet\Repo\Data\Partial\Quote $found */
             $found = $this->repoPartialQuote->getById($cartId);
             if ($found) {
                 $basePartial = $found->getBasePartialAmount();

@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Repo\Entity\Partial;
+namespace Praxigento\Wallet\Repo\Dao\Partial;
 
 class Quote
     extends \Praxigento\Core\App\Repo\Def\Entity
@@ -12,7 +12,7 @@ class Quote
         \Magento\Framework\App\ResourceConnection $resource,
         \Praxigento\Core\App\Repo\IGeneric $repoGeneric
     ) {
-        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote::class);
+        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Data\Partial\Quote::class);
     }
 
     public function create($data)
@@ -23,7 +23,7 @@ class Quote
 
     /**
      * @param int $id
-     * @return \Praxigento\Wallet\Repo\Entity\Data\Partial\Quote|false
+     * @return \Praxigento\Wallet\Repo\Data\Partial\Quote|false
      *
      * @SuppressWarnings(PHPMD.ShortVariable)
      */

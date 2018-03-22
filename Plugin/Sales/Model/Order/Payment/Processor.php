@@ -7,11 +7,11 @@ namespace Praxigento\Wallet\Plugin\Sales\Model\Order\Payment;
 
 class Processor
 {
-    /** @var \Praxigento\Wallet\Repo\Entity\Partial\Quote */
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
     protected $_repoPartialQuote;
 
     public function __construct(
-        \Praxigento\Wallet\Repo\Entity\Partial\Quote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $repoPartialQuote
     ) {
         $this->_repoPartialQuote = $repoPartialQuote;
     }
