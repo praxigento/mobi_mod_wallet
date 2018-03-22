@@ -5,8 +5,8 @@
 namespace Praxigento\Wallet\Service\Operation;
 
 use Praxigento\Accounting\Api\Service\Account\Get\Request as AccountGetRequest;
-use Praxigento\Accounting\Repo\Entity\Data\Account;
-use Praxigento\Accounting\Repo\Entity\Data\Transaction;
+use Praxigento\Accounting\Repo\Data\Account;
+use Praxigento\Accounting\Repo\Data\Transaction;
 use Praxigento\Wallet\Config as Cfg;
 use Praxigento\Wallet\Service\Operation\Request;
 use Praxigento\Wallet\Service\Operation\Response;
@@ -25,13 +25,13 @@ class Call
     protected $_callAccount;
     /** @var  \Praxigento\Accounting\Api\Service\Operation */
     protected $_callOper;
-    /** @var  \Praxigento\Accounting\Repo\Entity\Account */
+    /** @var  \Praxigento\Accounting\Repo\Dao\Account */
     protected $_repoEAcc;
     /** @var \Praxigento\Wallet\Repo\Entity\Log\Sale */
     protected $_repoELogSale;
-    /** @var \Praxigento\Accounting\Repo\Entity\Type\Asset */
+    /** @var \Praxigento\Accounting\Repo\Dao\Type\Asset */
     protected $_repoETypeAsset;
-    /** @var \Praxigento\Accounting\Repo\Entity\Type\Operation */
+    /** @var \Praxigento\Accounting\Repo\Dao\Type\Operation */
     protected $_repoETypeOper;
     /** @var \Praxigento\Core\Api\Helper\Date */
     protected $_toolDate;
@@ -42,9 +42,9 @@ class Call
         \Praxigento\Core\Api\Helper\Date $hlpDate,
         \Praxigento\Accounting\Api\Service\Account\Get $callAccount,
         \Praxigento\Accounting\Api\Service\Operation $callOper,
-        \Praxigento\Accounting\Repo\Entity\Account $repoEAccount,
-        \Praxigento\Accounting\Repo\Entity\Type\Asset $repoETypeAsset,
-        \Praxigento\Accounting\Repo\Entity\Type\Operation $repoETypeOper,
+        \Praxigento\Accounting\Repo\Dao\Account $repoEAccount,
+        \Praxigento\Accounting\Repo\Dao\Type\Asset $repoETypeAsset,
+        \Praxigento\Accounting\Repo\Dao\Type\Operation $repoETypeOper,
         \Praxigento\Wallet\Repo\Entity\Log\Sale $repoELogSale
     ) {
         parent::__construct($logger, $manObj);
@@ -153,7 +153,7 @@ class Call
         $respGetSys = $this->_callAccount->exec($reqGetSys);
         $accIdCredit = $respGetSys->getId();
         /* compose transaction data */
-        $transaction = new \Praxigento\Accounting\Repo\Entity\Data\Transaction();
+        $transaction = new \Praxigento\Accounting\Repo\Data\Transaction();
         $transaction->setDebitAccId($accIdDebit);
         $transaction->setCreditAccId($accIdCredit);
         $transaction->setValue($value);

@@ -18,17 +18,17 @@ class ConfigProvider
 
     /** @var \Praxigento\Wallet\Helper\Config */
     private $hlpCfg;
-    /** @var \Praxigento\Accounting\Repo\Entity\Account */
+    /** @var \Praxigento\Accounting\Repo\Dao\Account */
     private $repoAccount;
-    /** @var \Praxigento\Accounting\Repo\Entity\Type\Asset */
+    /** @var \Praxigento\Accounting\Repo\Dao\Type\Asset */
     private $repoAssetType;
     /** @var \Magento\Customer\Model\Session */
     private $sessionCustomer;
 
     public function __construct(
         \Magento\Customer\Model\Session $sessionCustomer,
-        \Praxigento\Accounting\Repo\Entity\Account $repoAccount,
-        \Praxigento\Accounting\Repo\Entity\Type\Asset $repoAssetType,
+        \Praxigento\Accounting\Repo\Dao\Account $repoAccount,
+        \Praxigento\Accounting\Repo\Dao\Type\Asset $repoAssetType,
         \Praxigento\Wallet\Helper\Config $hlpCfg
     )
     {
