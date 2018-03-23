@@ -15,17 +15,17 @@ class Method
     extends DataObject
     implements \Magento\Framework\Api\ExtensionAttributesInterface
 {
-    const ATTR_ENABLED = 'enabled';
-    const ATTR_NEGATIVE_BALANCE_ENABLED = 'negative_balance_enabled';
-    const ATTR_PARTIAL_ENABLED = 'partial_enabled';
-    const ATTR_PARTIAL_MAX_PERCENT = 'partial_max_percent';
+    const A_ENABLED = 'enabled';
+    const A_NEGATIVE_BALANCE_ENABLED = 'negative_balance_enabled';
+    const A_PARTIAL_ENABLED = 'partial_enabled';
+    const A_PARTIAL_MAX_PERCENT = 'partial_max_percent';
 
     /**
      * @return float
      */
     public function getPartialMaxPercent()
     {
-        $result = $this->get(self::ATTR_PARTIAL_MAX_PERCENT);
+        $result = $this->get(self::A_PARTIAL_MAX_PERCENT);
         return $result;
     }
 
@@ -34,7 +34,7 @@ class Method
      */
     public function isEnabled()
     {
-        $result = $this->get(self::ATTR_ENABLED);
+        $result = $this->get(self::A_ENABLED);
         return $result;
     }
 
@@ -43,7 +43,7 @@ class Method
      */
     public function isNegativeBalanceEnabled()
     {
-        $result = $this->get(self::ATTR_NEGATIVE_BALANCE_ENABLED);
+        $result = $this->get(self::A_NEGATIVE_BALANCE_ENABLED);
         return $result;
     }
 
@@ -52,7 +52,7 @@ class Method
      */
     public function isPartialEnabled()
     {
-        $result = $this->get(self::ATTR_PARTIAL_ENABLED);
+        $result = $this->get(self::A_PARTIAL_ENABLED);
         return $result;
     }
 
@@ -61,7 +61,7 @@ class Method
      */
     public function setIsEnabled($data)
     {
-        $this->set(self::ATTR_ENABLED, $data);
+        $this->set(self::A_ENABLED, $data);
     }
 
     /**
@@ -69,7 +69,7 @@ class Method
      */
     public function setIsNegativeBalanceEnabled($data)
     {
-        $this->set(self::ATTR_NEGATIVE_BALANCE_ENABLED, $data);
+        $this->set(self::A_NEGATIVE_BALANCE_ENABLED, $data);
     }
 
     /**
@@ -77,7 +77,7 @@ class Method
      */
     public function setIsPartialEnabled($data)
     {
-        $this->set(self::ATTR_PARTIAL_ENABLED, $data);
+        $this->set(self::A_PARTIAL_ENABLED, $data);
     }
 
     /**
@@ -85,6 +85,6 @@ class Method
      */
     public function setPartialMaxPercent($data)
     {
-        $this->set(self::ATTR_PARTIAL_MAX_PERCENT, $data);
+        $this->set(self::A_PARTIAL_MAX_PERCENT, $data);
     }
 }

@@ -10,7 +10,7 @@ class Partial
     extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 {
     /** Quote attribute to switch on/off partial payment total collection. */
-    const ATTR_QUOTE_SWITCH_PARTIAL_PAYMENT = 'prxgt_partial_payment_switch';
+    const A_QUOTE_SWITCH_PARTIAL_PAYMENT = 'prxgt_partial_payment_switch';
     /** Code for total itself */
     const CODE = Cfg::CODE_TOTAL_PARTIAL;
     /** Code for base partial total amount (base currency) */
@@ -57,7 +57,7 @@ class Partial
                  * Check quote for partial payment switcher.
                  * See \Praxigento\Wallet\Observer\SalesQuotePaymentImportDataBefore
                  */
-                $usePartial = $quote->getData(self::ATTR_QUOTE_SWITCH_PARTIAL_PAYMENT);
+                $usePartial = $quote->getData(self::A_QUOTE_SWITCH_PARTIAL_PAYMENT);
                 if (!is_null($usePartial)) {
                     /* there is switcher in the quote,  */
                     if ($usePartial) {

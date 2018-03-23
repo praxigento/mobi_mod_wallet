@@ -70,7 +70,7 @@ class Call
         $req->setIsSystem(TRUE);
         $req->setAssetTypeId($assetTypeId);
         $resp = $this->_callAccount->exec($req);
-        $result = $resp->get(Account::ATTR_ID);
+        $result = $resp->get(Account::A_ID);
         return $result;
     }
 
@@ -107,12 +107,12 @@ class Call
                 /* get WALLET_ACTIVE account ID for customer */
                 $reqGetAccount->setCustomerId($custId);
                 $respGetAccount = $this->_callAccount->exec($reqGetAccount);
-                $accId = $respGetAccount->get(Account::ATTR_ID);
+                $accId = $respGetAccount->get(Account::A_ID);
                 $one = [
-                    Transaction::ATTR_DEBIT_ACC_ID => $sysAccId,
-                    Transaction::ATTR_CREDIT_ACC_ID => $accId,
-                    Transaction::ATTR_DATE_APPLIED => $dateApplied,
-                    Transaction::ATTR_VALUE => $value
+                    Transaction::A_DEBIT_ACC_ID => $sysAccId,
+                    Transaction::A_CREDIT_ACC_ID => $accId,
+                    Transaction::A_DATE_APPLIED => $dateApplied,
+                    Transaction::A_VALUE => $value
                 ];
                 if (!is_null($asRef) && isset($item[$asRef])) {
                     $one[$asRef] = $item[$asRef];

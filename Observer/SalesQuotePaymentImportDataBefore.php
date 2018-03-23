@@ -38,12 +38,12 @@ class SalesQuotePaymentImportDataBefore
         if (!is_null($usePartial)) {
             /* if JSON marker is set, we need set partial payment marker in quote */
             $quote->setData(
-                \Praxigento\Wallet\Model\Quote\Address\Total\Partial::ATTR_QUOTE_SWITCH_PARTIAL_PAYMENT,
+                \Praxigento\Wallet\Model\Quote\Address\Total\Partial::A_QUOTE_SWITCH_PARTIAL_PAYMENT,
                 (boolean)$usePartial
             );
         } else {
             /* clear marker in quote */
-            $quote->unsetData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::ATTR_QUOTE_SWITCH_PARTIAL_PAYMENT);
+            $quote->unsetData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::A_QUOTE_SWITCH_PARTIAL_PAYMENT);
         }
     }
 
