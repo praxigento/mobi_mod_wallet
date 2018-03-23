@@ -22,16 +22,16 @@ class Partial
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface */
     protected $hlpPriceCurrency;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
-    protected $repoPartialQuote;
+    protected $daoPartialQuote;
 
     public function __construct(
         \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
         \Praxigento\Wallet\Helper\Config $hlpConfig,
-        \Praxigento\Wallet\Repo\Dao\Partial\Quote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote
     ) {
         $this->hlpPriceCurrency = $hlpPriceCurrency;
         $this->hlpConfig = $hlpConfig;
-        $this->repoPartialQuote = $repoPartialQuote;
+        $this->daoPartialQuote = $daoPartialQuote;
     }
 
     public function collect(
@@ -52,7 +52,7 @@ class Partial
             if ($isPartialEnabled) {
                 $quoteId = $quote->getId();
                 /** @var \Praxigento\Wallet\Repo\Data\Partial\Quote $partialDataSaved */
-                $partialDataSaved = $this->repoPartialQuote->getById($quoteId);
+                $partialDataSaved = $this->daoPartialQuote->getById($quoteId);
                 /**
                  * Check quote for partial payment switcher.
                  * See \Praxigento\Wallet\Observer\SalesQuotePaymentImportDataBefore
@@ -79,7 +79,7 @@ class Partial
                                 /* re-save quote partial in registry */
                                 $partialDataSaved->setBasePartialAmount($partialBase);
                                 $partialDataSaved->setPartialAmount($partial);
-                                $this->repoPartialQuote->updateById($quoteId, $partialDataSaved);
+                                $this->daoPartialQuote->updateById($quoteId, $partialDataSaved);
                             }
                         } else {
                             /* create new record in the registry */
@@ -87,7 +87,7 @@ class Partial
                             $partialDataSaved->setQuoteRef($quoteId);
                             $partialDataSaved->setBasePartialAmount($partialBase);
                             $partialDataSaved->setPartialAmount($partial);
-                            $this->repoPartialQuote->create($partialDataSaved);
+                            $this->daoPartialQuote->create($partialDataSaved);
                         }
                         /* reset totals in quote and compose result */
                         $quote->setData(self::CODE_BASE_TOTAL, $partialBase);
@@ -97,7 +97,7 @@ class Partial
                     } else {
                         /* switcher is off - clean up saved quote if exist */
                         if ($partialDataSaved) {
-                            $this->repoPartialQuote->deleteById($quoteId);
+                            $this->daoPartialQuote->deleteById($quoteId);
                         }
                         /* reset totals in quote and compose result */
                         $quote->setData(self::CODE_BASE_TOTAL, 0);
@@ -124,7 +124,7 @@ class Partial
                             /* re-save quote partial in registry */
                             $partialDataSaved->setBasePartialAmount($partialBase);
                             $partialDataSaved->setPartialAmount($partial);
-                            $this->repoPartialQuote->updateById($quoteId, $partialDataSaved);
+                            $this->daoPartialQuote->updateById($quoteId, $partialDataSaved);
                         }
                         /* reset totals in quote and compose result */
                         $quote->setData(self::CODE_BASE_TOTAL, $partialBase);

@@ -19,22 +19,22 @@ class ConfigProvider
     /** @var \Praxigento\Wallet\Helper\Config */
     private $hlpCfg;
     /** @var \Praxigento\Accounting\Repo\Dao\Account */
-    private $repoAccount;
+    private $daoAccount;
     /** @var \Praxigento\Accounting\Repo\Dao\Type\Asset */
-    private $repoAssetType;
+    private $daoAssetType;
     /** @var \Magento\Customer\Model\Session */
     private $sessionCustomer;
 
     public function __construct(
         \Magento\Customer\Model\Session $sessionCustomer,
-        \Praxigento\Accounting\Repo\Dao\Account $repoAccount,
-        \Praxigento\Accounting\Repo\Dao\Type\Asset $repoAssetType,
+        \Praxigento\Accounting\Repo\Dao\Account $daoAccount,
+        \Praxigento\Accounting\Repo\Dao\Type\Asset $daoAssetType,
         \Praxigento\Wallet\Helper\Config $hlpCfg
     )
     {
         $this->sessionCustomer = $sessionCustomer;
-        $this->repoAccount = $repoAccount;
-        $this->repoAssetType = $repoAssetType;
+        $this->daoAccount = $daoAccount;
+        $this->daoAssetType = $daoAssetType;
         $this->hlpCfg = $hlpCfg;
     }
 
@@ -79,8 +79,8 @@ class ConfigProvider
             $customerId = $this->sessionCustomer->getCustomerId();
             if ($customerId) {
                 $result[self::CFG_CUST_BALANCE] = 0;
-                $assetTypeId = $this->repoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET);
-                $account = $this->repoAccount->getByCustomerId($customerId, $assetTypeId);
+                $assetTypeId = $this->daoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET);
+                $account = $this->daoAccount->getByCustomerId($customerId, $assetTypeId);
                 if ($account) {
                     $balance = $account->getBalance();
                     $result[self::CFG_CUST_BALANCE] = $balance;

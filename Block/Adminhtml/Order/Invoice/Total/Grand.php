@@ -20,7 +20,7 @@ class Grand
     const CODE_PARTIAL = \Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total\Partial::CODE;
     const CODE_TAX = 'tax';
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
-    protected $repoPartialSale;
+    protected $daoPartialSale;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -30,11 +30,11 @@ class Grand
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Sales\Helper\Admin $adminHelper,
-        \Praxigento\Wallet\Repo\Dao\Partial\Sale $repoPartialSale,
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale,
         array $data = []
     ) {
         parent::__construct($context, $registry, $adminHelper, $data);
-        $this->repoPartialSale = $repoPartialSale;
+        $this->daoPartialSale = $daoPartialSale;
     }
 
 

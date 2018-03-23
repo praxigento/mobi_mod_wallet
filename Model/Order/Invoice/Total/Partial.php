@@ -16,21 +16,21 @@ class Partial
     extends \Magento\Sales\Model\Order\Invoice\Total\AbstractTotal
 {
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
-    protected $repoPartialSale;
+    protected $daoPartialSale;
 
     public function __construct(
-        \Praxigento\Wallet\Repo\Dao\Partial\Sale $repoPartialSale,
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale,
         array $data = []
     ) {
         parent::__construct($data);
-        $this->repoPartialSale = $repoPartialSale;
+        $this->daoPartialSale = $daoPartialSale;
     }
 
     public function collect(\Magento\Sales\Model\Order\Invoice $invoice)
     {
         parent::collect($invoice);
         $orderId = $invoice->getOrderId();
-        $found = $this->repoPartialSale->getById($orderId);
+        $found = $this->daoPartialSale->getById($orderId);
         if ($found) {
             $partial = $found->getPartialAmount();
             $partialBase = $found->getBasePartialAmount();

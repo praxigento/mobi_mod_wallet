@@ -10,9 +10,9 @@ class Quote
 {
     public function __construct(
         \Magento\Framework\App\ResourceConnection $resource,
-        \Praxigento\Core\App\Repo\IGeneric $repoGeneric
+        \Praxigento\Core\App\Repo\IGeneric $daoGeneric
     ) {
-        parent::__construct($resource, $repoGeneric, \Praxigento\Wallet\Repo\Data\Partial\Quote::class);
+        parent::__construct($resource, $daoGeneric, \Praxigento\Wallet\Repo\Data\Partial\Quote::class);
     }
 
     public function create($data)

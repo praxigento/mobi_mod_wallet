@@ -11,9 +11,9 @@ class Processor
     protected $_repoPartialQuote;
 
     public function __construct(
-        \Praxigento\Wallet\Repo\Dao\Partial\Quote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote
     ) {
-        $this->_repoPartialQuote = $repoPartialQuote;
+        $this->_repoPartialQuote = $daoPartialQuote;
     }
 
     /**

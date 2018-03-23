@@ -21,11 +21,11 @@ class SalesOrderPaymentPlaceStart
 
     public function __construct(
         \Praxigento\Core\Api\App\Logger\Main $logger,
-        \Praxigento\Wallet\Repo\Dao\Partial\Quote $repoPartialQuote,
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote,
         \Praxigento\Wallet\Service\IOperation $callOperation
     ) {
         $this->_logger = $logger;
-        $this->_repoPartialQuote = $repoPartialQuote;
+        $this->_repoPartialQuote = $daoPartialQuote;
         $this->_callOperation = $callOperation;
     }
 

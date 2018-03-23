@@ -20,10 +20,10 @@ class SalesModelServiceQuoteSubmitSuccess
 
     public function __construct(
         \Praxigento\Core\Api\App\Logger\Main $logger,
-        \Praxigento\Wallet\Repo\Dao\Partial\Sale $repoPartialSale
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale
     ) {
         $this->_logger = $logger;
-        $this->_repoPartialSale = $repoPartialSale;
+        $this->_repoPartialSale = $daoPartialSale;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)

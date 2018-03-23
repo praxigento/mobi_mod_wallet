@@ -12,17 +12,17 @@ class Partial
     /** see src/view/adminhtml/layout/sales_order_invoice_new.xml */
     const CODE = Cfg::CODE_TOTAL_PARTIAL;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
-    protected $repoPartialSale;
+    protected $daoPartialSale;
 
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Sales\Helper\Admin $adminHelper,
-        \Praxigento\Wallet\Repo\Dao\Partial\Sale $repoPartialSale,
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale,
         array $data = []
     ) {
         parent::__construct($context, $registry, $adminHelper, $data);
-        $this->repoPartialSale = $repoPartialSale;
+        $this->daoPartialSale = $daoPartialSale;
     }
 
     /**
@@ -45,7 +45,7 @@ class Partial
         } else {
             /* check sales registry in repo */
             $orderId = $order->getId();
-            $found = $this->repoPartialSale->getById($orderId);
+            $found = $this->daoPartialSale->getById($orderId);
             if ($found) {
                 $partialBase = $found->getBasePartialAmount();
                 $partial = $found->getBasePartialAmount();

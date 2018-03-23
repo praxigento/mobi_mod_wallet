@@ -11,7 +11,7 @@ class Partial
     extends \Magento\Framework\View\Element\Template
 {
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
-    protected $repoPartialSale;
+    protected $daoPartialSale;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -19,11 +19,11 @@ class Partial
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Praxigento\Wallet\Repo\Dao\Partial\Sale $repoPartialSale,
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->repoPartialSale = $repoPartialSale;
+        $this->daoPartialSale = $daoPartialSale;
     }
 
 
@@ -39,7 +39,7 @@ class Partial
         /** @var \Magento\Sales\Model\Order $order */
         $order = $parent->getOrder();
         $orderId = $order->getId();
-        $found = $this->repoPartialSale->getById($orderId);
+        $found = $this->daoPartialSale->getById($orderId);
         if ($found) {
             $baseAmount = $found->getBasePartialAmount();
             $amount = $found->getPartialAmount();

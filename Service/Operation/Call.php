@@ -42,19 +42,19 @@ class Call
         \Praxigento\Core\Api\Helper\Date $hlpDate,
         \Praxigento\Accounting\Api\Service\Account\Get $callAccount,
         \Praxigento\Accounting\Api\Service\Operation $callOper,
-        \Praxigento\Accounting\Repo\Dao\Account $repoEAccount,
-        \Praxigento\Accounting\Repo\Dao\Type\Asset $repoETypeAsset,
-        \Praxigento\Accounting\Repo\Dao\Type\Operation $repoETypeOper,
-        \Praxigento\Wallet\Repo\Dao\Log\Sale $repoELogSale
+        \Praxigento\Accounting\Repo\Dao\Account $daoEAccount,
+        \Praxigento\Accounting\Repo\Dao\Type\Asset $daoETypeAsset,
+        \Praxigento\Accounting\Repo\Dao\Type\Operation $daoETypeOper,
+        \Praxigento\Wallet\Repo\Dao\Log\Sale $daoELogSale
     ) {
         parent::__construct($logger, $manObj);
         $this->_toolDate = $hlpDate;
         $this->_callAccount = $callAccount;
         $this->_callOper = $callOper;
-        $this->_repoEAcc = $repoEAccount;
-        $this->_repoETypeAsset = $repoETypeAsset;
-        $this->_repoETypeOper = $repoETypeOper;
-        $this->_repoELogSale = $repoELogSale;
+        $this->_repoEAcc = $daoEAccount;
+        $this->_repoETypeAsset = $daoETypeAsset;
+        $this->_repoETypeOper = $daoETypeOper;
+        $this->_repoELogSale = $daoELogSale;
     }
 
     /**

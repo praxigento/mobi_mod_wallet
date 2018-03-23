@@ -17,18 +17,18 @@ class CartTotalRepository
     /** @var  \Magento\Framework\ObjectManagerInterface */
     private $manObj;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
-    private $repoPartialQuote;
+    private $daoPartialQuote;
 
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $manObj,
         \Magento\Framework\Pricing\PriceCurrencyInterface $hlpPriceCurrency,
         \Praxigento\Wallet\Helper\Config $hlpCfg,
-        \Praxigento\Wallet\Repo\Dao\Partial\Quote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote
     ) {
         $this->manObj = $manObj;
         $this->hlpPriceCurrency = $hlpPriceCurrency;
         $this->hlpCfg = $hlpCfg;
-        $this->repoPartialQuote = $repoPartialQuote;
+        $this->daoPartialQuote = $daoPartialQuote;
     }
 
     /**
@@ -61,7 +61,7 @@ class CartTotalRepository
 //            $result->setExtensionAttributes($exts);
             /* get partial data from repository */
             /** @var \Praxigento\Wallet\Repo\Data\Partial\Quote $found */
-            $found = $this->repoPartialQuote->getById($cartId);
+            $found = $this->daoPartialQuote->getById($cartId);
             if ($found) {
                 $basePartial = $found->getBasePartialAmount();
                 $basePartial = $this->hlpPriceCurrency->round($basePartial);

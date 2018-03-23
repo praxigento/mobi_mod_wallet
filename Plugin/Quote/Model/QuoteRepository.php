@@ -11,12 +11,12 @@ namespace Praxigento\Wallet\Plugin\Quote\Model;
 class QuoteRepository
 {
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
-    private $repoPartialQuote;
+    private $daoPartialQuote;
 
     public function __construct(
-        \Praxigento\Wallet\Repo\Dao\Partial\Quote $repoPartialQuote
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote
     ) {
-        $this->repoPartialQuote = $repoPartialQuote;
+        $this->daoPartialQuote = $daoPartialQuote;
     }
 
     /**
@@ -33,7 +33,7 @@ class QuoteRepository
         \Magento\Quote\Api\Data\CartInterface $quote
     ) {
         $quoteId = $quote->getId();
-        $this->repoPartialQuote->deleteById($quoteId);
+        $this->daoPartialQuote->deleteById($quoteId);
         return [$quote];
     }
 }
