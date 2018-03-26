@@ -1,8 +1,8 @@
 {
-  "name": "praxigento/mobi_mod_mage2_wallet",
+  "name": "praxigento/mobi_mod_wallet",
   "description": "MOBI: Praxigento_Wallet module.",
   "type": "magento2-module",
-  "homepage": "https://github.com/praxigento/mobi_mod_mage2_wallet",
+  "homepage": "https://github.com/praxigento/mobi_mod_wallet",
   "license": "MIT",
   "authors": [
     {
@@ -19,6 +19,6 @@
     }
   },
   "require": {
-    "praxigento/mobi_mod_mage2_accounting": "dev-master"
+    "praxigento/mobi_mod_accounting": "dev-master"
   }
 }
