@@ -25,17 +25,15 @@ class InstallData extends \Praxigento\Core\App\Setup\Data\Base
     {
         $this->_conn->insertArray(
             $this->_resource->getTableName(TypeAsset::ENTITY_NAME),
-            [TypeAsset::A_CODE, TypeAsset::A_NOTE, TypeAsset::A_IS_VISIBLE],
             [
+                TypeAsset::A_CODE,
+                TypeAsset::A_NOTE,
+                TypeAsset::A_IS_TRANSFERABLE
+            ], [
                 [
                     Cfg::CODE_TYPE_ASSET_WALLET,
                     'Active funds in a customer wallet. Can be transferred to other customer, to external payment system or used to sale smth.',
                     true
-                ],
-                [
-                    Cfg::CODE_TYPE_ASSET_WALLET_HOLD,
-                    '\'On hold\' funds in a customer wallet. Can be converted to active funds only.',
-                    false
                 ]
             ]
         );
