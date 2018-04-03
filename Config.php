@@ -8,6 +8,7 @@
 namespace Praxigento\Wallet;
 
 class Config
+    extends \Praxigento\Accounting\Config
 {
     const CODE_PAYMENT_METHOD = 'praxigento_wallet';
     /** Code for quote/order/invoice totals to save part of eWallet payment */

@@ -12,7 +12,7 @@ class Config
 {
 
     /** @var \Magento\Framework\App\Config\ScopeConfigInterface */
-    protected $scopeConfig;
+    private $scopeConfig;
 
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig

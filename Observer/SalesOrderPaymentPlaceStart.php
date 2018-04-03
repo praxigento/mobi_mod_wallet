@@ -12,21 +12,22 @@ class SalesOrderPaymentPlaceStart
 {
     /* Names for the items in the event's data */
     const DATA_PAYMENT = 'payment';
-    /** @var \Praxigento\Wallet\Service\IOperation */
-    protected $_callOperation;
+
+    /** @var \Praxigento\Wallet\Service\Sale\Payment */
+    private $servSalePayment;
     /** @var \Praxigento\Core\Api\App\Logger\Main */
-    protected $_logger;
+    private $logger;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
-    protected $_repoPartialQuote;
+    private $daoPartialQuote;
 
     public function __construct(
         \Praxigento\Core\Api\App\Logger\Main $logger,
         \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote,
-        \Praxigento\Wallet\Service\IOperation $callOperation
+        \Praxigento\Wallet\Service\Sale\Payment $servSalePayment
     ) {
-        $this->_logger = $logger;
-        $this->_repoPartialQuote = $daoPartialQuote;
-        $this->_callOperation = $callOperation;
+        $this->logger = $logger;
+        $this->daoPartialQuote = $daoPartialQuote;
+        $this->servSalePayment = $servSalePayment;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)
@@ -36,16 +37,17 @@ class SalesOrderPaymentPlaceStart
         assert($payment instanceof \Magento\Sales\Model\Order\Payment);
         $order = $payment->getOrder();
         $quoteId = $order->getQuoteId();
-        $regQuote = $this->_repoPartialQuote->getById($quoteId);
+        $storeId = $order->getStoreId();
+        $regQuote = $this->daoPartialQuote->getById($quoteId);
         if ($regQuote) {
             $orderId = $order->getId();
             $customerId = $order->getCustomerId();
             $amount = $regQuote->getBasePartialAmount();
-            $req = new \Praxigento\Wallet\Service\Operation\Request\PayForSaleOrder();
+            $req = new \Praxigento\Wallet\Service\Sale\Payment\Request();
             $req->setOrderId($orderId);
             $req->setCustomerId($customerId);
             $req->setBaseAmountToPay($amount);
-            $this->_callOperation->payForSaleOrder($req);
+            $this->servSalePayment->exec($req);
         }
 
     }

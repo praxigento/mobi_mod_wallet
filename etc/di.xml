@@ -2,17 +2,14 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <!-- Payment Method Facade configuration -->
-    <!--<virtualType-->
-            <!--name="PraxigentoWalletPayment"-->
-            <!--type="\Praxigento\Wallet\Model\Payment\Method"/>-->
+    <!-- Payment Method Facade configuration (see ./etc/config.xml) -->
     <virtualType
             name="PraxigentoWalletPayment"
-            type="\Praxigento\Wallet\Model\Payment\Method\Wallet"/>
+            type="Praxigento\Wallet\Model\Payment\Method\Wallet"/>
     <!-- Payment Method configuration -->
-    <type name="\Praxigento\Wallet\Model\Payment\Method\Wallet">
+    <type name="Praxigento\Wallet\Model\Payment\Method\Wallet">
         <arguments>
-            <argument name="config" xsi:type="object">\Magento\Payment\Gateway\Config\Config</argument>
+            <argument name="config" xsi:type="object">Magento\Payment\Gateway\Config\Config</argument>
             <argument name="valueHandlerPool" xsi:type="object">PraxigentoWalletPaymentValueHandlerPool</argument>
             <argument name="code" xsi:type="string">praxigento_wallet</argument>
             <argument name="formBlockType" xsi:type="string"></argument>
@@ -20,13 +17,15 @@
         </arguments>
     </type>
     <!-- @api create virtual type based on default value handler if it required by payment method -->
-    <virtualType name="PraxigentoWalletPaymentDefaultValueHandler" type="\Magento\Payment\Gateway\Config\ConfigValueHandler">
+    <virtualType name="PraxigentoWalletPaymentDefaultValueHandler"
+                 type="Magento\Payment\Gateway\Config\ConfigValueHandler">
         <arguments>
-            <argument name="configInterface" xsi:type="object">\Magento\Payment\Gateway\Config\Config</argument>
+            <argument name="configInterface" xsi:type="object">Magento\Payment\Gateway\Config\Config</argument>
         </arguments>
     </virtualType>
     <!-- @api create virtual type based on default value handler pool if it required by payment method -->
-    <virtualType name="PraxigentoWalletPaymentValueHandlerPool" type="\Magento\Payment\Gateway\Config\ValueHandlerPool">
+    <virtualType name="PraxigentoWalletPaymentValueHandlerPool"
+                 type="Magento\Payment\Gateway\Config\ValueHandlerPool">
         <arguments>
             <argument name="handlers" xsi:type="array">
                 <item name="default" xsi:type="string">PraxigentoWalletPaymentDefaultValueHandler</item>
@@ -45,40 +44,35 @@
 
 
     <!-- Interceptors (Plugins) -->
-    <type name="\Magento\Quote\Model\Cart\CartTotalRepository">
+    <type name="Magento\Quote\Model\Cart\CartTotalRepository">
         <!-- Add partial payment totals to data have being got through the REST API -->
         <plugin name="praxigento_wallet_decor"
                 type="Praxigento\Wallet\Plugin\Quote\Model\Cart\CartTotalRepository"
                 sortOrder="100" disabled="false"/>
     </type>
-    <type name="\Magento\Quote\Model\Quote\Relation">
+    <type name="Magento\Quote\Model\Quote\Relation">
         <!-- Save partial payment total on quote save -->
         <plugin name="praxigento_wallet_decor"
-                type="\Praxigento\Wallet\Plugin\Quote\Model\Quote\Relation"
+                type="Praxigento\Wallet\Plugin\Quote\Model\Quote\Relation"
                 sortOrder="100" disabled="false"/>
     </type>
-    <type name="\Magento\Quote\Model\QuoteRepository">
+    <type name="Magento\Quote\Model\QuoteRepository">
         <!-- Save partial payment total on quote save -->
         <plugin name="praxigento_wallet_decor"
-                type="\Praxigento\Wallet\Plugin\Quote\Model\QuoteRepository"
+                type="Praxigento\Wallet\Plugin\Quote\Model\QuoteRepository"
                 sortOrder="100" disabled="false"/>
     </type>
-    <type name="\Magento\Sales\Model\Order\Payment\Processor">
+    <type name="Magento\Sales\Model\Order\Payment\Processor">
         <!-- Reduce payment amount for partial payments -->
         <plugin name="praxigento_wallet_decor"
-                type="\Praxigento\Wallet\Plugin\Sales\Model\Order\Payment\Processor"
+                type="Praxigento\Wallet\Plugin\Sales\Model\Order\Payment\Processor"
                 sortOrder="100" disabled="false"/>
     </type>
-    <type name="\Magento\Sales\Model\Order\Payment">
+    <type name="Magento\Sales\Model\Order\Payment">
         <!-- Use partial amount in payment validation () -->
         <plugin name="praxigento_wallet_decor"
-                type="\Praxigento\Wallet\Plugin\Sales\Model\Order\Payment"
+                type="Praxigento\Wallet\Plugin\Sales\Model\Order\Payment"
                 sortOrder="100" disabled="false"/>
     </type>
-
-
-    <!-- Service -->
-    <preference for="Praxigento\Wallet\Service\IOperation"
-            type="Praxigento\Wallet\Service\Operation\Call"/>
 
 </config>

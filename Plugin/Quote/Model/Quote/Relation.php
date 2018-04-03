@@ -5,6 +5,8 @@
 
 namespace Praxigento\Wallet\Plugin\Quote\Model\Quote;
 
+use Praxigento\Wallet\Config as Cfg;
+
 /**
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
@@ -48,7 +50,7 @@ class Relation
             $baseTotalExist = $exist->getBasePartialAmount();
             if ($baseTotalExist == $baseTotal) {
                 /* amount is equal to stored, do nothing */
-            } elseif (abs($baseTotal) < 0.00001) {
+            } elseif (abs($baseTotal) < Cfg::DEF_ZERO) {
                 /* amount is zero, remove data from registry */
                 $this->daoPartialQuote->deleteById($quoteId);
             } else {
@@ -57,7 +59,7 @@ class Relation
                 $exist->setBasePartialAmount($baseTotal);
                 $this->daoPartialQuote->updateById($quoteId, $exist);
             }
-        } elseif (abs($baseTotal) > 0.00001) {
+        } elseif (abs($baseTotal) > Cfg::DEF_ZERO) {
             /* create new record in registry */
             $data = new \Praxigento\Wallet\Repo\Data\Partial\Quote();
             $data->setQuoteRef($quoteId);

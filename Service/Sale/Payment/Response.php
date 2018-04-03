@@ -3,10 +3,9 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Service\Operation\Response;
+namespace Praxigento\Wallet\Service\Sale\Payment;
 
-
-class AddToWalletActive
+class Response
     extends \Praxigento\Accounting\Api\Service\Operation\Response
 {
 
