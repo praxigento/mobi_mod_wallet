@@ -7,11 +7,17 @@ define([
         'Praxigento_Wallet/js/view/payment/method/partial'
     ], function (ko, Component, uiPartial) {
         'use strict';
+
         /* get Checkout configuration data (see \Praxigento\Wallet\Model\Checkout\ConfigProvider) */
         var quoteData = window.checkoutConfig.quoteData;
         var baseGrandTotal = quoteData['base_grand_total'];
         /* see \Praxigento\Wallet\Api\Data\Config\Payment\Method*/
         var paymentConfig = window.checkoutConfig.praxigentoWallet;
+        if(!paymentConfig) {
+            /* TODO: remove after development */
+            paymentConfig={};
+            paymentConfig['negative_balance_enabled'] = true;
+        }
         var negativeBalanceEnabled = paymentConfig['negative_balance_enabled'];
 
         var result = Component.extend({

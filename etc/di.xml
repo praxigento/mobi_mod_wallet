@@ -2,48 +2,69 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <!-- Payment Method Facade configuration (see ./etc/config.xml) -->
-    <virtualType
-            name="PraxigentoWalletPayment"
-            type="Praxigento\Wallet\Model\Payment\Method\Wallet"/>
-    <!-- Payment Method configuration -->
-    <type name="Praxigento\Wallet\Model\Payment\Method\Wallet">
+
+    <!--
+        Add eWallet payment method configuration provider to checkout config provider.
+        http://devdocs.magento.com/guides/v2.3/howdoi/checkout/checkout_payment.html#access-the-system-config-data
+    -->
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
-            <argument name="config" xsi:type="object">Magento\Payment\Gateway\Config\Config</argument>
-            <argument name="valueHandlerPool" xsi:type="object">PraxigentoWalletPaymentValueHandlerPool</argument>
-            <argument name="code" xsi:type="string">praxigento_wallet</argument>
-            <argument name="formBlockType" xsi:type="string"></argument>
-            <argument name="infoBlockType" xsi:type="string"></argument>
+            <argument name="configProviders" xsi:type="array">
+                <item name="praxigento_wallet_config_provider"
+                      xsi:type="object">Praxigento\Wallet\Model\Checkout\ConfigProvider</item>
+            </argument>
         </arguments>
     </type>
-    <!-- @api create virtual type based on default value handler if it required by payment method -->
-    <virtualType name="PraxigentoWalletPaymentDefaultValueHandler"
+
+    <!-- Configuration reader for eWallet payment method -->
+    <type name="Praxigento\Wallet\Model\Checkout\Config">
+        <arguments>
+            <argument name="methodCode"
+                      xsi:type="const">Praxigento\Wallet\Model\Checkout\ConfigProvider::CODE_WALLET</argument>
+        </arguments>
+    </type>
+
+    <!-- ConfigValueHandler for ConfigReader -->
+    <virtualType name="PraxigentoWalletConfigValueHandler"
                  type="Magento\Payment\Gateway\Config\ConfigValueHandler">
         <arguments>
-            <argument name="configInterface" xsi:type="object">Magento\Payment\Gateway\Config\Config</argument>
+            <argument name="configInterface"
+                      xsi:type="object">Praxigento\Wallet\Model\Checkout\Config</argument>
         </arguments>
     </virtualType>
-    <!-- @api create virtual type based on default value handler pool if it required by payment method -->
-    <virtualType name="PraxigentoWalletPaymentValueHandlerPool"
+
+    <!-- ValueHandlerPool for ConfigValueHandler -->
+    <virtualType name="PraxigentoWalletValueHandlerPool"
                  type="Magento\Payment\Gateway\Config\ValueHandlerPool">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="default" xsi:type="string">PraxigentoWalletPaymentDefaultValueHandler</item>
+                <item name="default" xsi:type="string">PraxigentoWalletConfigValueHandler</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <type name="Magento\Checkout\Model\CompositeConfigProvider">
-        <!-- Add eWallet payment method configuration to checkout config. -->
+    <!--
+        Payment Method Facade configuration (see ./etc/config.xml)
+        http://devdocs.magento.com/guides/v2.3/payments-integrations/base-integration/facade-configuration.html
+    -->
+    <virtualType name="PraxigentoWalletPaymentFacade"
+                 type="Magento\Payment\Model\Method\Adapter">
         <arguments>
-            <argument name="configProviders" xsi:type="array">
-                <item name="praxigento_wallet_config_provider" xsi:type="object">Praxigento\Wallet\Model\Checkout\ConfigProvider</item>
-            </argument>
+            <argument name="code" xsi:type="const">Praxigento\Wallet\Model\Checkout\ConfigProvider::CODE_WALLET</argument>
+            <argument name="formBlockType" xsi:type="string">Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet\Form</argument>
+            <argument name="valueHandlerPool" xsi:type="object">PraxigentoWalletValueHandlerPool</argument>
+            <!--<argument name="validatorPool" xsi:type="object">PraxigentoWalletValidatorPool</argument>-->
+            <!--<argument name="commandPool" xsi:type="object">PraxigentoWalletCommandPool</argument>-->
         </arguments>
-    </type>
+    </virtualType>
 
 
-    <!-- Interceptors (Plugins) -->
+
+
+    <!-- ******* -->
+    <!-- PLUGINS -->
+    <!-- ******* -->
     <type name="Magento\Quote\Model\Cart\CartTotalRepository">
         <!-- Add partial payment totals to data have being got through the REST API -->
         <plugin name="praxigento_wallet_decor"

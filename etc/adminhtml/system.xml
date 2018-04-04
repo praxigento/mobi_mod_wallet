@@ -5,7 +5,7 @@
     <system>
         <section id="payment">
             <!-- See 'code' argument for '\Praxigento\Wallet\Model\Payment\Method\Wallet' in './etc/di.xml' -->
-            <group id="praxigento_wallet" translate="label" type="text"
+            <group id="praxigento_wallet_method" translate="label" type="text"
                     sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>eWallet</label>
                 <comment>

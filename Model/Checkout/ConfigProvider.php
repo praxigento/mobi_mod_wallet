@@ -16,6 +16,9 @@ class ConfigProvider
     /** Name for configuration top level attribute to collect configuration data. */
     const CFG_NAME = 'praxigentoWallet';
 
+    /** Code for frontend related parts (layouts, uiComponents, ...) */
+    const CODE_WALLET = 'praxigento_wallet_method';
+
     /** @var \Praxigento\Wallet\Helper\Config */
     private $hlpCfg;
     /** @var \Praxigento\Accounting\Repo\Dao\Account */

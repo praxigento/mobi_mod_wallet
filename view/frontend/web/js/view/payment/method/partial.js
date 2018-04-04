@@ -11,12 +11,21 @@ define([
         'Magento_Braintree/js/view/payment/method-renderer/hosted-fields'
     ], function (ko, Component, uiTotals, uiPaymentDefault, uiPaymentBraintree) {
         'use strict';
+
         /* get Checkout configuration data (see \Praxigento\Wallet\Model\Checkout\ConfigProvider) */
         var quoteData = window.checkoutConfig.quoteData;
         var baseCurrency = quoteData['base_currency_code'];
         var baseGrandTotal = quoteData['base_grand_total'];
         /* eWallet payment method config (see \Praxigento\Wallet\Api\Data\Config\Payment\Method) */
         var paymentConfig = window.checkoutConfig.praxigentoWallet;
+        if (!paymentConfig) {
+            /* TODO: remove after development */
+            paymentConfig = {};
+            paymentConfig['partial_enabled'] = false;
+            paymentConfig['negative_balance_enabled'] = false;
+            paymentConfig['partial_max_percent'] = 1;
+
+        }
         var negativeBalanceEnabled = paymentConfig['negative_balance_enabled'];
         var partialPaymentMaxPercent = paymentConfig['partial_max_percent'];
         var customerData = window.customerData;

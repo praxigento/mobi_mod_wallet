@@ -35,13 +35,26 @@ class Wallet
         \Magento\Payment\Gateway\Command\CommandManagerInterface $commandExecutor = null,
         \Praxigento\Core\Api\App\Logger\Main $logger = null
     ) {
-        $code = self::CODE;
         parent::__construct(
             $eventManager, $valueHandlerPool, $paymentDataObjectFactory, $code,
             $formBlockType, $infoBlockType, $commandPool, $validatorPool,
             $commandExecutor, $logger
         );
         $this->servSalePayment = $servSalePayment;
+    }
+
+    public function canCapture()
+    {
+        $result = parent::canCapture();
+        $result = true;
+        return $result;
+    }
+
+    public function canUseCheckout()
+    {
+        $result = parent::canUseCheckout();
+        $result = true;
+        return $result;
     }
 
     public function capture(
@@ -68,16 +81,16 @@ class Wallet
         return $this;
     }
 
-    public function isAvailable(CartInterface $quote = null)
+    public function isActive($storeId = null)
     {
-        $result = parent::isAvailable($quote);
+        $result = parent::isActive($storeId);
         $result = true;
         return $result;
     }
 
-    public function isActive($storeId = null)
+    public function isAvailable(CartInterface $quote = null)
     {
-        $result = parent::isActive($storeId);
+        $result = parent::isAvailable($quote);
         $result = true;
         return $result;
     }

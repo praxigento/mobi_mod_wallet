@@ -2,6 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+        <!-- see http://devdocs.magento.com/guides/v2.3/howdoi/checkout/checkout_payment.html -->
         <referenceBlock name="checkout.root">
             <arguments>
                 <argument name="jsLayout" xsi:type="array">
@@ -43,10 +44,10 @@
                                                         </item>
                                                         <item name="renders" xsi:type="array">
                                                             <item name="children" xsi:type="array">
-                                                                <item name="praxigento_wallet" xsi:type="array">
+                                                                <item name="praxigento_wallet_register" xsi:type="array">
                                                                     <item name="component" xsi:type="string">Praxigento_Wallet/js/view/payment/method/register</item>
                                                                     <item name="methods" xsi:type="array">
-                                                                        <item name="praxigento_wallet" xsi:type="array">
+                                                                        <item name="praxigento_wallet_method" xsi:type="array">
                                                                             <item name="isBillingAddressRequired" xsi:type="boolean">false</item>
                                                                         </item>
                                                                     </item>

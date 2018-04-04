@@ -5,10 +5,10 @@
     <default>
         <payment>
             <!-- See 'code' argument for '\Praxigento\Wallet\Model\Payment\Method\Wallet' in './etc/di.xml' -->
-            <praxigento_wallet>
+            <praxigento_wallet_method>
                 <active>0</active>
                 <!-- Configure Payment facade in './etc/di.xml' -->
-                <model>PraxigentoWalletPayment</model>
+                <model>PraxigentoWalletPaymentFacade</model>
                 <order_status>pending_payment</order_status>
                 <payment_action>authorize_capture</payment_action>
                 <title>Use eWallet</title>
@@ -19,7 +19,7 @@
                 <!-- own configuration parameters -->
                 <partial_enabled>1</partial_enabled>
                 <partial_percent>1.00</partial_percent>
-            </praxigento_wallet>
+            </praxigento_wallet_method>
         </payment>
     </default>
 </config>
