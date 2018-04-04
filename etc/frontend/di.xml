@@ -2,5 +2,20 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
+    <!--
+        Add eWallet payment method configuration provider to checkout config provider.
+        http://devdocs.magento.com/guides/v2.3/howdoi/checkout/checkout_payment.html#access-the-system-config-data
+
+        ATTENTION: this statement should be placed in "./etc/frontend/di.xml"
+    -->
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="praxigento_wallet_config_provider"
+                      xsi:type="object">Praxigento\Wallet\Model\Checkout\ConfigProvider
+                </item>
+            </argument>
+        </arguments>
+    </type>
 
 </config>
