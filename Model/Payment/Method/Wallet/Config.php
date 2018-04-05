@@ -3,17 +3,18 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Model\Checkout;
+namespace Praxigento\Wallet\Model\Payment\Method\Wallet;
 
-use Magento\Framework\App\Config\ScopeConfigInterface;
-
+/**
+ * Reader for payment method configuration.
+ */
 class Config
     extends \Magento\Payment\Gateway\Config\Config
 {
     const KEY_ACTIVE = 'active';
 
     public function __construct(
-        ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         $methodCode = null,
         $pathPattern = self::DEFAULT_PATH_PATTERN
     ) {

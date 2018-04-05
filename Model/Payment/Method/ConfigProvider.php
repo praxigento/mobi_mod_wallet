@@ -3,7 +3,9 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Model\Checkout;
+namespace Praxigento\Wallet\Model\Payment\Method;
+
+use Praxigento\Wallet\Model\Payment\Method\ConfigProvider\Data as DConfg;
 
 /**
  * Provide eWallet payment method configuration data for checkout process.
@@ -11,56 +13,62 @@ namespace Praxigento\Wallet\Model\Checkout;
 class ConfigProvider
     implements \Magento\Checkout\Model\ConfigProviderInterface
 {
-    /** Configuration items names for 'window.customerData' (JS object) */
-    const CFG_CUST_BALANCE = 'prxgtWalletBalance';
-    /** Name for configuration top level attribute to collect configuration data. */
-    const CFG_NAME = 'praxigentoWallet';
-
     /** Code for frontend related parts (layouts, uiComponents, ...) */
     const CODE_WALLET = 'praxigento_wallet_method';
+    /** Name for attribute of checkout configuration to collect method data (window.checkoutConfig.). */
+    const UI_CHECKOUT_WALLET = 'prxgtWalletPaymentCfg';
 
-    /** @var \Praxigento\Wallet\Helper\Config */
-    private $hlpCfg;
     /** @var \Praxigento\Accounting\Repo\Dao\Account */
     private $daoAccount;
     /** @var \Praxigento\Accounting\Repo\Dao\Type\Asset */
     private $daoAssetType;
+    /** @var \Praxigento\Wallet\Helper\Config */
+    private $hlpCfg;
+    /** @var \Praxigento\Wallet\Api\Helper\Currency */
+    private $hlpWalletCur;
+    /** @var \Magento\Checkout\Model\Session */
+    private $sessCheckout;
     /** @var \Magento\Customer\Model\Session */
-    private $sessionCustomer;
+    private $sessCustomer;
 
     public function __construct(
-        \Magento\Customer\Model\Session $sessionCustomer,
+        \Magento\Customer\Model\Session $sessCustomer,
+        \Magento\Checkout\Model\Session $sessCheckout,
         \Praxigento\Accounting\Repo\Dao\Account $daoAccount,
         \Praxigento\Accounting\Repo\Dao\Type\Asset $daoAssetType,
+        \Praxigento\Wallet\Api\Helper\Currency $hlpWalletCur,
         \Praxigento\Wallet\Helper\Config $hlpCfg
     )
     {
-        $this->sessionCustomer = $sessionCustomer;
+        $this->sessCustomer = $sessCustomer;
+        $this->sessCheckout = $sessCheckout;
         $this->daoAccount = $daoAccount;
         $this->daoAssetType = $daoAssetType;
+        $this->hlpWalletCur = $hlpWalletCur;
         $this->hlpCfg = $hlpCfg;
     }
 
     public function getConfig()
     {
-        /* Get payment method configuration */
+        /* Get current configuration for the payment method */
         $isEnabled = $this->isEnabled();
         $isNegativeBalanceEnabled = $this->hlpCfg->getWalletNegativeBalanceEnabled();
         $isPartialEnabled = $this->hlpCfg->getWalletPartialEnabled();
         $partialMaxPercent = $this->hlpCfg->getWalletPartialPercent();
-        /* ... and additional configuration for other objects */
-        $customerData = $this->populateCustomerData();
-        /* then compose data transfer object */
-        $data = new \Praxigento\Wallet\Api\Data\Config\Payment\Method();
+
+        /* then compose data transfer object (from PHP to JSON) */
+        $data = new DConfg();
         $data->setIsEnabled($isEnabled);
         $data->setIsNegativeBalanceEnabled($isNegativeBalanceEnabled);
         $data->setIsPartialEnabled($isEnabled && $isPartialEnabled);
         $data->setPartialMaxPercent($partialMaxPercent);
+        /* ... add other configuration data */
+        $data = $this->populateCustomerData($data);
         /* and add configuration data to checkout config */
         $result = [
-            'customerData' => $customerData, // see \Magento\Checkout\Model\DefaultConfigProvider::getConfig
-            self::CFG_NAME => $data->get()
+            self::UI_CHECKOUT_WALLET => $data->get()
         ];
+        /* full structure see in \Magento\Checkout\Model\DefaultConfigProvider::getConfig */
         return $result;
     }
 
@@ -69,28 +77,36 @@ class ConfigProvider
         $result = $this->hlpCfg->getWalletActive();
         if ($result) {
             /* validate customer group */
-            $isLoggedIn = $this->sessionCustomer->isLoggedIn();
+            $isLoggedIn = $this->sessCustomer->isLoggedIn();
             $result = $result && $isLoggedIn;
         }
         return $result;
     }
 
-    private function populateCustomerData()
+    /**
+     * @param DConfg $data
+     * @return DConfg
+     */
+    private function populateCustomerData($data)
     {
-        $result = [];
-        if ($this->sessionCustomer) {
-            $customerId = $this->sessionCustomer->getCustomerId();
+        $data->setCustomerBalance(0);
+        if ($this->sessCustomer && $this->sessCheckout) {
+            $customerId = $this->sessCustomer->getCustomerId();
+            $quote = $this->sessCheckout->getQuote();
+            $storeId = $quote->getStoreId();
             if ($customerId) {
-                $result[self::CFG_CUST_BALANCE] = 0;
                 $assetTypeId = $this->daoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET);
                 $account = $this->daoAccount->getByCustomerId($customerId, $assetTypeId);
                 if ($account) {
                     $balance = $account->getBalance();
-                    $result[self::CFG_CUST_BALANCE] = $balance;
+                    /* convert balance from WALLET currency to STORE currency */
+                    $balance = $this->hlpWalletCur->walletToStore($balance, $storeId);
+                    $balance = number_format($balance, 2, '.', '');
+                    $data->setCustomerBalance($balance);
                 }
             }
         }
-        return $result;
+        return $data;
     }
 
 }

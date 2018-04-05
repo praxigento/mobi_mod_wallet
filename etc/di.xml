@@ -4,10 +4,10 @@
 
 
     <!-- Configuration reader for eWallet payment method -->
-    <type name="Praxigento\Wallet\Model\Checkout\Config">
+    <type name="Praxigento\Wallet\Model\Payment\Method\Wallet\Config">
         <arguments>
             <argument name="methodCode"
-                      xsi:type="const">Praxigento\Wallet\Model\Checkout\ConfigProvider::CODE_WALLET</argument>
+                      xsi:type="const">Praxigento\Wallet\Model\Payment\Method\ConfigProvider::CODE_WALLET</argument>
         </arguments>
     </type>
 
@@ -16,7 +16,7 @@
                  type="Magento\Payment\Gateway\Config\ConfigValueHandler">
         <arguments>
             <argument name="configInterface"
-                      xsi:type="object">Praxigento\Wallet\Model\Checkout\Config</argument>
+                      xsi:type="object">Praxigento\Wallet\Model\Payment\Method\Wallet\Config</argument>
         </arguments>
     </virtualType>
 
@@ -37,7 +37,7 @@
     <virtualType name="PraxigentoWalletPaymentFacade"
                  type="Magento\Payment\Model\Method\Adapter">
         <arguments>
-            <argument name="code" xsi:type="const">Praxigento\Wallet\Model\Checkout\ConfigProvider::CODE_WALLET</argument>
+            <argument name="code" xsi:type="const">Praxigento\Wallet\Model\Payment\Method\ConfigProvider::CODE_WALLET</argument>
             <argument name="formBlockType" xsi:type="string">Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet\Form</argument>
             <argument name="infoBlockType" xsi:type="string">Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet\Form</argument>
             <argument name="valueHandlerPool" xsi:type="object">PraxigentoWalletValueHandlerPool</argument>

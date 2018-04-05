@@ -12,25 +12,18 @@ define([
     ], function (ko, Component, uiTotals, uiPaymentDefault, uiPaymentBraintree) {
         'use strict';
 
-        /* get Checkout configuration data (see \Praxigento\Wallet\Model\Checkout\ConfigProvider) */
+        /* get quote from checkout configuration data */
         var quoteData = window.checkoutConfig.quoteData;
         var baseCurrency = quoteData['base_currency_code'];
         var baseGrandTotal = quoteData['base_grand_total'];
-        /* eWallet payment method config (see \Praxigento\Wallet\Api\Data\Config\Payment\Method) */
-        var paymentConfig = window.checkoutConfig.praxigentoWallet;
-        if (!paymentConfig) {
-            /* TODO: remove after development */
-            paymentConfig = {};
-            paymentConfig['partial_enabled'] = false;
-            paymentConfig['negative_balance_enabled'] = false;
-            paymentConfig['partial_max_percent'] = 1;
-
-        }
+        /* get payment method configuration */
+        /* see \Praxigento\Wallet\Model\Payment\Method\ConfigProvider::UI_CHECKOUT_WALLET */
+        var paymentConfig = window.checkoutConfig.prxgtWalletPaymentCfg;
+        /* see \Praxigento\Wallet\Model\Payment\Method\ConfigProvider\Data */
         var negativeBalanceEnabled = paymentConfig['negative_balance_enabled'];
         var partialPaymentMaxPercent = paymentConfig['partial_max_percent'];
-        var customerData = window.customerData;
-        // \Praxigento\Wallet\Model\Checkout\ConfigProvider::CFG_CUST_...
-        var customerAccountBalance = customerData['prxgtWalletBalance'];
+        var customerAccountBalance = paymentConfig['partial_max_percent'];
+
         var initState = getAmount() > 0;
 
         /**
