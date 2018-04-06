@@ -12,6 +12,21 @@ namespace Praxigento\Wallet\Api\Helper;
 interface Currency
 {
     /**
+     * Store currency code (USD).
+     *
+     * @param int $storeId
+     * @return string
+     */
+    public function getStoreCurrency($storeId);
+
+    /**
+     * Wallet currency code (EUR).
+     *
+     * @return string
+     */
+    public function getWalletCurrency();
+
+    /**
      * Convert store displayed currency to wallet stored currency (UI to DB).
      *
      * @param float $amount

@@ -10,8 +10,8 @@ namespace Praxigento\Wallet\Service\Sale\Payment;
  * @method void setBaseAmountToPay(float $data)
  * @method int getCustomerId() ID of the customer who pay for the sale order.
  * @method void setCustomerId(int $data)
- * @method int getOrderId() ID of the order that is paid.
- * @method void setOrderId(int $data)
+ * @method int getSaleIncId() incremental ID of the order that is paid (entity ID does not exist yet).
+ * @method void setSaleIncId(int $data)
  * @method int getStoreId() Store ID where order was created (to convert Stock/Warehouse currency to Customer Currency).
  * @method void setStoreId(int $data)
  */

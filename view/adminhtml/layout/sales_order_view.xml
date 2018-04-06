@@ -3,6 +3,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+        <referenceContainer name="payment_additional_info">
+            <block class="Praxigento\Wallet\Block\Adminhtml\Order\View\Info"
+                   name="prxgt_wallet_pay_info"
+                   template="Praxigento_Wallet::order/view/info.phtml" />
+        </referenceContainer>
         <referenceBlock name="order_totals">
             <block class="Praxigento\Wallet\Block\Sales\Order\Partial" name="praxigento_wallet_partial">
                 <action method="setBeforeCondition">

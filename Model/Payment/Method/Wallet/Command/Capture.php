@@ -6,23 +6,18 @@
 
 namespace Praxigento\Wallet\Model\Payment\Method\Wallet\Command;
 
-use Magento\Sales\Api\Data\OrderPaymentInterface as DOrderPayment;
 use Praxigento\Wallet\Service\Sale\Payment\Request as ARequest;
 use Praxigento\Wallet\Service\Sale\Payment\Response as AResponse;
 
 class Capture
     implements \Magento\Payment\Gateway\CommandInterface
 {
-    /** @var \Praxigento\Wallet\Api\Helper\Currency */
-    private $hlpCurr;
     /** @var \Praxigento\Wallet\Service\Sale\Payment */
     private $servSalePayment;
 
     public function __construct(
-        \Praxigento\Wallet\Api\Helper\Currency $hlpCurr,
         \Praxigento\Wallet\Service\Sale\Payment $servSalePayment
     ) {
-        $this->hlpCurr = $hlpCurr;
         $this->servSalePayment = $servSalePayment;
     }
 
@@ -30,6 +25,7 @@ class Capture
     {
         /** define local working data */
         /* see \Magento\Payment\Model\Method\Adapter::capture */
+        $amount = $commandSubject['amount']; // base grand total
         /** @var \Magento\Payment\Gateway\Data\PaymentDataObject $paymentData */
         $paymentData = $commandSubject['payment'];
         /** @var \Magento\Payment\Gateway\Data\Order\OrderAdapter $sale */
@@ -37,25 +33,22 @@ class Capture
         /** @var \Magento\Sales\Model\Order\Payment $payment */
         $payment = $paymentData->getPayment();
 
-        //$saleId = $sale->getId();
+        /* sale order has no entityId yet */
         $saleIncId = $sale->getOrderIncrementId();
         $storeId = $sale->getStoreId();
         $custId = $sale->getCustomerId();
-        $amount = $payment->getData(DOrderPayment::BASE_AMOUNT_AUTHORIZED);
 
         /** perform processing */
-        $amountWallet = $this->hlpCurr->storeToWallet($amount, $storeId);
         $req = new ARequest();
-        $req->setCustomerId($amount);
-        $req->setStoreId($storeId);
         $req->setBaseAmountToPay($amount);
+        $req->setCustomerId($custId);
+        $req->setSaleIncId($saleIncId);
+        $req->setStoreId($storeId);
         /** @var AResponse $resp */
         $resp = $this->servSalePayment->exec($req);
-        $operId = $resp->getOperationId();
-        $payment->setTransactionId($operId);
-
-
-//        $phrase = new \Magento\Framework\Phrase("Development");
-//        throw new \Magento\Framework\Exception\LocalizedException($phrase);
+        $tranId = $resp->getTransactionId();
+        $payment->setTransactionId($tranId);
+        $payment->setAdditionalInformation('bu', 'booo');
+        $payment->setAdditionalInformation('be', 'buuu');
     }
 }
