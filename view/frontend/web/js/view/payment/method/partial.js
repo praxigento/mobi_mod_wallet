@@ -22,7 +22,7 @@ define([
         /* see \Praxigento\Wallet\Model\Payment\Method\ConfigProvider\Data */
         var negativeBalanceEnabled = paymentConfig['negative_balance_enabled'];
         var partialPaymentMaxPercent = paymentConfig['partial_max_percent'];
-        var customerAccountBalance = paymentConfig['partial_max_percent'];
+        var customerAccountBalance = paymentConfig['customer_balance'];
 
         var initState = getAmount() > 0;
 

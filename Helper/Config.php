@@ -27,7 +27,7 @@ class Config
      */
     public function getWalletActive()
     {
-        $result = $this->scopeConfig->getValue('payment/praxigento_wallet/active');
+        $result = $this->scopeConfig->getValue('payment/prxgt_wallet_pay/active');
         $result = filter_var($result, FILTER_VALIDATE_BOOLEAN);
         return $result;
     }
@@ -39,7 +39,7 @@ class Config
      */
     public function getWalletNegativeBalanceEnabled()
     {
-        $result = $this->scopeConfig->getValue('payment/praxigento_wallet/negative_balance_enabled');
+        $result = $this->scopeConfig->getValue('payment/prxgt_wallet_pay/negative_balance_enabled');
         $result = filter_var($result, FILTER_VALIDATE_BOOLEAN);
         /* disable negative balance if eWalllet payment is not active */
         $result = $result && $this->getWalletActive();
@@ -53,7 +53,7 @@ class Config
      */
     public function getWalletPartialEnabled()
     {
-        $result = $this->scopeConfig->getValue('payment/praxigento_wallet/partial_enabled');
+        $result = $this->scopeConfig->getValue('payment/prxgt_wallet_pay/partial_enabled');
         $result = filter_var($result, FILTER_VALIDATE_BOOLEAN);
         /* disable partial payment if eWalllet payment is not active */
         $result = $result && $this->getWalletActive();
@@ -67,7 +67,7 @@ class Config
      */
     public function getWalletPartialPercent()
     {
-        $result = $this->scopeConfig->getValue('payment/praxigento_wallet/partial_percent');
+        $result = $this->scopeConfig->getValue('payment/prxgt_wallet_pay/partial_percent');
         $result *= 1;
         $result = ($result < 0) || ($result > 1) ? 0 : $result;
         return $result;

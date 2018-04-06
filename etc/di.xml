@@ -30,6 +30,17 @@
         </arguments>
     </virtualType>
 
+    <!-- Commands Pool for payment method -->
+    <virtualType name="PraxigentoWalletCommandPool"
+                 type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <!-- see "prxgt_wallet_pay.payment_action"="authorize_capture" in "./etc/config.xml" -->
+                <item name="capture" xsi:type="string">Praxigento\Wallet\Model\Payment\Method\Wallet\Command\Capture</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
     <!--
         Payment Method Facade configuration (see ./etc/config.xml)
         http://devdocs.magento.com/guides/v2.3/payments-integrations/base-integration/facade-configuration.html
@@ -42,7 +53,7 @@
             <argument name="infoBlockType" xsi:type="string">Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet\Form</argument>
             <argument name="valueHandlerPool" xsi:type="object">PraxigentoWalletValueHandlerPool</argument>
             <!--<argument name="validatorPool" xsi:type="object">PraxigentoWalletValidatorPool</argument>-->
-            <!--<argument name="commandPool" xsi:type="object">PraxigentoWalletCommandPool</argument>-->
+            <argument name="commandPool" xsi:type="object">PraxigentoWalletCommandPool</argument>
         </arguments>
     </virtualType>
 

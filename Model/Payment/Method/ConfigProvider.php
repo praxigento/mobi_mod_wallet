@@ -14,7 +14,7 @@ class ConfigProvider
     implements \Magento\Checkout\Model\ConfigProviderInterface
 {
     /** Code for frontend related parts (layouts, uiComponents, ...) */
-    const CODE_WALLET = 'praxigento_wallet_method';
+    const CODE_WALLET = 'prxgt_wallet_pay';
     /** Name for attribute of checkout configuration to collect method data (window.checkoutConfig.). */
     const UI_CHECKOUT_WALLET = 'prxgtWalletPaymentCfg';
 

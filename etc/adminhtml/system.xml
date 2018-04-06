@@ -4,8 +4,8 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="payment">
-            <!-- See 'code' argument for '\Praxigento\Wallet\Model\Payment\Method\Wallet' in './etc/di.xml' -->
-            <group id="praxigento_wallet_method" translate="label" type="text"
+            <!-- See 'code' argument for 'PraxigentoWalletPaymentFacade' in './etc/di.xml' -->
+            <group id="prxgt_wallet_pay" translate="label" type="text"
                     sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>eWallet</label>
                 <comment>

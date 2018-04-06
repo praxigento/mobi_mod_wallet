@@ -6,8 +6,9 @@ define(
     function (Component, rendererList) {
         'use strict';
 
+        /* payment method code see in \Praxigento\Wallet\Model\Payment\Method\ConfigProvider::CODE_WALLET */
         rendererList.push({
-            type: 'praxigento_wallet_method',
+            type: 'prxgt_wallet_pay',
             component: 'Praxigento_Wallet/js/view/payment/method/renderer'
         });
 

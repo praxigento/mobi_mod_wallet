@@ -4,22 +4,23 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <payment>
-            <!-- See 'code' argument for '\Praxigento\Wallet\Model\Payment\Method\Wallet' in './etc/di.xml' -->
-            <praxigento_wallet_method>
+            <!-- See 'code' argument for 'PraxigentoWalletPaymentFacade' in './etc/di.xml' -->
+            <prxgt_wallet_pay>
                 <active>0</active>
                 <!-- Configure Payment facade in './etc/di.xml' -->
                 <model>PraxigentoWalletPaymentFacade</model>
                 <order_status>pending_payment</order_status>
+                <!-- available actions are in '\Magento\Sales\Model\Order\Payment::processAction' -->
                 <payment_action>authorize_capture</payment_action>
                 <title>Use eWallet</title>
                 <can_authorize>1</can_authorize>
                 <can_capture>1</can_capture>
                 <can_void>1</can_void>
                 <can_use_checkout>1</can_use_checkout>
-                <!-- own configuration parameters -->
-                <partial_enabled>1</partial_enabled>
+                <!-- defaults for own configuration parameters (change in admin) -->
+                <partial_enabled>0</partial_enabled>
                 <partial_percent>1.00</partial_percent>
-            </praxigento_wallet_method>
+            </prxgt_wallet_pay>
         </payment>
     </default>
 </config>

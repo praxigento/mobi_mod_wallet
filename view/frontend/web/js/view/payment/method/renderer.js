@@ -16,8 +16,9 @@ define([
         /* see \Praxigento\Wallet\Model\Payment\Method\ConfigProvider::UI_CHECKOUT_WALLET */
         var paymentConfig = window.checkoutConfig.prxgtWalletPaymentCfg;
         /* see \Praxigento\Wallet\Model\Payment\Method\ConfigProvider\Data */
-        var negativeBalanceEnabled = paymentConfig['negative_balance_enabled'];
         var customerBalance = paymentConfig['customer_balance'];
+        var negativeBalanceEnabled = paymentConfig['negative_balance_enabled'];
+        var partialEnabled = paymentConfig['partial_enabled'];
 
         var result = Component.extend({
             defaults: {
@@ -33,9 +34,9 @@ define([
                 /* available balance should be not less then base grand total or negative balance is allowed */
                 var customerBalance = uiPartial().customerBalance();
                 var isAmountEnough = ((baseGrandTotal - customerBalance ) <= 0) || negativeBalanceEnabled;
-                /* MAX % should be equal to 100% */
+                /* MAX % should be equal to 100% if partial enabled (always 100% if partial disabled)*/
                 var maxPercent = uiPartial().partialMaxPercent();
-                var isMaxPercent100 = Math.abs(maxPercent - 100) < 0.0001;
+                var isMaxPercent100 = (partialEnabled) ? (Math.abs(maxPercent - 100) < 0.0001) : true;
                 /* compose complex condition */
                 var result = !isPartialChecked && isAmountEnough && isMaxPercent100;
                 return result;

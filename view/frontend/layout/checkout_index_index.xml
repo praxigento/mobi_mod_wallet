@@ -47,7 +47,8 @@
                                                                 <item name="praxigento_wallet_register" xsi:type="array">
                                                                     <item name="component" xsi:type="string">Praxigento_Wallet/js/view/payment/method/register</item>
                                                                     <item name="methods" xsi:type="array">
-                                                                        <item name="praxigento_wallet_method" xsi:type="array">
+                                                                        <!-- see 'code' arg for 'PraxigentoWalletPaymentFacade' in './etc/di.xml' -->
+                                                                        <item name="prxgt_wallet_pay" xsi:type="array">
                                                                             <item name="isBillingAddressRequired" xsi:type="boolean">false</item>
                                                                         </item>
                                                                     </item>
