@@ -46,7 +46,7 @@ class SalesOrderPaymentPlaceStart
             $req = new \Praxigento\Wallet\Service\Sale\Payment\Request();
             $req->setBaseAmountToPay($amount);
             $req->setCustomerId($customerId);
-            $req->setOrderId($orderIncId);
+            $req->setSaleIncId($orderIncId);
             $req->setStoreId($storeId);
             $this->servSalePayment->exec($req);
         }

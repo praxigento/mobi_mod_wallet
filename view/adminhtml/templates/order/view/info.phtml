@@ -1,7 +1,13 @@
 <?php
 /** @var \Praxigento\Wallet\Block\Adminhtml\Order\View\Info $block */
 ?>
+<?php if ($block->uiIsWalletUsed): ?>
 <div>
-    <div><?= __('Paid from wallet') ?>: <?= $block->uiAmountWallet ?> <?= $block->uiCurrencyWallet ?></div>
-    <div><?= __('In store') ?>: <?= $block->uiAmountStore ?> <?= $block->uiCurrencyStore ?></div>
+    <div><?= __('Paid from wallet') ?>:
+        <?= $block->uiAmountWallet ?> <?= $block->uiCurrencyWallet ?>
+        <?php if ($block->uiAmountWallet != $block->uiAmountStore): ?>
+            (<?= $block->uiAmountStore ?> <?= $block->uiCurrencyStore ?>)
+        <?php endif; ?>
+    </div>
 </div>
+<?php endif; ?>
