@@ -40,13 +40,14 @@ class SalesOrderPaymentPlaceStart
         $storeId = $order->getStoreId();
         $regQuote = $this->daoPartialQuote->getById($quoteId);
         if ($regQuote) {
-            $orderId = $order->getId();
+            $orderIncId = $order->getIncrementId();
             $customerId = $order->getCustomerId();
             $amount = $regQuote->getBasePartialAmount();
             $req = new \Praxigento\Wallet\Service\Sale\Payment\Request();
-            $req->setOrderId($orderId);
-            $req->setCustomerId($customerId);
             $req->setBaseAmountToPay($amount);
+            $req->setCustomerId($customerId);
+            $req->setOrderId($orderIncId);
+            $req->setStoreId($storeId);
             $this->servSalePayment->exec($req);
         }
 

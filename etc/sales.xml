@@ -6,7 +6,7 @@
         <group name="totals">
             <!-- MOBI-486 : collect partial payment totals in quotes (see \Praxigento\Wallet\Config::CODE_TOTAL_PARTIAL) -->
             <item name="prxgt_wallet_partial"
-                    instance="\Praxigento\Wallet\Model\Quote\Address\Total\Partial"
+                    instance="Praxigento\Wallet\Model\Quote\Address\Total\Partial"
                     sort_order="700"/>
         </group>
     </section>
@@ -15,7 +15,7 @@
         <group name="totals">
             <!-- MOBI-497 : collect partial payment totals in invoices (see \Praxigento\Wallet\Config::CODE_TOTAL_PARTIAL) -->
             <item name="prxgt_wallet_partial"
-                    instance="\Praxigento\Wallet\Model\Order\Invoice\Total\Partial"
+                    instance="Praxigento\Wallet\Model\Order\Invoice\Total\Partial"
                     sort_order="700"/>
         </group>
     </section>
