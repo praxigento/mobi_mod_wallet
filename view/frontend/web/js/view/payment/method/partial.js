@@ -68,10 +68,10 @@ define([
         var exportResult = Component.extend({
             defaults: {
                 template: 'Praxigento_Wallet/payment/method/partial',
-                partialMaxPercent: ko.observable(getMaxPercent()),
+                partialMaxPercent: ko.computed(getMaxPercent),
                 baseCurrency: ko.observable(baseCurrency),
-                availableAmount: ko.observable(getAvailableAmount()),
-                customerBalance: ko.observable(getCustomerBalance()),
+                availableAmount: ko.computed(getAvailableAmount),
+                customerBalance: ko.computed(getCustomerBalance),
             },
 
             /**
