@@ -30,6 +30,8 @@ class ConfigProvider
     private $sessCheckout;
     /** @var \Magento\Customer\Model\Session */
     private $sessCustomer;
+    /** @var \Praxigento\Core\Api\Helper\Format */
+    private $hlpFormat;
 
     public function __construct(
         \Magento\Customer\Model\Session $sessCustomer,
@@ -37,7 +39,8 @@ class ConfigProvider
         \Praxigento\Accounting\Repo\Dao\Account $daoAccount,
         \Praxigento\Accounting\Repo\Dao\Type\Asset $daoAssetType,
         \Praxigento\Wallet\Api\Helper\Currency $hlpWalletCur,
-        \Praxigento\Wallet\Helper\Config $hlpCfg
+        \Praxigento\Wallet\Helper\Config $hlpCfg,
+        \Praxigento\Core\Api\Helper\Format $hlpFormat
     )
     {
         $this->sessCustomer = $sessCustomer;
@@ -46,6 +49,7 @@ class ConfigProvider
         $this->daoAssetType = $daoAssetType;
         $this->hlpWalletCur = $hlpWalletCur;
         $this->hlpCfg = $hlpCfg;
+        $this->hlpFormat = $hlpFormat;
     }
 
     public function getConfig()
@@ -101,7 +105,7 @@ class ConfigProvider
                     $balance = $account->getBalance();
                     /* convert balance from WALLET currency to STORE currency */
                     $balance = $this->hlpWalletCur->walletToStore($balance, $storeId);
-                    $balance = number_format($balance, 2, '.', '');
+                    $balance = $this->hlpFormat->toNumber($balance);
                     $data->setCustomerBalance($balance);
                 }
             }

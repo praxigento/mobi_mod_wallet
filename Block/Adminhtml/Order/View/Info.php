@@ -18,7 +18,8 @@ class Info
     private $hlpWalletCur;
     /** @var \Magento\Framework\Registry */
     private $registry;
-
+    /** @var \Praxigento\Core\Api\Helper\Format */
+    private $hlpFormat;
     /**#@+
      * Block's properties are used by template.
      */
@@ -27,7 +28,6 @@ class Info
     public $uiCurrencyStore;
     public $uiCurrencyWallet;
     public $uiIsWalletUsed = false;
-
     /**#@-
      */
 
@@ -35,12 +35,14 @@ class Info
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale,
+        \Praxigento\Core\Api\Helper\Format $hlpFormat,
         \Praxigento\Wallet\Api\Helper\Currency $hlpWalletCur,
         $data = []
     ) {
         parent::__construct($context, $data);
         $this->registry = $registry;
         $this->daoPartialSale = $daoPartialSale;
+        $this->hlpFormat = $hlpFormat;
         $this->hlpWalletCur = $hlpWalletCur;
     }
 
@@ -81,8 +83,8 @@ class Info
     {
         $this->uiIsWalletUsed = true;
         $amntWallet = $this->hlpWalletCur->storeToWallet($amntStore, $storeId);
-        $this->uiAmountStore = number_format(round($amntStore, 2), 2, '.', '');
-        $this->uiAmountWallet = number_format(round($amntWallet, 2), 2, '.', '');
+        $this->uiAmountStore = $this->hlpFormat->toNumber(round($amntStore, 2));
+        $this->uiAmountWallet = $this->hlpFormat->toNumber(round($amntWallet, 2));
         $this->uiCurrencyWallet = $this->hlpWalletCur->getWalletCurrency();
         $this->uiCurrencyStore = $this->hlpWalletCur->getStoreCurrency($storeId);
     }
