@@ -16,6 +16,6 @@ namespace Praxigento\Wallet\Service\Sale\Payment;
  * @method void setStoreId(int $data)
  */
 class Request
-    extends \Praxigento\Core\App\Service\Base\Request
+    extends \Praxigento\Core\App\Service\Request
 {
 }

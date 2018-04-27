@@ -10,7 +10,7 @@ namespace Praxigento\Wallet\Service\Sale\Payment;
  * @method void setTransactionId(int $data)
  */
 class Response
-    extends \Praxigento\Core\App\Service\Base\Response
+    extends \Praxigento\Core\App\Service\Response
 {
 
 }
