@@ -5,19 +5,19 @@
     <event name="sales_model_service_quote_submit_success">
         <!-- Save partial payment amounts to order registry. -->
         <observer name="praxigento_wallet_observer"
-                  instance="\Praxigento\Wallet\Observer\SalesModelServiceQuoteSubmitSuccess"/>
+                  instance="Praxigento\Wallet\Observer\SalesModelServiceQuoteSubmitSuccess"/>
     </event>
 
     <event name="sales_order_payment_place_start">
         <!-- Perform partial payment (internal wallet operation). -->
         <observer name="praxigento_wallet_observer"
-                  instance="\Praxigento\Wallet\Observer\SalesOrderPaymentPlaceStart"/>
+                  instance="Praxigento\Wallet\Observer\SalesOrderPaymentPlaceStart"/>
     </event>
 
     <event name="sales_quote_payment_import_data_before">
         <!-- Analyze UI data and switch on/off partial payment in quote. -->
         <observer name="praxigento_wallet_observer"
-                  instance="\Praxigento\Wallet\Observer\SalesQuotePaymentImportDataBefore"/>
+                  instance="Praxigento\Wallet\Observer\SalesQuotePaymentImportDataBefore"/>
     </event>
 
 </config>
