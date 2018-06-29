@@ -5,6 +5,7 @@
 
 namespace Praxigento\Wallet\Model\Payment\Method;
 
+use Praxigento\Wallet\Config as Cfg;
 use Praxigento\Wallet\Model\Payment\Method\ConfigProvider\Data as DConfg;
 
 /**
@@ -20,33 +21,28 @@ class ConfigProvider
 
     /** @var \Praxigento\Accounting\Repo\Dao\Account */
     private $daoAccount;
-    /** @var \Praxigento\Accounting\Repo\Dao\Type\Asset */
-    private $daoAssetType;
     /** @var \Praxigento\Wallet\Helper\Config */
     private $hlpCfg;
+    /** @var \Praxigento\Core\Api\Helper\Format */
+    private $hlpFormat;
     /** @var \Praxigento\Wallet\Api\Helper\Currency */
     private $hlpWalletCur;
     /** @var \Magento\Checkout\Model\Session */
     private $sessCheckout;
     /** @var \Magento\Customer\Model\Session */
     private $sessCustomer;
-    /** @var \Praxigento\Core\Api\Helper\Format */
-    private $hlpFormat;
 
     public function __construct(
         \Magento\Customer\Model\Session $sessCustomer,
         \Magento\Checkout\Model\Session $sessCheckout,
         \Praxigento\Accounting\Repo\Dao\Account $daoAccount,
-        \Praxigento\Accounting\Repo\Dao\Type\Asset $daoAssetType,
         \Praxigento\Wallet\Api\Helper\Currency $hlpWalletCur,
         \Praxigento\Wallet\Helper\Config $hlpCfg,
         \Praxigento\Core\Api\Helper\Format $hlpFormat
-    )
-    {
+    ) {
         $this->sessCustomer = $sessCustomer;
         $this->sessCheckout = $sessCheckout;
         $this->daoAccount = $daoAccount;
-        $this->daoAssetType = $daoAssetType;
         $this->hlpWalletCur = $hlpWalletCur;
         $this->hlpCfg = $hlpCfg;
         $this->hlpFormat = $hlpFormat;
@@ -99,8 +95,7 @@ class ConfigProvider
             $quote = $this->sessCheckout->getQuote();
             $storeId = $quote->getStoreId();
             if ($customerId) {
-                $assetTypeId = $this->daoAssetType->getIdByCode(\Praxigento\Wallet\Config::CODE_TYPE_ASSET_WALLET);
-                $account = $this->daoAccount->getByCustomerId($customerId, $assetTypeId);
+                $account = $this->daoAccount->getCustomerAccByAssetCode($customerId, Cfg::CODE_TYPE_ASSET_WALLET);
                 if ($account) {
                     $balance = $account->getBalance();
                     /* convert balance from WALLET currency to STORE currency */
