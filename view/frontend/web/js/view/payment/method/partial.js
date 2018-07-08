@@ -8,8 +8,9 @@ define([
         'uiComponent',
         'Magento_Checkout/js/model/totals',
         'Magento_Checkout/js/view/payment/default',
+        'Magento_Paypal/js/view/payment/method-renderer/payflowpro-method',
         'Magento_Braintree/js/view/payment/method-renderer/hosted-fields'
-    ], function (ko, Component, uiTotals, uiPaymentDefault, uiPaymentBraintree) {
+    ], function (ko, Component, uiTotals, uiPaymentDefault, uiPaymentPayflow, uiPaymentBraintree) {
         'use strict';
 
         /* get quote from checkout configuration data */
@@ -107,6 +108,19 @@ define([
             /* compose partial payment state and add to payment data */
             var usePartial = uiPartial.prototype.isPartialChecked();
             result.additional_data = {use_partial: usePartial};
+            return result;
+        };
+
+        /* decorate Payflow payment data, add partial payment state */
+        var fnGetDataPayflow = uiPaymentPayflow.prototype.getData;
+        uiPaymentPayflow.prototype.getData = function () {
+            /* put this UI Component into the local context */
+            var uiPartial = exportResult;
+            /* get original data from current object */
+            var result = fnGetDataPayflow.apply(this);
+            /* compose partial payment state and add to payment data */
+            var usePartial = uiPartial.prototype.isPartialChecked();
+            result.additional_data.use_partial = usePartial;
             return result;
         };
 

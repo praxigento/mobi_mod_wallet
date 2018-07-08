@@ -8,12 +8,12 @@ namespace Praxigento\Wallet\Plugin\Sales\Model\Order\Payment;
 class Processor
 {
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
-    protected $_repoPartialQuote;
+    private $daoPartialQuote;
 
     public function __construct(
         \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote
     ) {
-        $this->_repoPartialQuote = $daoPartialQuote;
+        $this->daoPartialQuote = $daoPartialQuote;
     }
 
     /**
@@ -36,7 +36,7 @@ class Processor
         $amountToPay = $amount;
         $order = $payment->getOrder();
         $quoteId = $order->getQuoteId();
-        $found = $this->_repoPartialQuote->getById($quoteId);
+        $found = $this->daoPartialQuote->getById($quoteId);
         if ($found) {
             $basePartial = $found->getBasePartialAmount();
             $amountToPay -= $basePartial;
@@ -64,7 +64,7 @@ class Processor
             /* try to find related record in quote registry */
             $order = $payment->getOrder();
             $quoteId = $order->getQuoteId();
-            $found = $this->_repoPartialQuote->getById($quoteId);
+            $found = $this->daoPartialQuote->getById($quoteId);
             if ($found) {
                 /* decrease amount in invoice */
                 $partialBase = $found->getBasePartialAmount();
