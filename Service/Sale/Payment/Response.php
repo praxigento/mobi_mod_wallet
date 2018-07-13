@@ -12,5 +12,5 @@ namespace Praxigento\Wallet\Service\Sale\Payment;
 class Response
     extends \Praxigento\Core\App\Service\Response
 {
-
+    const ERR_NOT_ENOUGH_BALANCE = 'not_enough_balance';
 }

@@ -48,7 +48,16 @@ class SalesOrderPaymentPlaceStart
             $req->setCustomerId($customerId);
             $req->setSaleIncId($orderIncId);
             $req->setStoreId($storeId);
-            $this->servSalePayment->exec($req);
+            $resp = $this->servSalePayment->exec($req);
+            if ($resp->isSucceed()) {
+                $tranId = $resp->getTransactionId();
+                $this->logger->debug("Partial wallet payment (cust/order/amount/trans): $customerId/$orderIncId/$amount/$tranId.");
+            } else {
+                $err = $resp->getErrorCode();
+                $msg = "Cannot perform partial wallet payment. Error code: '%1'.";
+                $phrase = new \Magento\Framework\Phrase($msg, [$err]);
+                throw new \Magento\Framework\Exception\LocalizedException($phrase);
+            }
         }
 
     }

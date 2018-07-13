@@ -46,9 +46,15 @@ class Capture
         $req->setStoreId($storeId);
         /** @var AResponse $resp */
         $resp = $this->servSalePayment->exec($req);
-        $tranId = $resp->getTransactionId();
-        $payment->setTransactionId($tranId);
-        $payment->setAdditionalInformation('bu', 'booo');
-        $payment->setAdditionalInformation('be', 'buuu');
+        if ($resp->isSucceed()) {
+            $tranId = $resp->getTransactionId();
+            $payment->setTransactionId($tranId);
+            // $payment->setAdditionalInformation('param', 'value');
+        } else {
+            $err = $resp->getErrorCode();
+            $msg = "Cannot perform wallet payment. Error code: '%1'.";
+            $phrase = new \Magento\Framework\Phrase($msg, [$err]);
+            throw new \Magento\Framework\Exception\LocalizedException($phrase);
+        }
     }
 }
