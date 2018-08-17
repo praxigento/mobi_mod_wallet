@@ -51,6 +51,7 @@ class SalesOrderPaymentPlaceStart
             $resp = $this->servSalePayment->exec($req);
             if ($resp->isSucceed()) {
                 $tranId = $resp->getTransactionId();
+                $payment->setTransactionId($tranId);
                 $this->logger->debug("Partial wallet payment (cust/order/amount/trans): $customerId/$orderIncId/$amount/$tranId.");
             } else {
                 $err = $resp->getErrorCode();

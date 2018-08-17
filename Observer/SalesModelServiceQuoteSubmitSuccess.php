@@ -13,17 +13,18 @@ class SalesModelServiceQuoteSubmitSuccess
 {
     const DATA_ORDER = 'order';
     const DATA_QUOTE = 'quote';
-    /** @var \Praxigento\Core\Api\App\Logger\Main */
-    protected $_logger;
+
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
-    protected $_repoPartialSale;
+    private $daoPartialSale;
+    /** @var \Praxigento\Core\Api\App\Logger\Main */
+    private $logger;
 
     public function __construct(
         \Praxigento\Core\Api\App\Logger\Main $logger,
         \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale
     ) {
-        $this->_logger = $logger;
-        $this->_repoPartialSale = $daoPartialSale;
+        $this->logger = $logger;
+        $this->daoPartialSale = $daoPartialSale;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)
@@ -39,13 +40,21 @@ class SalesModelServiceQuoteSubmitSuccess
                 ->getData(\Praxigento\Wallet\Model\Quote\Address\Total\Partial::CODE_TOTAL);
             /** @var \Magento\Sales\Model\Order $order */
             $order = $observer->getData(self::DATA_ORDER);
+            $payment = $order->getPayment();
             $orderId = $order->getId();
+            $baseCurrency = $order->getBaseCurrencyCode();
+            $currency = $order->getOrderCurrencyCode();
+            $tranId = $payment->getTransactionId();
+
             $data = new \Praxigento\Wallet\Repo\Data\Partial\Sale();
-            $data->setPartialAmount($partialAmount);
-            $data->setBasePartialAmount($basePartialAmount);
             $data->setSaleOrderRef($orderId);
-            $this->_repoPartialSale->create($data);
-            $this->_logger->debug("New partial payment by eWallet is registered for order #$orderId "
+            $data->setTransRef($tranId);
+            $data->setPartialAmount($partialAmount);
+            $data->setCurrency($currency);
+            $data->setBasePartialAmount($basePartialAmount);
+            $data->setBaseCurrency($baseCurrency);
+            $this->daoPartialSale->create($data);
+            $this->logger->debug("New partial payment by eWallet is registered for order #$orderId "
                 . "(base: '$basePartialAmount', amount: '$partialAmount').");
         }
     }

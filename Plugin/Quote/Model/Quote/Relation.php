@@ -61,10 +61,14 @@ class Relation
             }
         } elseif (abs($baseTotal) > Cfg::DEF_ZERO) {
             /* create new record in registry */
+            $baseCurr = $object->getBaseCurrencyCode();
+            $curr = $object->getQuoteCurrencyCode();
             $data = new \Praxigento\Wallet\Repo\Data\Partial\Quote();
             $data->setQuoteRef($quoteId);
-            $exist->setPartialAmount($total);
+            $data->setPartialAmount($total);
+            $data->setCurrency($curr);
             $data->setBasePartialAmount($baseTotal);
+            $data->setBaseCurrency($baseCurr);
             $this->daoPartialQuote->create($data);
         }
     }

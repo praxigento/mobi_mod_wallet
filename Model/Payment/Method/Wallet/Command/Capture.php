@@ -49,7 +49,7 @@ class Capture
         if ($resp->isSucceed()) {
             $tranId = $resp->getTransactionId();
             $payment->setTransactionId($tranId);
-            // $payment->setAdditionalInformation('param', 'value');
+            // $payment->setAdditionalInformation('tranId', $tranId);
         } else {
             $err = $resp->getErrorCode();
             $msg = "Cannot perform wallet payment. Error code: '%1'.";

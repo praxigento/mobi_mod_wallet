@@ -56,6 +56,8 @@ class Partial
         /* get fresh grands from calculating totals */
         $grandBase = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_BASE_GRAND_TOTAL);
         $grand = $total->getData(\Magento\Quote\Api\Data\TotalsInterface::KEY_GRAND_TOTAL);
+        $currBase = $quote->getBaseCurrencyCode();
+        $curr = $quote->getQuoteCurrencyCode();
         if ($grandBase == 0) {
             /* this is billing address, compose result */
             $total->setBaseTotalAmount(self::CODE, 0);
@@ -84,7 +86,7 @@ class Partial
                         list($partialBase, $partial) = $this->validateBalance($quote, $balanceBase, $partialBase, $partial);
 
                         /* save/update partial if amounts are different */
-                        $this->savePartialData($partialDataSaved, $partialBase, $partial, $quoteId);
+                        $this->savePartialData($partialDataSaved, $partialBase, $currBase, $partial, $curr, $quoteId);
                         /* reset totals in quote and compose result */
                         $quote->setData(self::CODE_BASE_TOTAL, $partialBase);
                         $quote->setData(self::CODE_TOTAL, $partial);
@@ -161,11 +163,13 @@ class Partial
      *
      * @param \Praxigento\Wallet\Repo\Data\Partial\Quote $partialDataSaved
      * @param float $partialBase
+     * @param string $currBase
      * @param float $partial
+     * @param string $curr
      * @param int $quoteId
      * @throws \Exception
      */
-    private function savePartialData($partialDataSaved, $partialBase, $partial, $quoteId)
+    private function savePartialData($partialDataSaved, $partialBase, $currBase, $partial, $curr, $quoteId)
     {
         if ($partialDataSaved) {
             /* get saved partial totals */
@@ -190,7 +194,9 @@ class Partial
                 $partialDataSaved = new \Praxigento\Wallet\Repo\Data\Partial\Quote();
                 $partialDataSaved->setQuoteRef($quoteId);
                 $partialDataSaved->setBasePartialAmount($partialBase);
+                $partialDataSaved->setBaseCurrency($currBase);
                 $partialDataSaved->setPartialAmount($partial);
+                $partialDataSaved->setCurrency($curr);
                 $this->daoPartialQuote->create($partialDataSaved);
             }
         }
