@@ -20,4 +20,5 @@ class Config
     /** Transfer WALLET asset between customers accounts (or customer & representative accounts). */
     const CODE_TYPE_OPER_WALLET_TRANSFER = 'WALLET_TRANSFER';
     const MODULE = 'Praxigento_Wallet';
+    const MOD_VERSION_0_1_0 = '0.1.0';
 }

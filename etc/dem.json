@@ -74,11 +74,23 @@
                         "nullable": false,
                         "type": {"numeric": {"precision": 12, "scale": 4}}
                       },
+                      "BaseCurrency": {
+                        "alias": "base_currency",
+                        "comment": "Currency code for base amount (stock/warehouse currency).",
+                        "nullable": true,
+                        "type": {"text": {"length": 3}}
+                      },
                       "PartialAmount": {
                         "alias": "partial_amount",
                         "comment": "Partial amount in order currency.",
                         "nullable": false,
                         "type": {"numeric": {"precision": 12, "scale": 4}}
+                      },
+                      "Currency": {
+                        "alias": "currency",
+                        "comment": "Currency code for amount (payment??? currency).",
+                        "nullable": true,
+                        "type": {"text": {"length": 3}}
                       }
                     },
                     "index": {
@@ -105,17 +117,35 @@
                         "nullable": false,
                         "type": {"integer": {"unsigned": true}}
                       },
+                      "TransactionRef": {
+                        "alias": "trans_ref",
+                        "comment": "Transaction Reference.",
+                        "nullable": true,
+                        "type": {"integer": {"unsigned": true}}
+                      },
                       "BasePartialAmount": {
                         "alias": "base_partial_amount",
                         "comment": "Partial amount in base currency.",
                         "nullable": false,
                         "type": {"numeric": {"precision": 12, "scale": 4}}
                       },
+                      "BaseCurrency": {
+                        "alias": "base_currency",
+                        "comment": "Currency code for base amount (stock/warehouse currency).",
+                        "nullable": true,
+                        "type": {"text": {"length": 3}}
+                      },
                       "PartialAmount": {
                         "alias": "partial_amount",
                         "comment": "Partial amount in order currency.",
                         "nullable": false,
                         "type": {"numeric": {"precision": 12, "scale": 4}}
+                      },
+                      "Currency": {
+                        "alias": "currency",
+                        "comment": "Currency code for amount (payment??? currency).",
+                        "nullable": true,
+                        "type": {"text": {"length": 3}}
                       }
                     },
                     "index": {
@@ -127,6 +157,14 @@
                         "reference": {
                           "entity": {"completeAlias": "sales_order"},
                           "aliases": ["entity_id"]
+                        },
+                        "action": {"delete": "restrict", "update": "restrict"}
+                      },
+                      "toTransaction": {
+                        "own": {"aliases": ["trans_ref"]},
+                        "reference": {
+                          "entity": {"completeAlias": "prxgt_acc_transaction"},
+                          "aliases": ["id"]
                         },
                         "action": {"delete": "restrict", "update": "restrict"}
                       }
