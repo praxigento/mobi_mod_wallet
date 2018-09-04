@@ -115,7 +115,7 @@ class Partial
                         list($partialBase, $partial) = $this->validateBalance($quote, $balanceBase, $partialBase, $partial);
 
                         /* save/update partial if amounts are different */
-                        $this->savePartialData($partialDataSaved, $partialBase, $partial, $quoteId);
+                        $this->savePartialData($partialDataSaved, $partialBase, $currBase, $partial, $curr, $quoteId);
                         /* reset totals in quote and compose result */
                         $quote->setData(self::CODE_BASE_TOTAL, $partialBase);
                         $quote->setData(self::CODE_TOTAL, $partial);
