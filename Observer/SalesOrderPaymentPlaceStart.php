@@ -12,21 +12,24 @@ class SalesOrderPaymentPlaceStart
 {
     /* Names for the items in the event's data */
     const DATA_PAYMENT = 'payment';
-
-    /** @var \Praxigento\Wallet\Service\Sale\Payment */
-    private $servSalePayment;
-    /** @var \Praxigento\Core\Api\App\Logger\Main */
-    private $logger;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
     private $daoPartialQuote;
+    /** @var \Praxigento\Wallet\Helper\TranIdStore */
+    private $hlpTranIdStore;
+    /** @var \Praxigento\Core\Api\App\Logger\Main */
+    private $logger;
+    /** @var \Praxigento\Wallet\Service\Sale\Payment */
+    private $servSalePayment;
 
     public function __construct(
         \Praxigento\Core\Api\App\Logger\Main $logger,
         \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote,
+        \Praxigento\Wallet\Helper\TranIdStore $hlpTranIdStore,
         \Praxigento\Wallet\Service\Sale\Payment $servSalePayment
     ) {
         $this->logger = $logger;
         $this->daoPartialQuote = $daoPartialQuote;
+        $this->hlpTranIdStore = $hlpTranIdStore;
         $this->servSalePayment = $servSalePayment;
     }
 
@@ -51,8 +54,8 @@ class SalesOrderPaymentPlaceStart
             $resp = $this->servSalePayment->exec($req);
             if ($resp->isSucceed()) {
                 $tranId = $resp->getTransactionId();
-                $payment->setTransactionId($tranId);
                 $this->logger->debug("Partial wallet payment (cust/order/amount/trans): $customerId/$orderIncId/$amount/$tranId.");
+                $this->hlpTranIdStore->saveTranId($tranId);
             } else {
                 $err = $resp->getErrorCode();
                 $msg = "Cannot perform partial wallet payment. Error code: '%1'.";
