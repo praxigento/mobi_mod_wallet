@@ -7,7 +7,7 @@
 namespace Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet;
 
 /**
- * Payment method rendering in adminhtml.
+ * Payment method rendering in adminhtml (see "PraxigentoWalletPaymentFacade" in ./etc/di.xml).
  *
  * see http://devdocs.magento.com/guides/v2.3/payments-integrations/base-integration/facade-configuration.html
  */

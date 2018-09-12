@@ -50,7 +50,8 @@
         <arguments>
             <argument name="code" xsi:type="const">Praxigento\Wallet\Model\Payment\Method\ConfigProvider::CODE_WALLET</argument>
             <argument name="formBlockType" xsi:type="string">Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet\Form</argument>
-            <argument name="infoBlockType" xsi:type="string">Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet\Form</argument>
+            <!-- frontend block for order view -->
+            <argument name="infoBlockType" xsi:type="string">Praxigento\Wallet\Block\Payment\Method\Wallet\Info</argument>
             <argument name="valueHandlerPool" xsi:type="object">PraxigentoWalletValueHandlerPool</argument>
             <!--<argument name="validatorPool" xsi:type="object">PraxigentoWalletValidatorPool</argument>-->
             <argument name="commandPool" xsi:type="object">PraxigentoWalletCommandPool</argument>
