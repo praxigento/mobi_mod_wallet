@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Plugin\Sales\Model\Order;
+namespace Praxigento\Wallet\Plugin\Magento\Sales\Model\Order;
 
 
 /**

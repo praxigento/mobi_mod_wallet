@@ -3,7 +3,7 @@
  * User: Alex Gusev <alex@flancer64.com>
  */
 
-namespace Praxigento\Wallet\Plugin\Quote\Model;
+namespace Praxigento\Wallet\Plugin\Magento\Quote\Model;
 
 /**
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
