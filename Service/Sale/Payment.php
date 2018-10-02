@@ -5,8 +5,8 @@
 
 namespace Praxigento\Wallet\Service\Sale;
 
-use Praxigento\Accounting\Api\Service\Operation\Request as AnOperRequest;
-use Praxigento\Accounting\Api\Service\Operation\Response as AnOperResponse;
+use Praxigento\Accounting\Api\Service\Operation\Create\Request as AnOperRequest;
+use Praxigento\Accounting\Api\Service\Operation\Create\Response as AnOperResponse;
 use Praxigento\Accounting\Repo\Data\Transaction as ETrans;
 use Praxigento\Wallet\Config as Cfg;
 use Praxigento\Wallet\Service\Sale\Payment\Request as ARequest;
@@ -21,13 +21,13 @@ class Payment
     private $daoAcc;
     /** @var \Praxigento\Wallet\Api\Helper\Currency */
     private $hlpWalletCur;
-    /** @var  \Praxigento\Accounting\Api\Service\Operation */
+    /** @var  \Praxigento\Accounting\Api\Service\Operation\Create */
     private $servOper;
 
     public function __construct(
         \Praxigento\Accounting\Repo\Dao\Account $daoAcc,
         \Praxigento\Wallet\Api\Helper\Currency $hlpWalletCur,
-        \Praxigento\Accounting\Api\Service\Operation $servOper
+        \Praxigento\Accounting\Api\Service\Operation\Create $servOper
     ) {
         $this->daoAcc = $daoAcc;
         $this->hlpWalletCur = $hlpWalletCur;
