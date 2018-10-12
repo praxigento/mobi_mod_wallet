@@ -11,17 +11,13 @@ use Praxigento\Wallet\Config as Cfg;
 class UpgradeSchema
     implements \Magento\Framework\Setup\UpgradeSchemaInterface
 {
-    /** @var \Praxigento\Wallet\Setup\UpgradeSchema\A\V010\Upgrade */
-    private $aV010Upgrade;
-    /** @var \Praxigento\Core\App\Setup\Dem\Tool */
-    private $toolDem;
+    /** @var \Praxigento\Wallet\Setup\UpgradeSchema\A\V0_1_1 */
+    private $v0_1_1;
 
     public function __construct(
-        \Praxigento\Core\App\Setup\Dem\Tool $toolDem,
-        \Praxigento\Wallet\Setup\UpgradeSchema\A\V010\Upgrade $aV010Upgrade
+        \Praxigento\Wallet\Setup\UpgradeSchema\A\V0_1_1 $v0_1_1
     ) {
-        $this->toolDem = $toolDem;
-        $this->aV010Upgrade = $aV010Upgrade;
+        $this->v0_1_1 = $v0_1_1;
     }
 
     public function upgrade(
@@ -32,7 +28,7 @@ class UpgradeSchema
         $version = $context->getVersion();
 
         if ($version == Cfg::MOD_VERSION_0_1_0) {
-            $this->aV010Upgrade->exec($setup);
+            $this->v0_1_1->exec($setup);
         }
         $setup->endSetup();
     }

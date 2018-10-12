@@ -4,18 +4,19 @@
  * Since: 2018
  */
 
-namespace Praxigento\Wallet\Setup\UpgradeSchema\A\V010;
+namespace Praxigento\Wallet\Setup\UpgradeSchema\A;
 
 use Praxigento\Accounting\Repo\Data\Transaction as EAccTran;
 use Praxigento\Wallet\Repo\Data\Partial\Quote as EPartQuote;
 use Praxigento\Wallet\Repo\Data\Partial\Sale as EPartSale;
 
-class Upgrade
+class V0_1_1
 {
     /**
      * @param \Magento\Framework\Setup\SchemaSetupInterface $setup
+     * @param \Praxigento\Core\Data $demPackage
      */
-    public function exec($setup)
+    public function exec($setup, $demPackage = null)
     {
         $this->upgradeTblQuote($setup);
         $this->upgradeTblSale($setup);
