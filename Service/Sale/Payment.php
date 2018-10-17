@@ -17,6 +17,9 @@ use Praxigento\Wallet\Service\Sale\Payment\Response as AResponse;
  */
 class Payment
 {
+    /** @var float customer currency (EUR) to WALLET currency (USD) conversion gap */
+    private const CONVERSION_DELTA = 0.01;
+
     /** @var \Praxigento\Accounting\Repo\Dao\Account */
     private $daoAcc;
     /** @var \Praxigento\Wallet\Api\Helper\Currency */
@@ -75,23 +78,24 @@ class Payment
         $custId = $req->getCustomerId();
         $storeId = $req->getStoreId();
         $saleIncId = $req->getSaleIncId();
-        $amount = $req->getBaseAmountToPay();
+        $amountStore = $req->getBaseAmountToPay();
         /* collect data */
         $accCust = $this->daoAcc->getCustomerAccByAssetCode($custId, Cfg::CODE_TYPE_ASSET_WALLET);
         $accIdDebit = $accCust->getId();   // from customer
         $balanceCust = $accCust->getBalance();
         $accIdCredit = $this->daoAcc->getSystemAccountIdByAssetCode(Cfg::CODE_TYPE_ASSET_WALLET); // to system
-        $amount = $this->hlpWalletCur->storeToWallet($amount, $storeId);
-        $amount = abs(round($amount, 2));
+        $amountWallet = $this->hlpWalletCur->storeToWallet($amountStore, $storeId);
+        $amountWallet = abs(round($amountWallet, 2));
+        $useDelta = ($amountWallet != $amountStore);
         $note = "payment for sale #$saleIncId";
 
         /** validate pre-processing conditions */
-        $isBalanceEnough = $this->validateCustomerBalance($balanceCust, $amount);
+        $isBalanceEnough = $this->validateCustomerBalance($balanceCust, $amountWallet, $useDelta);
 
         /** perform processing */
         if ($isBalanceEnough) {
             /* compose transaction data */
-            $transaction = $this->composeTransaction($amount, $accIdDebit, $accIdCredit, $note);
+            $transaction = $this->composeTransaction($amountWallet, $accIdDebit, $accIdCredit, $note);
             /* create operation using service call */
             $tranId = $this->createOperation($custId, $transaction, $note);
         }
@@ -111,11 +115,16 @@ class Payment
      *
      * @param float $balance
      * @param float $amount
+     * @param bool $useDelta use some delta in values comparison (currency conversion gap)
      * @return bool
      */
-    private function validateCustomerBalance($balance, $amount)
+    private function validateCustomerBalance($balance, $amount, $useDelta = false)
     {
-        $result = ($balance >= $amount);
+        if ($useDelta) {
+            $result = (($balance + self::CONVERSION_DELTA) >= $amount);
+        } else {
+            $result = ($balance >= $amount);
+        }
         return $result;
     }
 }
