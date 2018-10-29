@@ -103,7 +103,7 @@
                           "entity": {"completeAlias": "quote"},
                           "aliases": ["entity_id"]
                         },
-                        "action": {"delete": "restrict", "update": "restrict"}
+                        "action": {"delete": "cascade", "update": "restrict"}
                       }
                     }
                   },
