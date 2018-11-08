@@ -46,8 +46,9 @@ class InstallData extends \Praxigento\Core\App\Setup\Data\Base
             [TypeOperation::A_CODE, TypeOperation::A_NOTE],
             [
                 [
+                    /* see \Praxigento\Accounting\Config::CODE_TYPE_OPER_CHANGE_BALANCE */
                     Cfg::CODE_TYPE_OPER_WALLET_TRANSFER,
-                    'Transfer WALLET_ACTIVE asset between customers accounts (or customer & system accounts).'
+                    'DEPRECATED: Transfer WALLET_ACTIVE asset between customers accounts (or customer & system accounts).'
                 ],
                 [
                     Cfg::CODE_TYPE_OPER_WALLET_SALE,
