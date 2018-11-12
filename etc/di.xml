@@ -66,33 +66,33 @@
     <!-- ******* -->
     <type name="Magento\Quote\Model\Cart\CartTotalRepository">
         <!-- Add partial payment totals to data have being got through the REST API -->
-        <plugin name="praxigento_wallet_decor"
+        <plugin name="prxgt_wallet_plugin"
                 type="Praxigento\Wallet\Plugin\Magento\Quote\Model\Cart\CartTotalRepository"
-                sortOrder="100" disabled="false"/>
+                sortOrder="300" disabled="false"/>
     </type>
     <type name="Magento\Quote\Model\Quote\Relation">
         <!-- Save partial payment total on quote save -->
-        <plugin name="praxigento_wallet_decor"
+        <plugin name="prxgt_wallet_plugin"
                 type="Praxigento\Wallet\Plugin\Magento\Quote\Model\Quote\Relation"
-                sortOrder="100" disabled="false"/>
+                sortOrder="300" disabled="false"/>
     </type>
     <type name="Magento\Quote\Model\QuoteRepository">
         <!-- Save partial payment total on quote save -->
-        <plugin name="praxigento_wallet_decor"
+        <plugin name="prxgt_wallet_plugin"
                 type="Praxigento\Wallet\Plugin\Magento\Quote\Model\QuoteRepository"
-                sortOrder="100" disabled="false"/>
+                sortOrder="300" disabled="false"/>
     </type>
     <type name="Magento\Sales\Model\Order\Payment\Processor">
         <!-- Reduce payment amount for partial payments -->
-        <plugin name="praxigento_wallet_decor"
+        <plugin name="prxgt_wallet_plugin"
                 type="Praxigento\Wallet\Plugin\Magento\Sales\Model\Order\Payment\Processor"
-                sortOrder="100" disabled="false"/>
+                sortOrder="300" disabled="false"/>
     </type>
     <type name="Magento\Sales\Model\Order\Payment">
         <!-- Use partial amount in payment validation () -->
-        <plugin name="praxigento_wallet_decor"
+        <plugin name="prxgt_wallet_plugin"
                 type="Praxigento\Wallet\Plugin\Magento\Sales\Model\Order\Payment"
-                sortOrder="100" disabled="false"/>
+                sortOrder="300" disabled="false"/>
     </type>
 
 </config>
