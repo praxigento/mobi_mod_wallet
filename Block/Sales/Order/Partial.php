@@ -41,29 +41,51 @@ class Partial
         $orderId = $order->getId();
         $found = $this->daoPartialSale->getById($orderId);
         if ($found) {
-            $baseAmount = $found->getBasePartialAmount();
-            $amount = $found->getPartialAmount();
-            $total = new \Magento\Framework\DataObject(
+            $amntBaseWallet = $found->getBasePartialAmount();
+            $amntWallet = $found->getPartialAmount();
+            $totalWallet = new \Magento\Framework\DataObject(
                 [
                     'code' => 'praxigento_wallet',
                     'strong' => true,
-                    'base_value' => $baseAmount,
-                    'value' => $amount,
+                    'base_value' => $amntBaseWallet,
+                    'value' => $amntWallet,
                     'label' => __('Paid by eWallet'),
                     'area' => 'footer',
                     'is_formated' => false
                 ]
             );
-            $parent->addTotal($total);
+            $parent->addTotal($totalWallet);
+            /* add balance */
+            $totalGrandIncl = $parent->getTotal('grand_total_incl');
+            if ($totalGrandIncl) {
+                $amntBaseGrandIncl = $totalGrandIncl->getData('base_value');
+                $amntGrandIncl = $totalGrandIncl->getData('value');
+                $amntBaseLeft = $amntBaseGrandIncl - $amntBaseWallet;
+                $amntLeft = $amntGrandIncl - $amntWallet;
+                if ($amntBaseLeft || $amntLeft) {
+                    $totalLeft = new \Magento\Framework\DataObject(
+                        [
+                            'code' => 'praxigento_wallet_left',
+                            'strong' => true,
+                            'base_value' => $amntBaseLeft,
+                            'value' => $amntLeft,
+                            'label' => __('Balance'),
+                            'area' => 'footer',
+                            'is_formated' => false
+                        ]
+                    );
+                    $parent->addTotal($totalLeft);
+                }
+            }
             /* MOBI-497: fix 'due' amount */
             $totalDue = $parent->getTotal('due');
             if ($totalDue) {
-                $due = $totalDue->getData('value');
-                $dueBase = $totalDue->getData('base_value');
-                $dueFixed = $due - $amount;
-                $dueFixedBase = $dueBase - $baseAmount;
-                $totalDue->setData('value', $dueFixed);
+                $amntBaseDue = $totalDue->getData('base_value');
+                $amntDue = $totalDue->getData('value');
+                $dueFixedBase = $amntBaseDue - $amntBaseWallet;
+                $dueFixed = $amntDue - $amntWallet;
                 $totalDue->setData('base_value', $dueFixedBase);
+                $totalDue->setData('value', $dueFixed);
             }
         }
         return $this;
