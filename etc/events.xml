@@ -14,6 +14,12 @@
                   instance="Praxigento\Wallet\Observer\SalesOrderPaymentPlaceStart"/>
     </event>
 
+    <event name="sales_order_payment_refund">
+        <!-- Refund e-wallet payment on creditmemo. -->
+        <observer name="praxigento_wallet_observer"
+                  instance="Praxigento\Wallet\Observer\SalesOrderPaymentRefund"/>
+    </event>
+
     <event name="sales_quote_payment_import_data_before">
         <!-- Analyze UI data and switch on/off partial payment in quote. -->
         <observer name="praxigento_wallet_observer"
