@@ -8,6 +8,12 @@
                   instance="Praxigento\Wallet\Observer\CheckoutSubmitAllAfter"/>
     </event>
 
+    <event name="order_cancel_after">
+        <!-- Refund e-wallet payments (partial). -->
+        <observer name="praxigento_wallet_observer"
+                  instance="Praxigento\Wallet\Observer\OrderCancelAfter"/>
+    </event>
+
     <event name="sales_order_payment_place_start">
         <!-- Perform partial payment (internal wallet operation). -->
         <observer name="praxigento_wallet_observer"
@@ -15,7 +21,7 @@
     </event>
 
     <event name="sales_order_payment_refund">
-        <!-- Refund e-wallet payment on creditmemo. -->
+        <!-- Refund e-wallet payments (paid by e-wallet only). -->
         <observer name="praxigento_wallet_observer"
                   instance="Praxigento\Wallet\Observer\SalesOrderPaymentRefund"/>
     </event>

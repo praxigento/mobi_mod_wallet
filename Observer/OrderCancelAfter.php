@@ -8,23 +8,21 @@ namespace Praxigento\Wallet\Observer;
 
 use Praxigento\Accounting\Repo\Data\Transaction as ETrans;
 use Praxigento\Wallet\Config as Cfg;
-use Praxigento\Wallet\Model\Payment\Method\ConfigProvider as CfgProv;
 
 /**
- * Refund e-wallet payments (paid by e-wallet only).
+ * Refund e-wallet payments (partial).
  *
- * @see \Magento\Sales\Model\Order\Payment::refund
+ * @see \Magento\Sales\Model\Order::cancel
  */
-class SalesOrderPaymentRefund
+class OrderCancelAfter
     implements \Magento\Framework\Event\ObserverInterface
 {
-    const DATA_CREDITMEMO = 'creditmemo';
-    const DATA_PAYMENT = 'payment';
+    const DATA_ORDER = 'order';
 
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
+    private $daoPartial;
     /** @var \Praxigento\Accounting\Repo\Dao\Transaction */
     private $daoTrans;
-    /** @var \Praxigento\Wallet\Api\Helper\Currency */
-    private $hlpWalletCur;
     /** @var \Praxigento\Core\Api\App\Logger\Main */
     private $logger;
     /** @var  \Praxigento\Accounting\Api\Service\Operation\Create */
@@ -33,12 +31,12 @@ class SalesOrderPaymentRefund
     public function __construct(
         \Praxigento\Core\Api\App\Logger\Main $logger,
         \Praxigento\Accounting\Repo\Dao\Transaction $daoTrans,
-        \Praxigento\Wallet\Api\Helper\Currency $hlpWalletCur,
+        \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartial,
         \Praxigento\Accounting\Api\Service\Operation\Create $servOper
     ) {
         $this->logger = $logger;
         $this->daoTrans = $daoTrans;
-        $this->hlpWalletCur = $hlpWalletCur;
+        $this->daoPartial = $daoPartial;
         $this->servOper = $servOper;
     }
 
@@ -73,26 +71,21 @@ class SalesOrderPaymentRefund
 
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        /** @var \Magento\Sales\Model\Order\Payment $payment */
-        $payment = $observer->getData(self::DATA_PAYMENT);
-        /** @var \Magento\Sales\Model\Order\Creditmemo $creditmemo */
-        $creditmemo = $observer->getData(self::DATA_CREDITMEMO);
-        $method = $payment->getMethod();
-        if ($method == CfgProv::CODE_WALLET) {
-            $lastTrnId = $payment->getLastTransId();
-            $baseAmntRefunded = $payment->getBaseAmountRefunded();
-            $storeId = $creditmemo->getStoreId();
-            $amntWallet = $this->hlpWalletCur->storeToWallet($baseAmntRefunded, $storeId);
-            $sale = $creditmemo->getOrder();
-            $saleId = $sale->getId();
-            $saleIncId = $sale->getIncrementId();
+        /** @var \Magento\Sales\Model\Order $sale */
+        $sale = $observer->getData(self::DATA_ORDER);
+        $saleId = $sale->getId();
+        $saleIncId = $sale->getIncrementId();
+        $partial = $this->daoPartial->getById($saleId);
+        if ($partial) {
+            $tranId = $partial->getTransRef();
             /** @var ETrans $transaction */
-            $transaction = $this->daoTrans->getById($lastTrnId);
+            $transaction = $this->daoTrans->getById($tranId);
             $accIdCust = $transaction->getDebitAccId();
             $accIdSys = $transaction->getCreditAccId();
-            $note = "Refund for sale #$saleIncId";
-            $operId = $this->createOperation($accIdSys, $accIdCust, $amntWallet, $note);
-            $this->logger->info("Refund operation #$operId is created for sale #$saleIncId/$saleId");
+            $amount = $transaction->getValue();
+            $note = "Partial refund for sale #$saleIncId";
+            $operId = $this->createOperation($accIdSys, $accIdCust, $amount, $note);
+            $this->logger->info("Partial refund operation #$operId is created for sale #$saleIncId/$saleId");
         }
     }
 }
