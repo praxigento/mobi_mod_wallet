@@ -1,14 +1,15 @@
 <?php
 /**
- * User: Alex Gusev <alex@flancer64.com>
+ * Authors: Alex Gusev <alex@flancer64.com>
+ * Since: 2019
  */
 
-namespace Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total;
+namespace Praxigento\Wallet\Block\Adminhtml\Order\Creditmemo\Total;
 
 use Praxigento\Wallet\Config as Cfg;
 
 class Partial
-    extends \Magento\Sales\Block\Adminhtml\Order\Invoice\Totals
+    extends \Magento\Sales\Block\Adminhtml\Order\Creditmemo\Totals
 {
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
     private $daoPartialSale;
@@ -35,17 +36,18 @@ class Partial
      */
     public function initTotals()
     {
-        /** @var \Magento\Sales\Block\Adminhtml\Order\Totals $parent */
+        /** @var \Magento\Sales\Block\Adminhtml\Order\Creditmemo\Totals $parent */
         $parent = $this->getParentBlock();
-        /** @var \Magento\Sales\Model\Order $order */
-        $order = $parent->getOrder();
-        /* check collected partial totals (for currently processed invoices only) */
-        $invoices = $order->getInvoiceCollection();
-        $invoice = $invoices->getFirstItem();
-        $partialBase = $invoice->getData(Cfg::CODE_TOTAL_PARTIAL_AMOUNT_BASE);
-        $partial = $invoice->getData(Cfg::CODE_TOTAL_PARTIAL_AMOUNT);
-        if (!$partialBase) {
-            /* check sales registry in repo */
+        /** @var \Magento\Sales\Model\Order\Creditmemo $creditmemo */
+        $creditmemo = $this->getCreditmemo();
+        $partialBase = $creditmemo->getData(Cfg::CODE_TOTAL_PARTIAL_AMOUNT_BASE);
+        if ($partialBase) {
+            /* get partial payment data from creditmemo */
+            $partial = $creditmemo->getData(Cfg::CODE_TOTAL_PARTIAL_AMOUNT);
+        } else {
+            /* or check sales registry in repo */
+            /** @var \Magento\Sales\Model\Order $order */
+            $order = $parent->getOrder();
             $orderId = $order->getId();
             $found = $this->daoPartialSale->getById($orderId);
             if ($found) {
@@ -59,5 +61,4 @@ class Partial
         }
         return $this;
     }
-
 }

@@ -19,4 +19,13 @@
                     sort_order="700"/>
         </group>
     </section>
+    <section name="order_creditmemo">
+        <!-- see .../module-sales/etc/sales.xml -->
+        <group name="totals">
+            <!-- SAN-328 : collect partial payment totals in creditmemo (see \Praxigento\Wallet\Config::CODE_TOTAL_PARTIAL) -->
+            <item name="prxgt_wallet_partial"
+                  instance="Praxigento\Wallet\Model\Order\Creditmemo\Total\Partial"
+                  sort_order="700"/>
+        </group>
+    </section>
 </config>

@@ -2,15 +2,16 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
-namespace Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total;
+
+namespace Praxigento\Wallet\Block\Adminhtml\Order\Creditmemo\Total;
 
 /**
  * This block is based on 'partial' block and should be placed
- * after '\Praxigento\Wallet\Block\Adminhtml\Order\Invoice\Total\Partial'
- * in 'src/view/adminhtml/layout/sales_order_invoice_new.xml'
+ * after '\Praxigento\Wallet\Block\Adminhtml\Order\Creditmemo\Total\Partial'
+ * in 'src/view/adminhtml/layout/sales_order_creditmemo_new.xml'
  */
 class Grand
-    extends \Magento\Sales\Block\Adminhtml\Order\Invoice\Totals
+    extends \Magento\Sales\Block\Adminhtml\Order\Creditmemo\Totals
 {
     /** @var \Praxigento\Wallet\Block\Adminhtml\Order\Z\Total\Grand */
     private $zTotalGrand;
@@ -42,5 +43,4 @@ class Grand
         $this->zTotalGrand->initTotals($parent);
         return $this;
     }
-
 }
