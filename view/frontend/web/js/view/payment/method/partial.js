@@ -9,7 +9,7 @@ define([
         'Magento_Checkout/js/model/totals',
         'Magento_Checkout/js/view/payment/default',
         'Magento_Paypal/js/view/payment/method-renderer/payflowpro-method',
-        'Magento_Braintree/js/view/payment/method-renderer/hosted-fields'
+        'Magento_Braintree/js/view/payment/method-renderer/cc-form'
     ], function (ko, Component, uiTotals, uiPaymentDefault, uiPaymentPayflow, uiPaymentBraintree) {
         'use strict';
 
