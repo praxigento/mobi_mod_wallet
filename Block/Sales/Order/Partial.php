@@ -10,8 +10,10 @@ namespace Praxigento\Wallet\Block\Sales\Order;
 class Partial
     extends \Magento\Framework\View\Element\Template
 {
+    /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
+    private $daoPartialQuote;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
-    protected $daoPartialSale;
+    private $daoPartialSale;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -19,10 +21,12 @@ class Partial
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote,
         \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale,
         array $data = []
     ) {
         parent::__construct($context, $data);
+        $this->daoPartialQuote = $daoPartialQuote;
         $this->daoPartialSale = $daoPartialSale;
     }
 
@@ -39,10 +43,19 @@ class Partial
         /** @var \Magento\Sales\Model\Order $order */
         $order = $parent->getOrder();
         $orderId = $order->getId();
-        $found = $this->daoPartialSale->getById($orderId);
-        if ($found) {
-            $amntBaseWallet = $found->getBasePartialAmount();
-            $amntWallet = $found->getPartialAmount();
+        $quoteId = $order->getQuoteId();
+        $amntBaseWallet = $amntWallet = null;
+        $partialSale = $this->daoPartialSale->getById($orderId);
+        if ($partialSale) {
+            $amntBaseWallet = $partialSale->getBasePartialAmount();
+            $amntWallet = $partialSale->getPartialAmount();
+        }
+        $partialQuote = $this->daoPartialQuote->getById($quoteId);
+        if ($partialQuote) {
+            $amntBaseWallet = $partialQuote->getBasePartialAmount();
+            $amntWallet = $partialQuote->getPartialAmount();
+        }
+        if ($amntBaseWallet && $amntWallet) {
             $totalWallet = new \Magento\Framework\DataObject(
                 [
                     'code' => 'praxigento_wallet',
