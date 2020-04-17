@@ -2,6 +2,7 @@
 /**
  * User: Alex Gusev <alex@flancer64.com>
  */
+
 namespace Praxigento\Wallet\Block\Sales\Order;
 
 /**
@@ -10,10 +11,15 @@ namespace Praxigento\Wallet\Block\Sales\Order;
 class Partial
     extends \Magento\Framework\View\Element\Template
 {
+    public const PRXGT_TMPL_GRAND_TOTAL = 'prxgt_tmpl_grand_total';
+    public const PRXGT_TMPL_WALLET_PAID = 'prxgt_tmpl_wallet_paid';
+    private $currency;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
     private $daoPartialQuote;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
     private $daoPartialSale;
+    /** @var \Magento\Framework\Locale\Format */
+    private $format;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -21,11 +27,15 @@ class Partial
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\Locale\Format $format,
+        \Magento\Framework\Pricing\PriceCurrencyInterface $currency,
         \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote,
         \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale,
         array $data = []
     ) {
         parent::__construct($context, $data);
+        $this->format = $format;
+        $this->currency = $currency;
         $this->daoPartialQuote = $daoPartialQuote;
         $this->daoPartialSale = $daoPartialSale;
     }
@@ -68,6 +78,10 @@ class Partial
                 ]
             );
             $parent->addTotal($totalWallet);
+            /* place formatted value into $order data to use it in templates */
+            $amntWalletFormatted = $this->currency->format($amntWallet, false);
+            $order->setData(self::PRXGT_TMPL_WALLET_PAID, $amntWalletFormatted);
+
             /* add balance */
             $totalGrandIncl = $parent->getTotal('grand_total_incl');
             if ($totalGrandIncl) {
@@ -88,6 +102,9 @@ class Partial
                         ]
                     );
                     $parent->addTotal($totalLeft);
+                    /* place formatted value into $order data to use it in templates */
+                    $amntLeftFormatted = $this->currency->format($amntLeft, false);
+                    $order->setData(self::PRXGT_TMPL_GRAND_TOTAL, $amntLeftFormatted);
                 }
             }
             /* MOBI-497: fix 'due' amount */
