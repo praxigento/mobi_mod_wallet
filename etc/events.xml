@@ -14,6 +14,12 @@
                   instance="Praxigento\Wallet\Observer\OrderCancelAfter"/>
     </event>
 
+    <event name="paypal_express_place_order_success">
+        <!-- Perform partial payment (internal wallet operation) for PayPal Express (Standard). -->
+        <observer name="praxigento_wallet_observer"
+                  instance="Praxigento\Wallet\Observer\PaypalExpressPlaceOrderSuccess"/>
+    </event>
+
     <event name="sales_order_payment_place_start">
         <!-- Perform partial payment (internal wallet operation). -->
         <observer name="praxigento_wallet_observer"

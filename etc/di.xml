@@ -64,6 +64,12 @@
     <!-- ******* -->
     <!-- PLUGINS -->
     <!-- ******* -->
+    <type name="Magento\Paypal\Model\Api\Nvp">
+        <!-- Correct amounts for PayPal Standard payment method when partial payment is used -->
+        <plugin name="prxgt_wallet_plugin"
+                type="Praxigento\Wallet\Plugin\Magento\Paypal\Model\Api\Nvp"
+                sortOrder="300" disabled="false"/>
+    </type>
     <type name="Magento\Quote\Model\Cart\CartTotalRepository">
         <!-- Add partial payment totals to data have being got through the REST API -->
         <plugin name="prxgt_wallet_plugin"
