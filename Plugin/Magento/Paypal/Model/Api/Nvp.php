@@ -63,14 +63,16 @@ class Nvp
         $api['AMT'] = $pay;
         /* decrease sale items amounts */
         $tail = $partial - $shipping - $tax;
-        foreach ($api as $key => $value) {
-            if (substr($key, 0, 5) === 'L_AMT') {
-                if ($value < $tail) {
-                    $tail -= $value;
-                    $api[$key] = "0.00";
-                } else {
-                    $api[$key] = number_format(($value - $tail), 2, '.', '');
-                    break;
+        if ($tail > Cfg::DEF_ZERO) {
+            foreach ($api as $key => $value) {
+                if (substr($key, 0, 5) === 'L_AMT') {
+                    if ($value < $tail) {
+                        $tail -= $value;
+                        $api[$key] = "0.00";
+                    } else {
+                        $api[$key] = number_format(($value - $tail), 2, '.', '');
+                        break;
+                    }
                 }
             }
         }
