@@ -9,12 +9,8 @@ define([
         'Magento_Checkout/js/model/totals',
         'Magento_Checkout/js/view/payment/default',
         'Magento_Paypal/js/view/payment/method-renderer/payflowpro-method',
-        'Magento_Paypal/js/view/payment/method-renderer/paypal-express',
-        'Magento_AuthorizenetAcceptjs/js/view/payment/method-renderer/authorizenet-accept',
-        'Magento_Braintree/js/view/payment/method-renderer/cc-form'
-    ], function (
-    ko, Component, uiTotals, uiPayDefault, uiPayPayPalPayflow, uiPayPayPalStandard, uiPayAuthNet, uiPayBraintree
-    ) {
+        'Magento_Paypal/js/view/payment/method-renderer/paypal-express'
+    ], function (ko, Component, uiTotals, uiPayDefault, uiPayPayPalPayflow, uiPayPayPalStandard) {
         'use strict';
 
         /* get quote from checkout configuration data */
@@ -137,32 +133,6 @@ define([
             if (result.additional_data === null) {
                 result.additional_data = {};
             }
-            result.additional_data.use_partial = usePartial;
-            return result;
-        };
-
-        /* decorate Authorize.net payment data, add partial payment state */
-        const fnGetDataAuthNet = uiPayAuthNet.prototype.getData;
-        uiPayAuthNet.prototype.getData = function () {
-            /* put this UI Component into the local context */
-            const uiPartial = exportResult;
-            /* get original data from current object */
-            const result = fnGetDataAuthNet.apply(this);
-            /* compose partial payment state and add to payment data */
-            const usePartial = uiPartial.prototype.isPartialChecked();
-            result.additional_data.use_partial = usePartial;
-            return result;
-        };
-
-        /* decorate Braintree payment data, add partial payment state */
-        const fnGetDataBraintree = uiPayBraintree.prototype.getData;
-        uiPayBraintree.prototype.getData = function () {
-            /* put this UI Component into the local context */
-            const uiPartial = exportResult;
-            /* get original data from current object */
-            const result = fnGetDataBraintree.apply(this);
-            /* compose partial payment state and add to payment data */
-            const usePartial = uiPartial.prototype.isPartialChecked();
             result.additional_data.use_partial = usePartial;
             return result;
         };
