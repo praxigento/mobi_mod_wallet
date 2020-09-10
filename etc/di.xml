@@ -7,7 +7,8 @@
     <type name="Praxigento\Wallet\Model\Payment\Method\Wallet\Config">
         <arguments>
             <argument name="methodCode"
-                      xsi:type="const">Praxigento\Wallet\Model\Payment\Method\ConfigProvider::CODE_WALLET</argument>
+                      xsi:type="const">Praxigento\Wallet\Model\Payment\Method\ConfigProvider::CODE_WALLET
+            </argument>
         </arguments>
     </type>
 
@@ -16,7 +17,8 @@
                  type="Magento\Payment\Gateway\Config\ConfigValueHandler">
         <arguments>
             <argument name="configInterface"
-                      xsi:type="object">Praxigento\Wallet\Model\Payment\Method\Wallet\Config</argument>
+                      xsi:type="object">Praxigento\Wallet\Model\Payment\Method\Wallet\Config
+            </argument>
         </arguments>
     </virtualType>
 
@@ -36,7 +38,8 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <!-- see "prxgt_wallet_pay.payment_action"="authorize_capture" in "./etc/config.xml" -->
-                <item name="capture" xsi:type="string">Praxigento\Wallet\Model\Payment\Method\Wallet\Command\Capture</item>
+                <item name="capture" xsi:type="string">Praxigento\Wallet\Model\Payment\Method\Wallet\Command\Capture
+                </item>
             </argument>
         </arguments>
     </virtualType>
@@ -48,17 +51,19 @@
     <virtualType name="PraxigentoWalletPaymentFacade"
                  type="Magento\Payment\Model\Method\Adapter">
         <arguments>
-            <argument name="code" xsi:type="const">Praxigento\Wallet\Model\Payment\Method\ConfigProvider::CODE_WALLET</argument>
-            <argument name="formBlockType" xsi:type="string">Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet\Form</argument>
+            <argument name="code" xsi:type="const">Praxigento\Wallet\Model\Payment\Method\ConfigProvider::CODE_WALLET
+            </argument>
+            <argument name="formBlockType" xsi:type="string">
+                Praxigento\Wallet\Block\Adminhtml\Payment\Method\Wallet\Form
+            </argument>
             <!-- frontend block for order view -->
-            <argument name="infoBlockType" xsi:type="string">Praxigento\Wallet\Block\Payment\Method\Wallet\Info</argument>
+            <argument name="infoBlockType" xsi:type="string">Praxigento\Wallet\Block\Payment\Method\Wallet\Info
+            </argument>
             <argument name="valueHandlerPool" xsi:type="object">PraxigentoWalletValueHandlerPool</argument>
             <!--<argument name="validatorPool" xsi:type="object">PraxigentoWalletValidatorPool</argument>-->
             <argument name="commandPool" xsi:type="object">PraxigentoWalletCommandPool</argument>
         </arguments>
     </virtualType>
-
-
 
 
     <!-- ******* -->
@@ -98,6 +103,12 @@
         <!-- Use partial amount in payment validation () -->
         <plugin name="prxgt_wallet_plugin"
                 type="Praxigento\Wallet\Plugin\Magento\Sales\Model\Order\Payment"
+                sortOrder="300" disabled="false"/>
+    </type>
+    <type name="ParadoxLabs\Authnetcim\Gateway\Validator\CreditCard">
+        <!-- Prevent validation failure on empty properties for credit cards -->
+        <plugin name="prxgt_wallet_plugin"
+                type="Praxigento\Wallet\Plugin\ParadoxLabs\Authnetcim\Gateway\Validator\CreditCard"
                 sortOrder="300" disabled="false"/>
     </type>
 
