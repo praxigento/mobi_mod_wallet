@@ -12,12 +12,16 @@ use Praxigento\Wallet\Model\Payment\Method\ConfigProvider\Data as DConfg;
  * Provide eWallet payment method configuration data for checkout process.
  */
 class ConfigProvider
-    implements \Magento\Checkout\Model\ConfigProviderInterface
-{
+    implements \Magento\Checkout\Model\ConfigProviderInterface {
     /** Code for frontend related parts (layouts, uiComponents, ...) */
     const CODE_WALLET = 'prxgt_wallet_pay';
     /** Name for attribute of checkout configuration to collect method data (window.checkoutConfig.). */
     const UI_CHECKOUT_WALLET = 'prxgtWalletPaymentCfg';
+    /**
+     * Dirty but quick solution.  It's better than create upward dependency to Praxigento_Santegra ext
+     * or add new helper's interface and implementation.
+     */
+    const STORE_ID_RU = '3'; // see \Praxigento\Santegra\Config::DEF_GROUP_ID_RU
 
     /** @var \Praxigento\Accounting\Repo\Dao\Account */
     private $daoAccount;
@@ -31,8 +35,11 @@ class ConfigProvider
     private $sessCheckout;
     /** @var \Magento\Customer\Model\Session */
     private $sessCustomer;
+    /** @var  \Magento\Store\Model\StoreManagerInterface */
+    private $manStore;
 
     public function __construct(
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Session $sessCustomer,
         \Magento\Checkout\Model\Session $sessCheckout,
         \Praxigento\Accounting\Repo\Dao\Account $daoAccount,
@@ -40,6 +47,7 @@ class ConfigProvider
         \Praxigento\Wallet\Helper\Config $hlpCfg,
         \Praxigento\Core\Api\Helper\Format $hlpFormat
     ) {
+        $this->manStore = $storeManager;
         $this->sessCustomer = $sessCustomer;
         $this->sessCheckout = $sessCheckout;
         $this->daoAccount = $daoAccount;
@@ -76,9 +84,16 @@ class ConfigProvider
     {
         $result = $this->hlpCfg->getWalletActive();
         if ($result) {
-            /* validate customer group */
-            $isLoggedIn = $this->sessCustomer->isLoggedIn();
-            $result = $result && $isLoggedIn;
+            /* validate store */
+            $group = $this->manStore->getGroup();
+            $id = $group->getId();
+            if ($id == self::STORE_ID_RU) {
+                // e-wallet is disabled for Russian store at all.
+                $result = false;
+            } else {
+                /* validate customer group */
+                $result = $this->sessCustomer->isLoggedIn();
+            }
         }
         return $result;
     }
