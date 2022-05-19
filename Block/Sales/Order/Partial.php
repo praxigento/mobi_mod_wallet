@@ -13,13 +13,12 @@ class Partial
 {
     public const PRXGT_TMPL_GRAND_TOTAL = 'prxgt_tmpl_grand_total';
     public const PRXGT_TMPL_WALLET_PAID = 'prxgt_tmpl_wallet_paid';
+    /** @var \Magento\Framework\Pricing\PriceCurrencyInterface  */
     private $currency;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Quote */
     private $daoPartialQuote;
     /** @var \Praxigento\Wallet\Repo\Dao\Partial\Sale */
     private $daoPartialSale;
-    /** @var \Magento\Framework\Locale\Format */
-    private $format;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -27,14 +26,12 @@ class Partial
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Framework\Locale\Format $format,
         \Magento\Framework\Pricing\PriceCurrencyInterface $currency,
         \Praxigento\Wallet\Repo\Dao\Partial\Quote $daoPartialQuote,
         \Praxigento\Wallet\Repo\Dao\Partial\Sale $daoPartialSale,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->format = $format;
         $this->currency = $currency;
         $this->daoPartialQuote = $daoPartialQuote;
         $this->daoPartialSale = $daoPartialSale;
