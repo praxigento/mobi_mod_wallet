@@ -9,8 +9,7 @@ namespace Praxigento\Wallet\Api\Helper;
 /**
  * Convert WALLET currency to store view currency and vice versa.
  */
-interface Currency
-{
+interface Currency {
     /**
      * Store currency code (USD).
      *
@@ -31,16 +30,18 @@ interface Currency
      *
      * @param float $amount
      * @param int $storeId
+     * @param \DateTime|string $date
      * @return float
      */
-    public function storeToWallet($amount, $storeId);
+    public function storeToWallet($amount, $storeId, $date = null);
 
     /**
      * Convert wallet stored currency to store displayed currency (DB to UI).
      *
      * @param float $amount
      * @param int $storeId
+     * @param \DateTime|string $date
      * @return float
      */
-    public function walletToStore($amount, $storeId);
+    public function walletToStore($amount, $storeId, $date = null);
 }
