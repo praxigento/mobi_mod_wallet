@@ -18,7 +18,7 @@ use Praxigento\Wallet\Service\Sale\Payment\Response as AResponse;
 class Payment
 {
     /** @var float customer currency (EUR) to WALLET currency (USD) conversion gap */
-    private const CONVERSION_DELTA = 0.01;
+    private const CONVERSION_DELTA = 0.011; // see SAN-915
 
     /** @var \Praxigento\Accounting\Repo\Dao\Account */
     private $daoAcc;
